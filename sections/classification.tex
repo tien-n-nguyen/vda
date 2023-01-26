@@ -37,7 +37,7 @@ the classification as follows:
 	L = -log(Softmax(y, f(x)))
 \end{equation}
 Where $f(x)$ is the output of a classification task $f$; y is the
-ground truth. To get the joint loss function for seven tasks with
+ground truth. To get the joint loss function for all the tasks with
 uncertainty weighting, following Kendall {\em et
   al.}'s~\cite{kendall2018multi}, we have
 \begin{equation}\label{eq5}
@@ -51,7 +51,7 @@ $i^{th}$ noise scalar, and $W$ and $\sigma_i$ are both trainable in
 the model.
 
 With Formula (\ref{eq6}), {\tool} uses the multi-task
-learning to train the seven classification models together with the
+learning to train all classification models together with the
 features for each task. For training, we set as the objective the
 highest average F-score or MCC (Section~\ref{method:sec}) for all
 tasks. For prediction, the trained model produces the
