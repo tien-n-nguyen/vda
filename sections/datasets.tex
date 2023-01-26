@@ -1,0 +1,52 @@
+\subsubsection{\textbf{Datasets}}\label{dataset}
+%\begin{table}[h]
+%	\caption{Statistics on Dataset}
+%	\vspace{-15pt}
+%	\begin{center}
+%		\renewcommand{\arraystretch}{1}
+%		\begin{tabular}{p{1.6cm}<{\centering}p{3cm}<{\centering}p{1cm}<{\centering}p{1.5cm}<{\centering}p{2cm}<{\centering}}
+%		\end{tabular}
+%		\label{DataSet}
+%	\end{center}
+%	\vspace{-10pt}
+%\end{table}
+
+We used two vulnerability datasets in C and Java: BigVul
+2.0~\cite{bigvul-msr20} and CVAD~\cite{deepCVA-ase21}
+(Table~\ref{dataset:tab}).
+%Both were built by crawling the Common Vulnerabili\-ties and Exposures
+%(CVE) database and the code repositories mentioned in the CVEs.
+Both were well-established and used in prior
+research~\cite{bigvul-msr20,fse21,deepCVA-ase21}. Experiments were
+conducted on a server with 16 core CPU and a single Nvidia A100 GPU.
+
+%Table~\ref{dataset:tab} shows the statistics of the datasets.
+
+%In this paper, we evaluate approaches on vulnerabilities in C and Java using two different datasets: BigVul~2.0~\cite{} and DeepCVA-dataset~\cite{} (CVAD).  Both BigVul2.0 and DeepCVA-dataset are built by crawling the public Common Vulnerabilities and Exposures database~\cite{} and CVE-related source code repositories. BigVul~2.0 is in C and DeepCVA-dataset is in Java. Table~\ref{} shows the statistics of two datasets.
+
+
+\begin{table}[t]
+	\caption{Statistics of BigVul and CVAD Datasets}
+        \tabcolsep 2.5pt
+        \vspace{-10pt}
+	\begin{center}
+%        \footnotesize
+\small
+		\renewcommand{\arraystretch}{1}
+		\begin{tabular}{l|p{1.5cm}<{\centering}|p{2cm}<{\centering}}
+			
+        	Datasets	& BigVul (C) & CVAD (Java)\\\hline
+		\# of Projects  & 303 & 246 \\\hline
+	    \# of Vulnerabilities & 3336 & 542\\\hline
+     	\# of Vulnerability Introducing Commits & 7851 & 1229\\\hline
+
+		\end{tabular}
+		\label{dataset:tab}
+	\end{center}
+%	\vspace{-10pt}
+\end{table}
+
+
+
+
+

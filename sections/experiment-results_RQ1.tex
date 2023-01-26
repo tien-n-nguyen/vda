@@ -1,0 +1,95 @@
+\subsubsection{\bf Comparison on Vulnerability Detection on BigVul (RQ2)}
+
+
+
+
+\begin{table}[t]
+	\caption{Comparison with DeepCVA on C Dataset (RQ2)}
+        \vspace{-9pt}
+	\begin{center}
+%		\footnotesize
+                \small
+		\renewcommand{\arraystretch}{1}
+		\begin{tabular}{l|p{1.9cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}}
+			\hline
+			\multirow{2}{*}{CVSS Metric}     & \multirow{2}{*}{Evaluation Metric}  & \multicolumn{2}{c}{Model}\\
+			\cline{3-4}
+		                                     &                                     & DeepCVA    & {\tool}       \\
+		    \hline
+			\multirow{2}{*}{Confidentiality} & macro F1-score                             &     0.50       & 0.65\\
+			\cline{2-4}
+			                                 & MCC                                 &      0.23      & 0.31\\
+			\hline
+			\multirow{2}{*}{Integrity}       & macro F1-score                             &    0.42        & 0.55\\
+			\cline{2-4}
+			                                 & MCC                                 &    0.24        & 0.33\\
+			\hline
+			\multirow{2}{*}{Availability}    & macro F1-score                             &   0.47         & 0.63\\
+			\cline{2-4}
+			                                 & MCC                                 &    0.28        & 0.34\\
+			\hline
+			\multirow{2}{*}{Access Vector}   & macro F1-score                             &   0.58         & 0.69\\
+			\cline{2-4}
+			                                 & MCC                                 &    0.22        & 0.31\\
+			\hline
+			\multirow{2}{*}{Access Complexity} & macro F1-score                           &   0.49         & 0.66\\
+			\cline{2-4}
+			                                 & MCC                                 &    0.26        & 0.35\\
+			\hline
+			\multirow{2}{*}{Authentication}  & macro F1-score                             &   0.67         & 0.72\\
+			\cline{2-4}
+			                                 & MCC                                 &   0.36         & 0.39\\
+			\hline
+			\multirow{2}{*}{Severity}        & macro F1-score                             &   0.44         & 0.58\\
+			\cline{2-4}
+			                                 & MCC                                 &   0.23         & 0.28\\
+			\hline
+			\hline
+			\multirow{2}{*}{Average}         & macro F1-score                             &    0.51        & 0.64 ($\Uparrow${\bf 25.5\%})\\
+			\cline{2-4}
+			                                 & MCC                                 & 0.26           & 0.33 ($\Uparrow${\bf 26.9\%})\\
+            \hline
+		\end{tabular}
+		\label{rq1_results}
+	\end{center}
+\end{table}
+
+In Table~\ref{rq1_results}, {\tool} relatively improves
+DeepCVA~\cite{deepCVA-ase21} by {\em 25.5\% in macro F1-score and
+26.9\% in multi-class MCC} on the overall multi-class VA
+classification in C dataset. For specific VATs, {\tool} improves
+DeepCVA by {\em 7.5--34.7\% in macro-F1-score and 8.3--40.9\% in
+multi-class MCC}. Moreover, the largest relative improvement in macro
+F1-score happens for {\em Access Complexity} and the largest relative
+improvement in multi-class MCC happens for {\em Access Vector}. The
+lowest relative improvement in both macro F1-score and multi-class MCC
+happens for type {\em Authentication}, however, the absolute macro
+F1-score (0.72) for {\em Authentication} is highest among all the
+VATs.
+
+
+
+%Table~\ref{rq1_results} shows that {\tool} outperforms the state-of-the-art baseline, DeepCVA, in the automation of commit-level vulnerability assessment on the C dataset. Particularly, {\tool} improves the state-of-the-art baseline by 25.5\% in terms of macro-F1-score, and 26.9\% in terms of multi-class MCC on the overall performance. The higher values of macro-F1-score and MCC indicate that {\tool} can perform more accurate multi-classification on C commits than DeepCVA. As for specific types of vulnerability assessment, {\tool} improves the state-of-the-art baseline by 7.5-34.7\% in terms of macro-F1-score and 8.3-40.9\% in terms of macro-F1-score. The lowest relative improvement of both macro-F1-score and multi-class MCC happens when testing the $Authentication$. At the same time, the biggest relative improvement of macro-F1-score happens when testing $Access Complexity$ and the biggest relative improvement of multi-class MCC happens when testing $Access Vector$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

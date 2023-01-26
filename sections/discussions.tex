@@ -1,0 +1,172 @@
+%\subsection{Discussion and Implications}
+
+%\subsubsection{Using Explainable AI to explain the graph as the key features in {\tool}}
+
+\subsubsection{{\bf Using Explainable AI for Study Relevant Features in Classification regarding Program Dependencies (RQ4)}}
+\label{discuss:sec}
+
+%\subsubsection*{Using Explainable AI to explain the graph as the key features in {\tool}}
+
+%{\tool} has two key ideas (Section~\ref{key-ideas:sec}) in advancing
+%the state-of-the-art commit-level vulnerability assessment: 1)
+%graph-based code change representation learning for program
+%dependencies; and 2) contextualized embeddings for code changes. As
+%seen in RQ5, our context-aware, graph-based, representation learning
+%(RL) model produces the embeddings for the code changes in the
+%commits that facilitate {\tool} in better classifying the
+%commit-level changes into more correct classes regarding  the assessment
+%types than DeepCVA~\cite{deepCVA-ase21}.
+We aim to show that {\tool} in fact leverages the
+program dependencies among statements in its vulnerability
+assessment.
+%capable of {\em capturing the key vulnerable statements and
+%dependencies}, leading to its accuracy in vulnerability assessment.
+Specifically, for each vulnerability assessment type (VAT) (e.g., {\em
+Availability}), we randomly selected 366 samples of the commits in our
+C dataset that {\tool} predicts the correct classes (e.g., {\em None},
+{\em Partial}, or {\em Complete}) of the vulnerability detection and
+VATs for those commits. That sample size gives us the confidence
+level of 95\% and the confidence interval of 5\% for each VAT.
+
+We use an explainable Artificial Intelligence (XAI) model,
+called {\em GNNExplainer}~\cite{GNNExplainer}, which takes a GNN-based
+classification model $\mathcal{M}$ and a specific input $I$ of
+$\mathcal{M}$, and produces an explanation on why $\mathcal{M}$
+arrives at its prediction $O$ for the input $I$.
+%
+We fed {\tool} and each commit $C$ of those sample commits as the
+input for GNNExplainer. The explanation produced by GNNExplainer is in
+the form of a sub-graph $\Delta$ in {\mvpdg} that was built from the
+input commit $C$. The sub-graph $\Delta$ is referred to as the {\em
+explanation sub-graph} for $C$ regarding the classification of $C$ for
+the current assessment type. The explanation sub-graph $\Delta$ is
+defined as the minimal sub-graph in the input graph {\mvpdg} that
+minimizes the prediction scores between using the entire graph
+{\mvpdg} and using $\Delta$ as the input for {\tool}. $\Delta$ is
+minimal in the sense that if any node and edge is removed from it, the
+decision of {\tool} is affected, i.e., {\tool} will produce a
+different class for the input commit $C$. That is, {\em the
+explanation sub-graph $\Delta$ contains the statements and
+dependencies that are most decisive for {\tool} to determine the class
+$O$ for the commit $C$}.
+
+To evaluate whether {\tool} via Label-GCN can capture the crucial
+statements and dependencies in deciding the class for an input commit,
+%regarding an assessment type,
+we compared the explanation sub-graph $\Delta$ with the
+vulnerability-introducing statements and dependencies in the ground
+truth of those commits. If $\Delta$ contains one of such statements
+(nodes) and dependencies (edges), we consider that {\tool} uses the
+correct vulnerable statements and dependencies as the features for its
+correct classification (detection and assessment).
+%regarding an assessment type.
+
+%\textcolor{red}{As seen in Table~\ref{},...}
+
+\begin{table}[t]
+\caption{Vunerable Statements/Dependencies as Key Features}
+	\vspace{-7pt}
+	\tabcolsep 2.1pt
+%	\footnotesize
+\small
+	\begin{center}
+\begin{tabular}{|r||r|r|r|r|r|r|r||r|}
+  \hline
+    {\bf VulDet} & {\em Confi} & {\em Integ.} & {\em Avail} & {\em AccessVec} & {\em AccCompl} & {\em Auth} & {\em Severity} & {\bf Avg} \\
+  \hline
+  {\bf 84} & 63 & 84 & 81 & 72 & 93 & 93 & 81 & 81.4 \\
+ % \% & 17 & 22 & 11 & 19 & 24.5 & 37 & 21 & 21.6 \\
+  \hline
+\end{tabular}
+\label{gnn}
+\%Commits {\tool} correctly uses vulnerable statements/dependencies in Vulnerability Detection and Assessment
+\end{center}
+\vspace{-3pt}
+\end{table}
+
+%N= \# of commits that \tool correctly uses the vulnerable statements and dependencies\\
+
+%Table~\ref{gnn} shows us how much {\tool} uses the vulnerable statements and their dependencies in predicting the correct assessments. For example, among a sample of 366 commits that {\tool} successfully classified into {\em None} or {\em Single} for {\em Authentication}, there are 139 commits in which {\tool} uses the actual vulnerable statements and their dependencies in its prediction/assessment. GNNExplainer determines that {\tool} had made the correct classifications for {\em Authentication} because {\tool} used at least one of the actual vulnerable statements/dependencies. In other words, in 139 commits, {\tool} used the vulnerable statements/dependencies as its key features in the correct classifications. As seen, across different assessment types, the degree of {\tool}'s relying on the vulnerable statements and dependencies for its assessment is different. While only 11\% of the samples, {\tool} relies on vulnerable statements/dependencies to assess the impact of {\em Availability}, in 37\% of the samples, it relies on them for assessing that of {\em Authentication}. On average, in 21.6\% of the samples, {\tool} correctly relies on the vulnerable statements and their dependencies in vulnerability assessment. 
+
+Table~\ref{gnn} shows how much {\tool} uses the vulnerable
+statements and their dependencies in correctly predicting the
+VATs. For example, among 366 commits that {\tool} successfully
+classified into ({\em None},{\em Single}) for {\em Authentication},
+GNNExplainer determines 93\% of them that {\tool}
+uses the actual vulnerable statements and their dependencies as key
+features in its prediction.
+%GNNExplainer determines that {\tool} had made the correct
+%classifications for {\em Authentication} because {\tool} used at least
+%one of the actual vulnerable statements/dependencies.
+%That is, in 139 commits, {\tool} used the vulnerable
+%statements/dependencies as its key features in the correct
+%classifications.
+As seen, across different assessment types, the degree of {\tool}'s
+relying on the vulnerable statements/dependencies for its assessment
+is different.  While in 84\%, {\tool} relies on vulnerable
+statements/dependencies to assess the impact of {\em Integrity}, in 81\% samples, it relies on them for assessing that of {\em Severity}.
+For vulnerability detection, 84\% of samples, {\tool} uses
+the right statements/dependencies in its correct prediction.
+%
+On average, in 81.4\% samples per assessment type, {\tool} correctly
+relies on the vulnerable statements/dependencies in its assessment.
+%To correctly assess the remaining samples, {\tool} might use other
+%features, e.g., contexts, code tokens, and the impacts of
+%multiple~tasks.
+In brief, this result shows that {\em program dependencies among
+vulnerable statements are key features to {\tool} in its correct
+vulnerability detection and assessment}.
+
+
+
+%In the other 78.4\%, {\tool} uses other features for correct classifications. Even though the vulnerability-introducing statements and dependencies are not in the minimum sub-graphs from GNNExplainer. However, we found that in all of the 78.4\% cases, one or several statements in the minimum sub-graphs have direct dependencies with the vulnerability-introducing statements. 
+%(but they are not directly connected). %The reason is that GNNExplainer, an approximation explanation model, is limited in generating only connected graphs as explanations, thus if the contributing features are a combination of a connected graph and a couple non-connected statements, then the non-connected ones will not be included in the sub-graphs. 
+
+
+
+
+%automatic verification of 
+
+%We can only automatically verify whether {\tool} reasons over actual vulnerable statements and their dependencies using vulnerable statements and dependencies. We also further analyze the other 78.4\% cases. In the other 78.4\%, {\tool} uses other features for correct classifications, such as combinations of 
+
+
+
+%As seen in Table~\ref{discussion}, we use the confidence level of 95\% and the confidence interval of 5\% to pick out a sample dataset to do the analysis. By running the GNNExplainer for every task, \tool can correctly use the vulnerable statements and dependencies as the features for 41-139 cases among 379 vulnerability introducing commits that \tool correctly classified (Each vulnerability assessment type may have different 379 vulnerability introducing commits). When running GNNExplainer on $Authentication$, the number of cases that \tool can correctly use the vulnerable statements and dependencies is the biggest among seven vulnerability assessment types. And when running GNNExplainer on $Availability$, the number of cases that \tool can correctly use the vulnerable statements and dependencies is the smallest one among seven vulnerability assessment types. On average, \tool can correctly use the vulnerable statements and dependencies as the features for 81.9 cases among 379 vulnerability introducing commit.
+
+
+%\begin{table}[t]
+%	\caption{GNNExplainer Running Results}
+%	\vspace{-9pt}
+%	\begin{center}
+%		\footnotesize
+%		\renewcommand{\arraystretch}{1}
+%		\begin{tabular}{p{2cm}<{\centering}|p{4cm}<{\centering}}
+%			\hline
+%			                                  & \# of commits that \tool correctly uses the vulnerable statements and dependencies       \\
+%			\hline
+%			Confidentiality                   & 63                  %        \\
+%			\hline
+%			Integrity                         & 84                  %         \\  
+%			\hline
+%			Availability                      & 41                  %                    \\
+%			\hline
+%			Access Vector                     & 72                  %          \\
+%			\hline
+%			Access Complexity                 & 93                  %          \\
+%			\hline
+%			Authentication                    & 139                 %           \\
+%			\hline
+%			Severity                          & 81                  %         \\
+%			\hline  
+%			\hline
+%			Average                           & 81.9                %         \\
+%			\hline
+%		\end{tabular}
+%		\label{discussion}
+%	\end{center}
+%\end{table}
+
+
+
+%\subsubsection*{Illustrating Example}
+\input{sections/example}

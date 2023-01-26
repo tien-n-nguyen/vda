@@ -1,0 +1,120 @@
+\section{Related Work}
+
+%Here, we summarize some studies relevant to our study.
+
+\noindent{\bf Automated Vulnerability Assessment. }
+Distinct software vulnerabilities can have different levels of threats
+and severity~\cite{nayak2014some,le2019automated}. Thus, it is desired
+to assess vulnerabilities for prioritizing actions and resources
+%so that more severe ones can be studied and patched
+before more exploits~\cite{khan2018review}.  The automated approaches
+have been recently
+proposed~\cite{bozorgi2010beyond,allodi2014comparing,deepCVA-ase21}.
+Bozorgi {\em et al.}~\cite{bozorgi2010beyond} proposed a SVM-based
+approach to predict whether a vulnerability will be exploited or
+not.
+%Specifically, they extracted over 93k features from vulnerability data
+%and classify vulnerabilities using these features.
+This work represents the early effort to replace the small-scale
+rating-based assessment framework by learning-based approaches.
+Lamkanfi {\em et al.}~\cite{lamkanfi2010predicting} predict the
+severity of a reported bug using text mining algorithms to analyze the
+textual descriptions on the bugs.
+%
+Han {\em et al.}~\cite{han2017learning} proposed a multi-class text
+classification DL-based model that is based on the
+description to predict the severity level of a vulnerability.
+%critical, high, medium, and low in CVSS~\cite{first-website}.
+
+%Specifically, given a vulnerability description, they classified the
+%text into one of the severity levels, for example, critical, high,
+%medium, low of the Common Vulnerability Scoring System (CVSS)
+%framework~\cite{first-website}.
+Georgios {\em et al.}~\cite{spanos2018multi} adopted a multi-target
+classification approach coupled with text analysis on vulnerability
+descriptions to predict the vulnerability characteristics and scores.
+Le {\em et al.}~\cite{le2019automated} proposed a ML-based approach to
+not only learn the word features in vulnerability description, but
+also handle the new or extended concepts in the new vulnerability's
+description. Unlike the above studies built for analyzing
+vulnerability description, some other
+studies~\cite{ponta2018beyond,ponta2020detection} leveraged code
+patterns in fixing commits of third-party libraries to assess
+vulnerabilities in such libraries. In comparison, {\tool} is
+fundamentally different from the above studies, as it supports
+commit-level vulnerability assessment using code changes.
+
+%{\tool} is closely related to DeepCVA as explained in
+%Section~\ref{intro:sec}.
+
+%The most relevant work to {\tool} is the state-of-the-art commit-level approach, DeepCVA, working on code changes. However, {\tool} is designed to overcome the shortcomings of DeepCVA in code change representation and embeddings, program dependencies and surrounding contexts of changed code. Our empirical studies have shown that {\tool} can outperform DeepCVA.
+
+\vspace{3pt}
+\noindent{\bf Vulnerability Prediction. } Commit-level vulnerability
+detection is an important direction.  Some
+studies~\cite{perl2015vccfinder,zhou2017automated,chen2019large}
+developed commit-level VD models that leveraged ML models.  Many
+studies (e.g, \cite{li2021vulnerability,
+  zhou2019devign,li2021vuldeelocator,li2020automated,chakraborty2021deep,hin2022linevd})
+also built machine or deep learning models to detect vulnerabilities
+in source code. However, {\tool} also supports vulnerability
+assessment together with detection.
+
+%is apart from them, as we focused on
+%vulnerability assessment that is as important as detection.
+
+Deep learning (DL) has been applied
+to detect
+vulnerabilities~\cite{scandariato2014predicting,neuhaus2007predicting,shin2010evaluating,neuhaus2009beauty,yamaguchi2012generalized,yamaguchi2011vulnerability}.
+%For example, some approaches train a DL model on different code
+%representations to detect vulnerabilities, such as the lexical
+%representations of functions in a synthetic
+%codebase~\cite{harer2018learning}, code snippets related to API calls
+%to detect two types of vulnerabilities~\cite{li2018vuldeepecker},
+%syntax-based, semantics-based, and vector
+%representations~\cite{li2018sysevr}, graph-based
+%representations~\cite{zhou2019devign}.
+Harer {\em et al.}~\cite{harer2018learning} train an RNN to detect
+vulnerabilities. Lin {\em et al.}~\cite{lin2017poster} automatically
+learns high-level representations of functions based on AST for
+VD. Russell {\em et al.}~\cite{russell2018automated} combine the
+neural feature representations of functions with random forest as a
+classifier.
+%It does not consider program dependencies.
+Harer {\em et al.}~\cite{harer2018automated} compared the
+effectiveness in VD of using source code and the compiled
+code. VulDeePecker~\cite{li2018vuldeepecker} uses a RNN trained on
+program slices from API calls for VD. SySeVR~\cite{li2021sysevr}
+expands VulDeePecker by including the program slices from more
+syntactic units: arrays, pointers, and arithmetic expressions. Both of
+them do not consider exception flows. Devign~\cite{zhou2019devign}
+uses Gated Graph Recurrent Layers on CPG, PDG, CFG, AST and code
+sequences. As shown, {\tool} performs better than Devign and our
+class-separation graph features help a model more than CPG/PDG/CFG.
+Reveal~\cite{chakraborty2020deep} uses CPG with GGNN, which is not as
+effective as EFG+PDT in {\tool}.  IVDetect~\cite{fse21} focuses on
+interpretation and directly uses PDG with
+GCN. LineVul~\cite{linevul-msr22} use BigVul dataset to train a
+transformer-based model which has over 150K training instances. In
+contrast, our dataset contains over 21K training instances. Due to the
+size disparity and to avoid under-training of LineVul (given that it
+has over 110M parameters), we chose to not compare our tool with it to
+avoid an unfair comparison toward LineVul.
+%Assessment is the key for earlier prioritization and resource
+%relocation for identified vulnerabilities. Furthermore, detection
+%models can be used to help detect vulnerabilities and then {\tool}
+%assesses them.
+
+Our work is also related to code change embedding
+approaches~\cite{cc2vec,commit2vec}. Those approaches mainly treat
+code as sequences and do not consider structures and/or program
+dependencies. The key departure points of {\tool} from those
+approaches include the use of graph representation to model the
+changes and dependencies, as well as the surrounding context to build
+the embeddings.
+
+
+
+%\noindent{\bf Code Embedding Learning.}
+
+

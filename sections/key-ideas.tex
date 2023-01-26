@@ -1,0 +1,79 @@
+\vspace{-6pt}
+\subsection{Key Ideas}
+\label{key-ideas:sec}
+
+We develop {\tool}, a Context-aware, Graph-based,
+Commit-level~Vulnerability Detection and Assessment Model that
+detects any vulnerability in a committed change and provides
+the CVSS assessment grades of it if any.
+%a vulnerability-introduc\-ing commit and contexts, and outputs
+%CVSS assessment grades.
+{\tool} is designed with the following ideas:
+
+\vspace{1pt}
+%\indent {\bf Key Idea 1 [Graph-based, Representation Learning (RL) Model to learn Contextualized Embeddings for Code Changes]}.
+\indent {\bf Key Idea 1 [Contextualized Embeddings for
+Code Changes with Graph-based Representation Learning]}. To overcome
+the limitation of code change representation, we introduce
+%Based on the observations, both contexts and dependencies among the
+%code changes are useful in vulnerability assessment prediction. Thus,
+%we design our
+a graph-based, representation learning model to build the {\em
+contextualized embeddings for code changes} that integrate both {\em
+program dependencies} and {\em surrounding contexts of the changes}.
+
+Unlike some existing code change embedding
+approaches~\cite{commit2vec} that code changes are represented as
+sequences, we explicitly represent code changes and the surrounding
+context of a change via a graph representation, called multi-version
+program dependence graph~\cite{flexeme-fse20}. The graph consists of
+the program entities of both versions before and after the changes,
+and their dependencies. The context is defined as the surrounding,
+un-changed nodes of the changed statement node. The context vectors
+built from a Label, Graph Convolution Network
+(Label-GCN)~\cite{label-gcn} are then used as the weights representing
+the impacts of contexts in building the contextualized embeddings for
+code changes. With such embeddings, we train {\tool} with the past
+vulnerabilities and human experts' ratings in CVSS to predict any
+vulnerability and its assessment.
+
+%We train the Label-GCN~\cite{label-gcn} to learn the embeddings that
+%are used in our automated assessment of the vulnerability types.
+
+
+\vspace{1pt}
+\indent {\bf Key Idea 2 [Program Dependencies in Code Change Representation
+via Graph-based Neural Network]}.
+%Graph-based Neural Network for
+%Code Change Representation Learning of Program Dependencies]}.
+From Observation~1, we integrate program dependencies into our SV
+assessment model. We leverage the Label-GCN~\cite{label-gcn} to
+represent the program dependencies among the changed code and the
+surrounding un-changed code.
+%
+The graph enables a partial order among program entities in a PDG,
+rather than enforcing a total order as in $n$-gram.
+%
+This enables {\tool} overcome the issues
+with $n$-grams and capture the statements that
+%the semantically related statements that
+are far apart but are relevant to the assessment.
+
+\vspace{1pt}
+\indent {\bf Key Idea 3 [Multi-Task Learning between Vulnerability Detection
+and Vulnerability Assessment]}. We leverage multi-task learning to
+propagate the learning to assess one aspect to that of another.
+We consider vulnerability detection is one task as part of
+multi-task learning as when the detection is positive, {\tool}
+will provide the assessment. Otherwise, non-impact scores are given.
+
+%\vspace{1pt}
+%\indent {\bf Key Idea 2 [Contextualized Embeddings for Code Changes].}
+%We design a context-aware, graph-based, representation learning model
+%to {\em learn the contextualized embeddings (vectors) for the code
+%  changes} that integrate {\em program dependencies} among the program
+%elements, and the {\em contexts} of~code changes. We train a
+%Label-GCN~\cite{label-gcn} to learn the embeddings that are used in our
+%automated assessment of the vulnerability assessment types (VATs).
+
+

@@ -1,0 +1,65 @@
+\section{Multi-Task Learning for Prediction and Assessment Classification}
+\label{multi-task:sec}
+
+In the previous sections, we have explained how {\tool} performs a
+classification task for detection or assessment.
+%the classification for vulnerability detection and for a
+%vulnerability assessment type (VAT).
+In this section, we will explain our multi-task learning mechanism to
+perform the classification for vulnerability prediction (VD) and the
+classifications for seven VATs with the following prediction
+classes for each VAT:
+
+\begin{enumerate}
+	\item {\bf Confidentiality}: None; Partial; Complete
+	\item {\bf Integrity}: None; Partial; Complete
+	\item {\bf Availability}: None; Partial; Complete
+	\item {\bf Access Vector}: Local; Network
+	\item {\bf Access Complexity}: Low; Medium; High
+	\item {\bf Authentication}: None; Single
+	\item {\bf Severity}: Low; Medium; High
+\end{enumerate}
+
+%\item {\bf Severity}: Low (0.0-3.9); Medium (4.0-6.9); High (7.0-10.0)
+
+%With the SoftMax layer, \tool is able to do the classification for different vulnerability assessment types. In \tool, we follow the existing study DeepCVA \cite{} to do the classification on seven vulnerability assessment types. For each of them, we follows the CVSS's definition on the national vulnerability database \cite{}. These vulnerability assessment types with the classes for each type are listed as follow:
+
+As explained in Section~\ref{class:sec}, the vector $v^{com}$
+representing the entire commit is passed through a SoftMax layer for
+the classification for vulnerability detection or for a specific VAT.
+%Let us call it a classification task.
+In CAT, the multi-task learning mechanism uses the uncertainty
+weighted multi-task loss~\cite{kendall2018multi} to learn all 
+classification tasks at the same time. Specifically, for each
+classification task, \tool uses a cross-entropy loss function to do
+the classification as follows:
+\begin{equation}\label{eq4}
+	L = -log(Softmax(y, f(x)))
+\end{equation}
+Where $f(x)$ is the output of a classification task $f$; y is the
+ground truth. To get the joint loss function for seven tasks with
+uncertainty weighting, following Kendall {\em et
+  al.}'s~\cite{kendall2018multi}, we have
+\begin{equation}\label{eq5}
+	L_i(W) = -log(Softmax(y_i, f^W(x_i)))
+\end{equation}
+\begin{equation}\label{eq6}
+	L(W, \sigma_1, \sigma_2, ..., \sigma_7) = \sum_{i=1}^7\frac{1}{2\sigma_i^2}L_i(W) + log \sigma^2_i
+\end{equation}
+Where $W$ is the weight adding to the input, $\sigma_i$ is the
+$i^{th}$ noise scalar, and $W$ and $\sigma_i$ are both trainable in
+the model.
+
+With Formula (\ref{eq6}), {\tool} uses the multi-task
+learning to train the seven classification models together with the
+features for each task. For training, we set as the objective the
+highest average F-score or MCC (Section~\ref{method:sec}) for all
+tasks. For prediction, the trained model produces the
+classification results for VD and for all VATs.
+
+%In brief, the multi-task learning can help propagate the mutual impact
+%of the important features for each VAT classification task on the
+%other tasks and vice versa, leading to the highest accuracy for all
+%seven classification~tasks.
+
+

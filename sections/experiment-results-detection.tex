@@ -1,0 +1,131 @@
+\subsubsection{{\bf Comparison on Vulnerability Detection on BigVul (RQ1)}}
+\label{sec:vd-result}
+
+\begin{table} [t]
+  \caption{Comparison with DL-based Vulnerability Detection Approaches (RQ1)}
+  \vspace{-5pt}
+  \begin{center}
+    \small
+			\begin{tabular}{cccc}
+				\toprule
+\textbf{Approach} & \textbf{Precision} & \textbf{Recall} & \textbf{F-score}  \\
+\midrule
+VulDeePecker~\cite{li2018vuldeepecker}      & 0.55             & 0.77          & 0.64           \\
+SySeVR~\cite{li2021sysevr}            & 0.54             & 0.74           & 0.63           \\
+Russell \textit{et al.}~\cite{russell2018automated} & 0.54       & 0.72          & 0.62            \\
+Devign~\cite{zhou2019devign}           & 0.56             & 0.73          & 0.63           \\
+Reveal~\cite{chakraborty2021deep}            & 0.62             & 0.69          & 0.65      \\
+IVDetect~\cite{fse21} & 0.54              & 0.77    & 0.67           \\
+\midrule
+{\tool}            & {\bf 0.72} & {\bf 0.90} & {\bf 0.81}\\
+                \bottomrule
+			\end{tabular}
+			\label{tab:rq1}
+                        \vspace{-12pt}
+		\end{center}
+\end{table}
+
+%DeepVD            & \textbf{\begin{tabular}[c]{@{}c@{}}0.6997\\ (↑12.53\%)\end{tabular}}
+%                  & \textbf{\begin{tabular}[c]{@{}c@{}}0.8827\\ (↑0.32\%)\end{tabular}}
+%                  & \textbf{\begin{tabular}[c]{@{}c@{}}0.7806\\ (↑19.54\%)\end{tabular}} \\
+
+As seen in Table~\ref{tab:rq1}, to detect vulnerability, {\tool}
+improves over all the baselines in all the metrics. Specifically,
+{\tool} relatively improves over the baseline models from {\bf 13.1\%--
+  29.8\%} in Precision, from {\bf 15.8\%--29.2\%} in Recall, and from
+{\bf 16.5\%--25.9\%} in F-score.
+
+
+%To understand how {\tool} is complementary to the baselines, we
+%compute how the top-100 result from {\tool} overlap with that from the
+%top-performing baseline, IVDetect~\cite{fse21}. As seen in
+%Figure~\ref{RQ1-overlap}, {\tool} can detect {\bf 19} vulnerable
+%methods that IVDetect missed, while IVDetect can detect only {\bf 10}
+%that {\tool} missed. Both detected the same 25 vulnerabilities. This
+%result shows that {\tool} not only detects more vulnerabilities than
+%the baselines, but also complements them.
+
+%\begin{figure}[t]
+%	\centering
+%	\includegraphics[width=1.3in]{overlap.png}
+%        \vspace{-5pt}
+%	\caption{Overlapping Results between {\tool} and IVDetect}
+%	\label{RQ1-overlap}
+%\end{figure}
+
+%-----------------------------------------------------------------
+
+%\begin{figure}[t]
+%	\centering
+%	\lstset{
+%		numbers=left,
+%		numberstyle= \tiny,
+%		keywordstyle= \color{blue!70},
+%		commentstyle= \color{red!50!green!50!blue!50},
+%		frame=shadowbox,
+%		rulesepcolor= \color{red!20!green!20!blue!20} ,
+%		xleftmargin=1.5em,xrightmargin=0em, aboveskip=1em,
+%		framexleftmargin=1.5em,
+%               numbersep= 5pt,
+%		language=C++,
+%    basicstyle=\scriptsize\ttfamily,
+%    numberstyle=\scriptsize\ttfamily,
+%    emphstyle=\bfseries,
+%    moredelim=**[is][\color{red}]{@}{@},
+%	escapeinside= {(*@}{@*)}
+%	}
+%\begin{lstlisting}[]
+%BIO *PKCS7_dataDecode(PKCS7 *p7, EVP_PKEY *pkey, BIO *in_bio, X509 *pcert) {
+%  ...
+%  if (evp_cipher != NULL) {
+%    ...
+%    if (pcert == NULL) {
+%      for (i = 0; i < sk_PKCS7_RECIP_INFO_num(rsk); i++) {
+%        ri = sk_PKCS7_RECIP_INFO_value(rsk, i);
+%        (*@{\color{red}{if (pkcs7\_decrypt\_rinfo(\&ek, \&eklen, ri, pkey) < 0)}}@*)
+%           goto err;
+%        ERR_clear_error();
+%      }
+%   } else {...}
+%}
+%\end{lstlisting}
+%        \vspace{-12pt}
+%        \caption{CVE-2019-1563: A vulnerable code in OpenSSL with 186 lines of code (after removed comments and empty lines). ReVeal and IVDetect failed to detect this but \tool did.}
+%        \label{fig:rq1_example}
+%\end{figure}
+
+
+%PDT    & 145 & 144  \\
+%EFG    & 145 & 295  \\
+%PDG    & 145 & 477  \\
+%CPG    & 622 & 1393 \\
+
+Examining the results, we found that {\tool}~often performed better
+than the best baselines, Reveal~\cite{chakraborty2021deep} and
+IVDetect~\cite{fse21}, in the code with complex PDGs (which IVDetect
+uses as a key feature for detection) and CPGs (which Reveal uses for
+detection). Moreover, {\tool} detects vulnerabilities well
+with its code change embeddings.
+
+%improper exception/error-handling.
+
+%Fig.~\ref{fig:rq1_example} shows the vulnerable code from OpenSSL that
+%was reported in CVE-2019-1563. The code (186 lines of code) has the
+%PDG with 145 nodes and 477 edges, and the CPG with 622 nodes and 1,393
+%edges. In contrast, PDT+EFG has 145 nodes and 295 edges (including the
+%error-handling flows from line 8 to lines 9 and 10). Thus, complex PDG
+%or CPG produce much noise for IVDetect and Reveal, which missed this
+%vulnerability. {\tool} with its PDT+EFG features detects~well this
+%type of vulnerability with improper error-handling (e.g., the
+%incorrect code at line 8, which was fixed with an additional
+%condition).
+
+%=======================================
+
+We also tested it in the real-world vulnerability setting as well with
+a 9:1 non-vulnerable to vulnerable ratio. We randomly selected 10\% of
+the vulnerable instances in the test set 10 times, and finally took
+the average of the performance: (Acc, F-score) for {\tool} and the top
+baseline IVDetect are (45.3\%, 23.3\%) and (25.4\%, 20.4\%)
+respectively. {\tool} exhibits consistent trends with IVDetect while
+outperforming it by 78.1\% and 14\% in Accuracy and F-score.

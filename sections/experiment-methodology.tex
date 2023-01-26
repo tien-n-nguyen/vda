@@ -1,0 +1,146 @@
+\subsection{Experimental Methodology}
+\label{method:sec}
+
+\input{sections/datasets}
+
+%To evaluate the performance of automated commit-level vulnerability assessment, we use the following two metrics: F1-Score and Matthews Correlation Coefficient (MCC). These two metrics have been widely, commonly, and frequently in the literature (check deepcva page 6, evaluation metrics for literature). Due to the fact that our {\tool} is built for multi-class classification, we used the macro F1-Score and multi-class version of MCC as in~\cite{le2021deepcva}.
+
+
+\subsubsection{\textbf{Analysis Approaches for RQs\\}}
+
+\noindent\textbf{RQ1. Comparison on Vulnerability Detection on BigVul}
+
+\emph{Baselines}. They include
+%We compare our model with the following DL-based
+%baselines:
+\textbf{VulDeePecker} \cite{li2018vuldeepecker}, \textbf{Devign}
+\cite{zhou2019devign}, \textbf{SySeVR} \cite{li2021sysevr},
+\textbf{Russell} {\em et al.}  \cite{russell2018automated},
+\textbf{Reveal} \cite{chakraborty2021deep}, and {\bf IVDetect}
+\cite{fse21}. We ran the tools on the code after commit for
+vulnerability detection.
+
+\emph{Procedure.}  We use all vulnerable methods and randomly select
+the same number of non-vulnerable methods from the fixed version
+projects, to build a dataset with the vul:non-vul ratio of 1:1. We
+also evaluate the tools with the real-world ratio of 9:1. We randomly split the
+data 80\%, 10\%, 10\% on the project basis without changing the
+vul:non-vul ratio for training, tuning, and testing.
+
+\emph{Parameter Tuning.}  For {\tool}, we used
+autoML~\cite{NNI} for tuning the following hyper-parameters to have the
+best performance: (1) Epoch size (100, 200, 300); (2) Batch size (64,
+128, 256); (3) Learning rate (0.001, 0.003, 0.005, 0.010); (4) word embeddings length (150, 200, 250, 300). We
+tuned DeepCVA's parameters from its documentation.
+%We use AutoML~\cite{NNI} on all models to automatically tune
+%hyper-parameters on the tuning dataset. We tuned \tool with the
+%parameters \textit{batch size, hidden size, learning rate, dropout
+%  rate}. The hyper-parameters we tuned for the baselines can be found
+%in their papers. We choose the hyper-parameters with the best accuracy
+%for each model.
+
+\emph{Evaluation Metrics.} We use the following metrics to measure the
+effectiveness of a model: $Recall = \frac{TP}{TP+FN}$, $Precision =
+\frac{TP}{TP+FP}$, and $F\_score =
+\frac{2*Recall*Precision}{Recall+Precision}$.
+%\begin{equation}
+%	Recall = \frac{TP}{TP+FN}
+%\end{equation}
+%\begin{equation}
+%	Precision = \frac{TP}{TP+FP}
+%\end{equation}
+%\begin{equation}
+%	F\_score = \frac{2*Recall*Precision}{Recall+Precision}
+%\end{equation}
+where TP = True Positives; FP = False Positives; FN = False Negatives; TN = True Negatives.
+
+%Recall measures how many of the vulnerable methods can be correctly detected, while Precision is used to measure how many of the detected vulnerable methods are indeed labeled as vulnerable in the collected dataset. F-score is used to reflect the overall performance by combining both the Recall and Precision.
+
+%\vspace{3pt}
+\noindent\textbf{RQ2. Comparison on Vulnerability Assessment on BigVul.}
+
+{\em Baseline and Procedure.} We compare {\tool} with
+DeepCVA~\cite{deepCVA-ase21}. We ran the models on BigVul-2.0
+dataset. We used the same longitudinal setting as in prior
+work~\cite{deepCVA-ase21,falessi2020need} for training, validation,
+and testing to mimic the real-world scenario in which the older
+vulnerabilities are used for training to assess the newer
+vulnerabilities. Specifically, we sorted all the commits in a
+chronological order based on their absolute time. We divided the
+commits into 10 equal folds from oldest to newest. For a fold $k$ ($k
+\le 8$), we used all the folds from 1 to $k$ for training, the
+$(k+1)^{th}$ fold for validation, and the $(k+2)^{th}$~for testing. We
+tuned the models as in RQ1.
+
+%\subsubsection{\textbf{Evaluation Metrics}}
+
+%To evaluate the models' performance in automated vulnerability
+%assessment,
+
+\emph{Evaluation Metrics.} We use the same metrics in
+DeepCVA~\cite{deepCVA-ase21}: F-score and Matthews Correlation
+Coefficient (MCC). F-score ranges from 0 to 1 (the best), and MCC
+ranges from -1 to 1 (the best). F-score is a metric to evaluate
+classification tasks. We chose F-score to handle the class imbalance
+prevalent in some of the VATs. Because we evaluate the classification
+models with multiple classes, we used the macro
+F-Score~\cite{SPANOS-jss18} and the multi-class version of
+MCC~\cite{gorodkin04}. The overall MCC is computed as the average of
+the MCCs for all classification tasks as in DeepCVA~\cite{deepCVA-ase21}.
+
+%We turned {\tool} with the following key hyper-parameters ....
+%We turned DeepCVA with the following key hyper-parameters ...
+%We use macro F1-Score and multi-class MCC to evaluate both approaches.
+
+
+%We also tuned the models as in RQ1.
+
+%In this RQ, we compare {\tool} with the same baseline in RQ1, DeepCVA. We ran {\tool} and DeepCVA on the Java dataset, DeepCVA-dataset~\cite{} (CVAD).  We used the same time-series data splitting strategy as the one in RQ1 to train, validate, and test both models.
+
+
+%we randomly split the BigVul into xx\% for training, xx\% for validation, and xx\% for testing.
+
+
+%We turned {\tool} with the following key hyper-parameters .... As we reused the dataset from the DeepCVA, we directly tune DeepCVA with the parameters reported in their paper. Same as RQ1, we use macro F1-Score and multi-class MCC to evaluate both approaches.
+
+\vspace{1pt}
+\noindent\textbf{RQ3. Code Change Embedding Analysis.} We evaluate the impact of the embeddings in the classification for VATs.
+
+\noindent\textbf{RQ4. Program Dependencies.} We use
+Explainable AI to show that {\tool} in fact leverages program
+dependencies in VA.
+
+%\vspace{1pt}
+%\noindent\textbf{RQ5. Overlapping Analysis.}  We counted the
+%vulnerabilities that were correctly assessed by {\tool} but
+%not by DeepCVA and vice versa, and the ones
+%that were correctly classified by both.
+
+
+\vspace{1pt}
+\noindent\textbf{RQ5. Sensitivity Analysis.}  We evaluate the impacts
+of key factors in {\tool} on its performance: (1) code
+context; and (2) multi-task learning. We conducted ablation analysis
+by removing a main factor from the model and make a comparison.
+%d it with the xcomplete model.
+
+\vspace{3pt}
+\noindent\textbf{RQ6. Comparison on Assessment on CVAD (Java dataset).}
+
+{\em Baseline and Procedure.} We compared {\tool} with the baseline
+DeepCVA~\cite{deepCVA-ase21}. We used the same procedure, tuning, and
+longitudinal setting as in RQ1. We used the Java~dataset.
+
+%For (3), we used GNNExplainer~\cite{GNNExplainer} (Section~\ref{discuss:sec}).
+
+
+
+%We aim to show the insights that {\tool}'s embeddings for code changes
+%help improve automated vulnerability assessment over
+%DeepCVA~\cite{deepCVA-ase21}.
+
+
+
+%We aim to study the projections of the code changes in the commits
+%with respect to different vulnerability assessment types.
+

@@ -1,0 +1,224 @@
+\PassOptionsToPackage{table,xcdraw}{xcolor}
+
+\documentclass[sigconf,review,anonymous]{acmart}
+\acmConference[ESEC/FSE 2023]{The 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering}{11 - 17 November, 2023}{San Francisco, USA}
+
+
+\usepackage{booktabs}   %% For formal tables:
+                        %% http://ctan.org/pkg/booktabs
+\usepackage{subcaption} %% For complex figures with subfigures/subcaptions
+                        %% http://ctan.org/pkg/subcaption
+\usepackage{array}
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+%\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xspace}
+\usepackage{multirow}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\usepackage{balance}
+
+\usepackage[skins]{tcolorbox}
+
+\usepackage{xcolor,pifont}
+\newcommand*\colourcheck[1]{%
+	\expandafter\newcommand\csname #1check\endcsname{\textcolor{#1}{\ding{52}}}%
+}
+\colourcheck{blue}
+\colourcheck{green}
+\colourcheck{red}
+
+\newtcolorbox{myframe}[2][]{%
+  enhanced,colback=white,colframe=black,coltitle=black,
+  sharp corners,
+  toprule=1.0pt,
+  rightrule=0.3pt,
+  leftrule=0pt,
+  bottomrule=0pt,
+  fonttitle=\itshape\scshape\large,
+  left=0pt,right=5pt,top=5pt,bottom=3pt,
+  attach boxed title to top right={yshift=-0.3\baselineskip-0.4pt,xshift=-5mm},
+  boxed title style={tile,size=minimal,left=0.2mm,right=0.5mm,
+    colback=white,before upper=\strut},
+  title=#2,#1
+}
+
+%\newcommand{\code}[1]{{\footnotesize\textsf{#1}}}
+
+\newcommand{\tool}{\textsc{CAT}\xspace}
+
+\newcommand{\mvpdg}{$\delta$-PDG}
+
+\newtheorem{Definition}{Definition}
+\newtheorem{Claim}{Claim}
+\newtheorem{Lemma}{Lemma}
+\newtheorem{Theorem}{Theorem}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newtheorem{observation}{Observation}
+\newtheorem{property}{Property}
+\newcommand{\code}[1]{{\footnotesize\texttt{#1}}}
+\usepackage{amsthm}
+ \definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
+\newcommand{\mvpdgxy}{$\delta$-PDG$^{x,y}$}
+
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.arrows}
+\newcommand{\FancyUpArrow}{\begin{tikzpicture}[baseline=-0.3em]
+		\node[single arrow,draw,rotate=90,single arrow head extend=0.1em,inner
+		ysep=0.1em,transform shape,line width=0.03em,top color=green,bottom color=green!50!black] (X){};
+\end{tikzpicture}}
+
+\begin{document}
+
+%\title[{\tool}: Deep Fault Localization with Code Coverage Representation Learning]{{\tool}: Deep Fault Localization with Code Coverage Representation Learning}
+
+\title[{\tool}: Context-aware, Graph-based, Commit-level Automated Vulnerability Detection and Assessment]{{\tool}: Context-aware, Graph-based, Commit-level Automated Vulnerability Detection and Assessment}
+
+
+%%%---- AUTHORS BLOCK ------
+
+\setcopyright{none}
+
+\settopmatter{printacmref=false, printfolios=false}
+
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+
+
+%(1) present information sorted in a way that a CNN can "see" patterns
+%discriminating between faulty and non faulty statements more easily;
+
+%(2) identify the actual crash statement to the network;
+
+%(3) present more information to the deep neural network in the form of
+%a summary of data dependences for each statement as well as source
+%embedding; and
+
+%(4) the suspiciousness of a statement is seen taking into account
+%relationships to other statement, as opposed to a statement by itself”
+
+
+
+%\input{sections/abstract}
+\begin{abstract}
+Software Vulnerabilities (SVs) are security weaknesses and flaws that
+are exploitable in cyber-attacks. Delay in the assessment of SVs might
+cause serious consequences due to the unknown impacts of the SVs on
+the attacked systems. The state-of-the-art approaches have been proposed
+to work directly on the code changes that were just committed to the
+repository,
+%Tien
+%and deemed to have vulnerable code,
+and detect any vulnerability and produce the assessment grades for
+the detected one.
+%Tien
+%detected vulnerability.
+However, those approaches still suffer low accuracy due to limited
+representations for code changes and surrounding contexts.
+
+We propose a Context-aware, Graph-based, Commit-level Vulnerability
+Detection and Assessment Model, {\tool}, that evaluates a
+%vulnerability-introducing
+code change, detects any vulnerability and provides the CVSS
+assessment grades for it. To build {\tool}, we have two~key novel
+components. First, we design a novel context-aware, graph-based,
+representation learning model to learn the {\em contextualized
+embeddings for the code changes} that integrate program dependencies
+and the surrounding contexts of code changes, facilitating the
+learning to detect and assess the vulnerabilities.
+%Those contextualized embeddings for code changes enable the
+%learning to provide the CVSS assessment grades for the vulnerability.
+Second, our automated assessment model,~during the assessment of one
+security aspect, also considers the impacts of the other aspects by
+leveraging multi-task learning (each~task learning to assess one
+aspect) to propagate the learning from one task to another. Our
+empirical evaluation shows that on a vulnerability dataset in C,
+{\tool} achieves F-score of 25.5\% and MCC of 26.9\% relatively higher
+than the state-of-the-art model in vulnerability
+assessment. In a Java dataset, {\tool} achieves F-score of 20.4\% and
+MCC of 28.0\% relatively higher as well.  It also improves the
+vulnerability detection over the existing approaches.
+%than DeepCVA in the assessment.
+\end{abstract}
+
+
+%\settopmatter{printacmref=true, printccs=true, printfolios=false}
+
+%\begin{CCSXML}
+%<ccs2012>
+%<concept>
+%<concept_id>10011007.10011006.10011073</concept_id>
+%<concept_desc>Software and its engineering~Software maintenance tools</concept_desc>
+%<concept_significance>500</concept_significance>
+%</concept>
+%</ccs2012>
+%\end{CCSXML}
+
+%\ccsdesc[500]{Software and its engineering~Software maintenance tools}
+
+%\keywords{Deep Learning; Automated Program Repair; Context-based Code Transformation Learning}
+
+
+\maketitle
+
+\input{sections/intro}
+
+\input{sections/motiv}
+
+\input{sections/key-ideas}
+
+\input{sections/overview}
+
+\input{sections/multiversion}
+
+\input{sections/embedding}
+
+\input{sections/classification}
+
+
+\input{sections/experiment}
+
+%\input{sections/discussions}
+
+\input{sections/threats}
+
+\input{sections/relatedstudy}
+
+\input{sections/conclusion}
+
+\newpage
+
+\balance
+
+%\bibliographystyle{plain}
+%\bibliographystyle{ACM-Reference-Format}
+\bibliographystyle{ACM-Reference-Format}
+
+\bibliography{References,icse23}
+
+\end{document}

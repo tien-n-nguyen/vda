@@ -1,0 +1,222 @@
+\section{Motivation}
+\label{motiv:sec}
+
+\subsection{Motivating Example}
+\label{exe:sec}
+
+%CVE-2021-37714: description
+%CVSS Scores
+
+%Input-Output
+
+%Code Change: src/main/java/org/jsoup/parser/HtmlTreeBuilder.java
+
+%Crash-point or infinite loop: HtmlTreeBuilderState.java
+
+\begin{figure}[t]
+  \begin{flushleft}
+    \footnotesize
+\textbf{Vulnerability Details: CVE-2021-37714}\\
+\textbf{1. Description}:
+{\em jsoup is a Java library for working with HTML. Those using jsoup versions prior to 1.14.2 to parse untrusted HTML or XML may be vulnerable to DOS attacks. If the parser is run on user supplied input, an attacker may supply content that causes the parser to get stuck (loop indefinitely until cancelled), to complete more slowly than usual, or to throw an unexpected exception. This effect may support a denial of service attack. The issue is patched in version 1.14.2. There are a few available workarounds. Users may rate limit input parsing, limit the size of inputs based on system resources, and/or implement thread watchdogs to cap and timeout parse runtimes.
+
+  Publish Date : 2021-08-18 Last Update Date : 2022-02-07}
+
+\textbf{2. Vulnerability Type(s)}: Denial Of Service
+
+{\bf 3. CVSS Score:} ...\\
+
+{\bf 4. Detailed CVSS Grades:}\\
+\end{flushleft}
+  \centering
+  \tabcolsep 3pt
+  \footnotesize
+  \begin{tabular}{lll}
+   Vulner. Assess. Type   & Value & Description \\
+      \hline
+    Confidentiality Impact & {\bf None}  & No impact to the confidentiality \\
+    Integrity Impact & {\bf None}  & No impact to the integrity \\
+    Availability Impact & {\bf Partial} & There is reduced performance or\\
+    & & interruptions in availability\\
+    Access Complexity & {\bf Low} & Specialized access conditions or \\
+    & & extenuating circumstances do not exist\\
+    & & Little knowledge is required to exploit\\
+    Authentication & {\bf Not Req} & Authentication is not required \\
+    & & to exploit the vulnerability\\
+    Gained Access & {\bf None}  & No gained access with the vulnerability \\
+    Acccess Vector & {\bf Local} & The vulnerability is in the local parser \\
+    \end{tabular}%
+  \label{CVSS:tab}%
+\caption{Vulnerability Details: CVE-2021-37714}
+\label{CVSS-tab}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\lstset{
+		numbers=left,
+		numberstyle= \tiny,
+		keywordstyle= \color{blue!70},
+		commentstyle= \color{red!50!green!50!blue!50},
+		frame=shadowbox,
+		rulesepcolor= \color{red!20!green!20!blue!20} ,
+		xleftmargin=1.5em,xrightmargin=0em, aboveskip=1em,
+		framexleftmargin=1.7em,
+                numbersep= 5pt,
+		language=Java,
+    basicstyle=\scriptsize\ttfamily,
+    numberstyle=\scriptsize\ttfamily,
+    emphstyle=\bfseries,
+                moredelim=**[is][\color{red}]{@}{@},
+		escapeinside= {(*@}{@*)}
+	}
+	\begin{lstlisting}[]
+// .../jsoup/parser/HtmlTreeBuilderState.java
+boolean process(Token t, HtmlTreeBuilder tb) { ...
+  if (t.isCharacter()&& inSorted( (*@{\color{red}{tb.currentElement().normalName()}@*),InTableFoster)){
+     ...
+     return tb.process(t);
+  }
+  ...
+  } else {
+      tb.popStackToClose(name);
+(*@{\color{orange}{- \quad \quad tb.resetInsertionMode();}@*)
+(*@{\color{orange}{- \quad \quad if (tb.state() == InTable) \{}@*)
+(*@{\color{cyan}{+ \quad \quad if (!tb.resetInsertionMode()) \{}@*)
+         tb.insert(startTag);
+         return true;
+      }
+(*@{\color{red}{\quad \quad \quad return tb.process(t, InHead);}@*)
+      ...
+}
+	\end{lstlisting}
+        \vspace{-15pt}
+        \caption{Code Change at Version 1.12.1 for CVE-2021-37714}
+        \vspace{-6pt}
+        \label{fig:motiv-code}
+\end{figure}
+
+%     tb.newPendingTableCharacters();
+%     tb.markInsertionMode();
+%     tb.transition(InTableText);
+
+%A commit-level, vulnerability assessment tool takes as input a
+%committed code change and estimates its impacts on the system under
+%development with regards to confidentiality, integrity, availability,
+%complexity, severity, etc. That code change might be deemed
+%as vulnerable by a commit-level vulnerability detection tool.
+
+Let us present an example from an HTML parser, named {\em jsoup}, and
+our observations. Figure~\ref{CVSS-tab} displays the information on the
+vulnerability CVE-2021-37714 that was reported on {\em jsoup}, and
+published on 08/18/21. The change that was deemed to contribute to the
+vulnerability were committed at version 1.12.1 to the method
+\code{process(Token,HtmlTreeBuilder)} of the
+\code{Html\-Tree\-Builder\-State} class (lines 10--11, and 12 of
+Figure~\ref{fig:motiv-code}). That change directly uses the value
+returned from \code{reset\-Inser\-tion\-Mode()} as the condition to
+insert \code{starTag} (line 13). With this~change, certain input HTML
+code with a specific start tag could make the program go to line 16
+with a recursive call to the method \code{process(...)}. That~call
+resulted in an NullPointerException at line 3 as noted in the
+log:~{\em ``java.\-lang.\-Null\-Pointer\-Ex\-ception: Cannot invoke
+  "org.\-jsoup.\-nodes.\-Element.\-normalName()" because the return
+  value of
+  "org.\-jsoup.\-parser.\-HtmlTree\-Builder.\-current\-Element()" is
+  null.''}. In other cases, the parser can get stuck, i.e., {\em
+  ``loop indefinitely until canceled''} as described in the official
+description of CVE-2021-37714. Due
+to those effects, this vulnerability is considered as {\em a denial of
+  service (DoS)}. Figure~\ref{CVSS-tab} also shows the Common
+Vulnerability Scoring System grades (CVSS) given by security experts
+for various \underline{v}ulnerability \underline{a}ssessment
+\underline{t}ypes (VATs) for CVE-2021-37714. Due to the above effects,
+the availability impact for this vulnerability is rated as {\em
+  Partial} (i.e., for some inputs, there will be reduced performance
+and interruptions in available services).
+
+While the above vulnerability potentially cause damages, both~the
+detection and assessment for that vulnerability are late. That could
+lead to more systems being affected by that vulnerability. Thus, it is
+desirable to detect and assess a potential vulnerability as soon as
+developers committed their vulnerable code to a repository during
+software development. There exist the machine learning (ML) approaches
+that automatically analyze the newly committed code, detect software
+vulnerabilities~\cite{perl2015vccfinder,zhou2017automated,chen2019large}
+and provide the assessments for them~\cite{deepCVA-ase21}. For
+vulnerability assessment, those approaches have leveraged the manual
+assessments from security analysts in CVSS to build labeled data to
+train their ML models.
+%Even though the CVSS system provides manual assessments after the
+%vulnerabilities were detected/reported, the grades from security
+%analysts actually are helpful as the labeled data for a machine
+%learning (ML) to learn to automatically predict the gradings for a
+%newly committed code change. In fact, DeepCVA~\cite{deepCVA-ase21}
+%uses a $n$-gram representation with a ML model to learn from those
+%manually assessments in CVSS to predict for a new commit.
+A natural next question is what features in a code change are useful
+for such an automated assessment. Toward answering that, from the
+above example, we make the following observations.
+
+%developed a machine learning (ML) model that learns from the existing
+%grading from security experts to provide the new grading for a
+%committed code change that was deemed to be vulnerable.  This type of
+%commit-level automated vulnerability assessment together with a
+%vulnerability detection (VD) tool are very useful in helping
+%developers to early detect and assess the impacts of the detected
+%vulnerability as soon as the code is committed. However, the
+%state-of-the-art approach for commit-level vulnerability assessment
+%is still limited as explained in the following observations.
+
+\vspace{2pt}
+\noindent {\bf Observation 1 [Program Dependencies].}  {\em To
+  evaluate the impacts w.r.t. different VATs, a model needs to
+  consider the program dependencies among the statements}. For
+example, to assess Availability, one needs to check the potential
+infinite loop or null-pointer exception, and examines the control and
+data dependencies between the changed line 12 and the line 16. That is
+where the method \code{process} is recursively called, which leads to
+the null-pointer exception at line~3 (\code{currentElement()}
+returns null). Unfortunately, the state-of-the-art vulnerability
+assessment model, DeepCVA~\cite{deepCVA-ase21} with $n$-grams
+($n$=1,3,5)
+%to capture the surrounding code. $n$-grams are
+is limited in capturing the dependencies in the surrounding code. The
+important statements having the dependencies with the changed
+statements can help with the assessment, but {\em can be far apart}
+(e.g., line 12, line 16, and line 3). They cannot be well captured
+with the $n$-grams of limited lengths of 1--5. The tokens within an
+$n$-gram distance from the changed code might not be relevant to the
+vulnerability. Moreover, $n$-grams require an order in source
+code. However, the source code order might not reflect the execution~order. In Figure~\ref{fig:motiv-code}, line 12 has data/control flow to
+line 16, which in turn has data/control flow to line 3 via recursion.
+
+
+%The order should be on the dependency graph, rather than on source
+%code.
+\vspace{1pt}
+\noindent {\bf Observation 2 [Context].} By examining {\em only the tokens
+involving in the changes} (e.g., the tokens
+\code{tb},~\code{reset\-Insertion\-Mode}, \code{state}, and \code{InTable}
+in the deleted lines 10--11, and the inserted line 12), a model can
+not decide if the vulnerability could have impact on the system's
+availability or not.
+%, i.e., deciding if the {\em Availability Impact}
+%rating is {\em None}, {\em Partial}, or {\em Complete}.
+Generally, {\em the same/similar changes occurring in different
+  surrounding contexts might cause different effects, leading to
+  different grades for the VATs}. For example, adding a null check:
+\code{if p != null} is a common change in many places. However, it
+could prevent a null-pointer exception in some context, while does not
+in the others.
+%(e.g., the availability impact in this case).
+Unfortunately, DeepCVA~\cite{deepCVA-ase21} does not capture well the
+contexts of the changes. First, it uses $n$-grams ($n$=1,3,5), which
+is limited as explained. Second, DeepCVA does not explicitly
+distinguish the context (un-changed code) from the changed code, which
+confuses the model with two training instances having the same
+context+code change, but with different code
+changes or contexts. 
+
+%do not explicitly modeling the context
+
