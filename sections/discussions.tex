@@ -2,8 +2,8 @@
 
 %\subsubsection{Using Explainable AI to explain the graph as the key features in {\tool}}
 
-\subsubsection{{\bf Using Explainable AI for Study Relevant Features in Classification regarding Program Dependencies (RQ4)}}
-\label{discuss:sec}
+\subsubsection{{\bf Using Explainable AI to Study Relevant Features in Classification regarding Program Dependencies (RQ4)}}
+\label{sec:ai}
 
 %\subsubsection*{Using Explainable AI to explain the graph as the key features in {\tool}}
 
@@ -16,17 +16,17 @@
 %commits that facilitate {\tool} in better classifying the
 %commit-level changes into more correct classes regarding  the assessment
 %types than DeepCVA~\cite{deepCVA-ase21}.
-We aim to show that {\tool} in fact leverages the
-program dependencies among statements in its vulnerability
-assessment.
+We aim to evaluate whether {\tool} uses the vulnerable statements
+and their dependencies in its vulnerability prediction and
+assessment. This also allows us to evaluate its ability to pinpoint
+the changed statements relevant to the detected vulnerability.
 %capable of {\em capturing the key vulnerable statements and
 %dependencies}, leading to its accuracy in vulnerability assessment.
-Specifically, for each vulnerability assessment type (VAT) (e.g., {\em
-Availability}), we randomly selected 366 samples of the commits in our
-C dataset that {\tool} predicts the correct classes (e.g., {\em None},
-{\em Partial}, or {\em Complete}) of the vulnerability detection and
-VATs for those commits. That sample size gives us the confidence
-level of 95\% and the confidence interval of 5\% for each VAT.
+Specifically, for each vulnerability assessment type (VAT), we
+randomly selected 366 samples of the commits in our dataset that
+{\tool} predicts the correct classes (e.g., {\em None}, {\em Partial},
+{\em Complete}) of the vulnerability detection and VATs for them. That sample size gives us the confidence level of 95\% and
+the confidence interval of 5\% for each VAT.
 
 We use an explainable Artificial Intelligence (XAI) model,
 called {\em GNNExplainer}~\cite{GNNExplainer}, which takes a GNN-based
@@ -108,8 +108,8 @@ statements/dependencies to assess the impact of {\em Integrity}, in 81\% samples
 For vulnerability detection, 84\% of samples, {\tool} uses
 the right statements/dependencies in its correct prediction.
 %
-On average, in 81.4\% samples per assessment type, {\tool} correctly
-relies on the vulnerable statements/dependencies in its assessment.
+On average, in 81.4\% samples on average, {\tool} correctly
+relies on the vulnerable statements/dependencies.
 %To correctly assess the remaining samples, {\tool} might use other
 %features, e.g., contexts, code tokens, and the impacts of
 %multiple~tasks.

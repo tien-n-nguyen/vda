@@ -1,4 +1,6 @@
-\subsubsection{\bf Contribution of Code Change Embeddings in Classification (RQ3)}
+\subsubsection{\bf Class Separability with Code Change Embeddings (RQ3)}
+
+%\subsubsection{\bf Contribution of Code Change Embeddings in Classification (RQ3)}
 
 \begin{figure*}[t]
 	\centering
@@ -58,12 +60,17 @@
 %\end{figure*}
 
 %We first processed each vulnerability assessment type (VAT).
-In this experiment, we aim to show that our novel graph-based, code
-change embeddings help {\tool} perform better classification for the
-grades in vulnerability assessment types than the $n$-gram-based
-embeddings in the baseline approach. We aim to show that the
-embeddings from {\tool} helps it have better class-separation, leading
-to better detection/assessment.
+
+In this study, we aim to show that our {\em embeddings for code
+changes helps {\tool} have better class-separation}, i.e., {\em better
+classification} in detection/assessment, than the baseline's.
+
+%In this experiment, we aim to show that our novel graph-based, code
+%change embeddings help {\tool} perform better classification for the
+%grades in vulnerability assessment types than the $n$-gram-based
+%embeddings in the baseline approach. We aim to show that the
+%embeddings from {\tool} helps it have better class-separation, leading
+%to better detection/assessment.
 
 For each class~$C$ regarding a vulnerability assessment type (VAT), we
 selected 366 commits that are labeled with the class $C$ in the
@@ -75,7 +82,7 @@ number of samples for a class. Given the population of our data, that
 sample size gives the confidence level of 95\% and the confidence
 interval of 5\% for a~VAT.
 %
-For each type, we took those 366 x 3 = 1,098 commits and used
+For each type, we took those 366 $\times$ 3 = 1,098 commits and used
 {\em {\tool}'s code change representation learning model} and {\em DeepCVA's
 $n$-gram-based embedding model} to produce the embeddings for
 those commits.  We projected the embeddings from two models
@@ -91,21 +98,23 @@ Figure~\ref{fig:confidentiality} shows the comparison between the
 silhouette plots for the embeddings produced by {\tool} and DeepCVA
 regarding 3 classes of
 Confidentiality. Figures~\ref{fig:confidentiality}a. and c. display
-the t-SNE visualizations for the embeddings produced by {\tool} and
-DeepCVA, respectively. Figures~\ref{fig:confidentiality}b. and
-d. display the silhouette plots for the data in the
-t-SNE visualizations for {\tool} and DeepCVA.
+the t-SNE visualizations for the embeddings.
+%produced by {\tool} and DeepCVA, respectively.
+Figures~\ref{fig:confidentiality}b. and d. display the silhouette
+plots for the data in the t-SNE visualization.
+%for {\tool} and DeepCVA.
 The silhouette coefficient value ($X$-axis in
 Figures~\ref{fig:confidentiality}b., d., e.) is a measure of how
 similar an object is to its own class compared to~other classes. The
 silhouette coefficient value is in [-1,1], where a high value
 indicates that an object is well matched to~its own class and poorly
 matched to neighboring classes. If most objects have high values, the
-class configuration is appropriate. In our problem, that corresponds
-to better-formed classes, facilitating a model to correctly group the
-commits into the correct classes ({\em None, Partial, Complete)}
-regarding Confidentiality. If many points have low or negative values,
-the class configuration is poor-formed, which do not help in
+class configuration is proper. That corresponds
+to better-formed classes, facilitating a model to group the commits
+into the correct classes ({\em None, Partial, Complete)}.
+%regarding Confidentiality.
+If many points have low or negative values, the
+class configuration is poor-formed, which do not help in
 classification.
 
 Let us consider the commits in the {\em Complete} class
@@ -113,7 +122,7 @@ in~Figures \ref{fig:confidentiality}a. and b. Each line in the {\em
 Complete} class in Figure~\ref{fig:confidentiality}b. corresponds to a
 point in the {\em Complete} class in the vector space in
 Figure~\ref{fig:confidentiality}a. The length of the line is equal to
-the silhouette~coefficient for a point. The lines are
+the silhouette coefficient for a point. The lines are
 sorted from largest to smallest and drawn from top to bottom, creating
 a knife shape.
 
@@ -139,22 +148,22 @@ classification for VA than the embeddings from DeepCVA}.
 Figure~\ref{fig:availability} shows the comparison among the
 silhouette plots for the embeddings from {\tool} and DeepCVA on
 Availability (The ones for others are not shown due to space limit).
-As seen, the comparisons for all VATs have the same trend. The knife
+As seen, the comparisons for the VATs have the same trend. The knife
 shapes from {\tool} have no or shorter tails and are thicker than
 those of DeepCVA.
 
-In brief, the {\em silhouette plots indicate that {\tool} produces the
+In brief, the silhouette plots indicate that {\tool} produces the
 embeddings that have more cohesion with the ones in the same class and
-more separation with the ones in the different classes (better
-class-separability)}. Thus, our {\bf contextualized embeddings help
-{\tool} perform better classifications for VA than DeepCVA}.
+more separation with the ones in the different classes. Thus, our {\bf
+embeddings with more class-separability help {\tool} perform better
+classification for VA}.
 
 %regarding each vulnerability assessment type}.
 
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=1.6in]{graphs/plot-vd}
+	\includegraphics[width=1.4in]{graphs/plot-vd}
        \vspace{-6pt}
 	\caption{Silhouette Plots for the Embeddings of Commits produced by {\tool} and DeepCVA for Vulnerability Detection: {\tool} has better Class Separability}
 	\label{fig:vd}
@@ -168,4 +177,4 @@ than those from the best baseline IVDetect. Specifically, the average
 silhouette score in {\tool} is 0.027, while that of IVDetect is
 0.0072. Thus, this result shows that {\tool} has better
 class-separability, leading to better performance than the baseline
-models.
+model.

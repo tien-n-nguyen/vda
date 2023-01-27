@@ -1,8 +1,8 @@
-\subsubsection{{\bf Comparison on Vulnerability Detection on BigVul (RQ1)}}
+\subsubsection{{\bf Comparison on Vulnerability Detection on C Dataset (RQ1)}}
 \label{sec:vd-result}
 
 \begin{table} [t]
-  \caption{Comparison with DL-based Vulnerability Detection Approaches (RQ1)}
+  \caption{Vulnerability Detection on C Dataset (RQ1)}
   \vspace{-5pt}
   \begin{center}
     \small
@@ -100,12 +100,26 @@ improves over all the baselines in all the metrics. Specifically,
 %PDG    & 145 & 477  \\
 %CPG    & 622 & 1393 \\
 
-Examining the results, we found that {\tool}~often performed better
+Examining the results, we found that {\tool} often performed better
 than the best baselines, Reveal~\cite{chakraborty2021deep} and
-IVDetect~\cite{li2021vulnerability}, in the code with complex PDGs (which IVDetect
-uses as a key feature for detection) and CPGs (which Reveal uses for
-detection). Moreover, {\tool} detects vulnerabilities well
-with its code change embeddings.
+IVDetect~\cite{li2021vulnerability}, in the cases that the code
+changes are relevant to the vulnerability. For example, a statement
+(e.g., null check) was removed, leading to the vulnerable code (e.g.,
+Null-Pointer Exception). Because examining both versions, {\tool} was
+can detect better those vulnerability-introducing changes. The baselines
+work only on the new version.
+
+In Section~\ref{sec:ai}, we used {\em Explainable AI to display the
+changed statements} in the code that contributes to the detected
+vulnerability (Figure~\ref{gnn-example}). This is another advantage
+from commit-level VD (pointing to the {\em fine-grained}
+vulnerability-introducing change) that the VD tool working on the new
+version only do not have.
+
+
+%in the code with complex PDGs (which IVDetect uses as a key feature
+%for detection) and CPGs (which Reveal uses for detection). Moreover,
+%{\tool} detects vulnerabilities well with its code change embeddings.
 
 %improper exception/error-handling.
 
@@ -122,10 +136,16 @@ with its code change embeddings.
 
 %=======================================
 
-We also tested it in the real-world vulnerability setting as well with
-a 9:1 non-vulnerable to vulnerable ratio. We randomly selected 10\% of
-the vulnerable instances in the test set 10 times, and finally took
-the average of the performance: (Acc, F-score) for {\tool} and the top
-baseline IVDetect are (45.3\%, 23.3\%) and (25.4\%, 20.4\%)
-respectively. {\tool} exhibits consistent trends with IVDetect while
-outperforming it by 78.1\% and 14\% in Accuracy and F-score.
+We also use a real-world vulnerability setting with a 9:1
+non-vulnerability to vulnerability ratio. We randomly selected 10\% of
+the vulnerable instances in the test set ten times, and finally took
+the average of the performance. We report that the F-scores for
+{\tool} and the top baseline IVDetect are 45.3\% and 25.4\%,
+respectively. {\tool} exhibits a consistent trend with IVDetect while
+outperforming it by 78.1\%. F-score is lower than in Table~\ref{tab:rq1} due to
+unbalanced data.
+
+%We report that F-score for {\tool} and the top baseline IVDetect are
+%(45.3\%, 23.3\%) and (25.4\%, 20.4\%) respectively. {\tool} exhibits
+%consistent trends with IVDetect while outperforming it by 78.1\% and
+%14\% in Accuracy and F-score.
