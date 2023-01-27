@@ -126,20 +126,15 @@
 
 %\input{sections/abstract}
 \begin{abstract}
-Software Vulnerabilities (SVs) are security weaknesses and flaws that
-are exploitable in cyber-attacks. Delay in the assessment of SVs might
-cause serious consequences due to the unknown impacts of the SVs on
-the attacked systems. The state-of-the-art approaches have been proposed
-to work directly on the code changes that were just committed to the
-repository,
-%Tien
-%and deemed to have vulnerable code,
-and detect any vulnerability and produce the assessment grades for
-the detected one.
-%Tien
-%detected vulnerability.
-However, those approaches still suffer low accuracy due to limited
-representations for code changes and surrounding contexts.
+Software Vulnerabilities (SVs) are security flaws that are exploitable
+in cyber-attacks. Delay in the detection and assessment of SVs might
+cause serious consequences due to the unknown impacts on the attacked
+systems. The state-of-the-art approaches have been proposed to work
+directly on the commited code changes for early detection. However,
+none of them could provide both commit-level vulnerability detection
+and assessment at once. Moreover, those assessment approaches still
+suffer low accuracy due to limited representations for code changes
+and surrounding contexts.
 
 We propose a Context-aware, Graph-based, Commit-level Vulnerability
 Detection and Assessment Model, {\tool}, that evaluates a
