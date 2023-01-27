@@ -27,13 +27,12 @@ represents a program statement or a conditional expression; an edge $e
 %We adopt a graph representation, called
 We adopt the multi-version PDG ({\mvpdgxy})~\cite{flexeme-fse20} to
 represent the changes between two versions $x$ and $y$, before and
-after the commit.  A multi-version Program Dependence Graph
-{\mvpdgxy}~\cite{flexeme-fse20} is a directed graph generated from the
-disjoint union of all nodes and edges in the PDGs at versions $x$
-and~$y$. {\mvpdgxy} (Figure~\ref{fig:multi-version-pdg},
-Section~\ref{delta:sec}) allows us to capture the program dependencies
-including data/control flows that are crucial in predicting
-vulnerabilities and assessing the impacts (Key
+after the commit.  A multi-version PDG {\mvpdgxy}~\cite{flexeme-fse20}
+is a directed graph generated from the disjoint union of all nodes and
+edges in the PDGs at versions $x$ and~$y$. {\mvpdgxy}
+(Figure~\ref{fig:multi-version-pdg}, Section~\ref{delta:sec}) allows
+us to capture the program dependencies including data/control flows
+that are crucial in vulnerability detection and assessment (Key
 idea~2).
 
 %\begin{Definition}[Multi-version Program Dependence Graph] ({\bf {\mvpdgxy}}).

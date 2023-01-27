@@ -115,7 +115,7 @@ vulnerability were committed at version 1.12.1 to the method
 \code{Html\-Tree\-Builder\-State} class (lines 10--11, and 12 of
 Figure~\ref{fig:motiv-code}). That change directly uses the value
 returned from \code{reset\-Inser\-tion\-Mode()} as the condition to
-insert \code{starTag} (line 13). With this~change, certain input HTML
+insert \code{startTag} (line 13). With this~change, certain input HTML
 code with a specific start tag could make the program go to line 16
 with a recursive call to the method \code{process(...)}. That~call
 resulted in an NullPointerException at line 3 as noted in the
@@ -125,15 +125,16 @@ log:~{\em ``java.\-lang.\-Null\-Pointer\-Ex\-ception: Cannot invoke
   "org.\-jsoup.\-parser.\-HtmlTree\-Builder.\-current\-Element()" is
   null.''}. In other cases, the parser can get stuck, i.e., {\em
   ``loop indefinitely until canceled''} as described in the official
-description of CVE-2021-37714. Due
-to those effects, this vulnerability is considered as {\em a denial of
-  service (DoS)}. Figure~\ref{CVSS-tab} also shows the Common
-Vulnerability Scoring System grades (CVSS) given by security experts
-for various \underline{v}ulnerability \underline{a}ssessment
-\underline{t}ypes (VATs) for CVE-2021-37714. Due to the above effects,
-the availability impact for this vulnerability is rated as {\em
-  Partial} (i.e., for some inputs, there will be reduced performance
-and interruptions in available services).
+description of CVE-2021-37714.
+%Due to those effects, this vulnerability is considered as {\em a
+%  denial of service (DoS)}.
+Figure~\ref{CVSS-tab} also shows the Common Vulnerability Scoring
+System grades (CVSS) given by security experts for various
+\underline{v}ulnerability \underline{a}ssessment \underline{t}ypes
+(VATs) for that CVE. Due to the above effects, the availability
+impact for this vulnerability is rated as {\em Partial} (i.e., for
+some inputs, there will be reduced performance and interruptions in
+available services).
 
 While the above vulnerability potentially cause damages, both~the
 detection and assessment for that vulnerability are late. That could
@@ -142,11 +143,12 @@ desirable to detect and assess a potential vulnerability as soon as
 developers committed their vulnerable code to a repository during
 software development. There exist the machine learning (ML) approaches
 that automatically analyze the newly committed code, detect software
-vulnerabilities~\cite{perl2015vccfinder,zhou2017automated,chen2019large}
-and provide the assessments for them~\cite{deepCVA-ase21}. For
+vulnerabilities~\cite{perl2015vccfinder,zhou2017automated,chen2019large}.
+Others provide the assessments at the commit time~\cite{deepCVA-ase21}. For
 vulnerability assessment, those approaches have leveraged the manual
 assessments from security analysts in CVSS to build labeled data to
-train their ML models.
+train their ML models. However, no approach supports both commit-level
+vulnerability detection and assessment at the same time.
 %Even though the CVSS system provides manual assessments after the
 %vulnerabilities were detected/reported, the grades from security
 %analysts actually are helpful as the labeled data for a machine
@@ -155,7 +157,7 @@ train their ML models.
 %uses a $n$-gram representation with a ML model to learn from those
 %manually assessments in CVSS to predict for a new commit.
 A natural next question is what features in a code change are useful
-for such an automated assessment. Toward answering that, from the
+for such detection and assessment. Toward answering that, from the
 above example, we make the following observations.
 
 %developed a machine learning (ML) model that learns from the existing
@@ -178,10 +180,10 @@ data dependencies between the changed line 12 and the line 16. That is
 where the method \code{process} is recursively called, which leads to
 the null-pointer exception at line~3 (\code{currentElement()}
 returns null). Unfortunately, the state-of-the-art vulnerability
-assessment model, DeepCVA~\cite{deepCVA-ase21} with $n$-grams
+assessment models, e.g., DeepCVA~\cite{deepCVA-ase21} with $n$-grams
 ($n$=1,3,5)
 %to capture the surrounding code. $n$-grams are
-is limited in capturing the dependencies in the surrounding code. The
+are limited in capturing the dependencies in the surrounding code. The
 important statements having the dependencies with the changed
 statements can help with the assessment, but {\em can be far apart}
 (e.g., line 12, line 16, and line 3). They cannot be well captured
@@ -189,7 +191,7 @@ with the $n$-grams of limited lengths of 1--5. The tokens within an
 $n$-gram distance from the changed code might not be relevant to the
 vulnerability. Moreover, $n$-grams require an order in source
 code. However, the source code order might not reflect the execution~order. In Figure~\ref{fig:motiv-code}, line 12 has data/control flow to
-line 16, which in turn has data/control flow to line 3 via recursion.
+line 16, which has data/control flow to line 3 via recursion.
 
 
 %The order should be on the dependency graph, rather than on source

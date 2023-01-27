@@ -45,10 +45,10 @@ the aforementioned CVSS ratings manually assessed by security analysts
 for the vulnerabilities as labeled data to train a machine learning
 (ML) model and applied it on the code change to predict the assessment
 ratings. However, none of the existing commit-level vulnerability
-assessment tools supports both commit-level vulnerability detection
-and assessment. Importantly, they have still limited in the
-representation of code changes and do not take into account the
-context of such changes.
+assessment tools supports {\em both commit-level vulnerability
+  detection and assessment}. Importantly, they are still limited in
+the {\em representation of code changes} and do not take into account
+the {\em context} of such changes.
 
 %Despite being first to tackle commit-level SV assessment,
 %DeepCVA~\cite{deepCVA-ase21} still suffers low~accuracy.  In general,
@@ -77,13 +77,13 @@ needs to consider {\bf program dependencies} among statements since an
 attack to a vulnerability involves the~exploits of the control and
 data dependencies. The state-of-the-art vulnerability assessment tools
 capture code changes as code tokens in short sequences with $n$-grams,
-thus, does not model the program flows and dependencies. Finally, it
+thus, does not model the program dependencies. Finally, it
 does not represent well the {\bf code context} surrounding a
 change. The same change occurring in different contexts might cause
 different effects, leading to different impact grades. In the
 state-of-the-art approaches~\cite{deepCVA-ase21}, the context of
-un-changed code is not~distinguishable and not explicitly represented
-separately from~the code changes. The model can be confused by the two
+un-changed code is not~distinguishable and not represented
+separately from the code changes. The model can be confused by the two
 training instances having the same combination of code changes and
 contexts, but with different code changes and contexts
 themselves. Those limitations lead to low accuracy in the
@@ -97,13 +97,13 @@ code, detect any vulnerability and provide the CVSS
 assessment grades for the detected vulnerability. To build {\tool}, we
 provide a novel integration among three key ideas. First, to make
 prediction on the CVSS assessment grades on code changes, we develop a
-novel {\bf context-aware, graph-based, representation learning (RL)
+novel {\bf context-aware, graph-based, representation learning 
   model} to {\bf learn the contextualized embeddings for the code
   changes} that integrate {\em program dependencies}, and the
 surrounding {\em contexts} of code changes.  Both versions of the
 program dependence graphs (PDGs) before and after the commit are
-modeled via the multi-version {\mvpdg}~\cite{flexeme-fse20},
-built from the PDGs before and after the changes.
+modeled via the multi-version {\mvpdg}~\cite{flexeme-fse20}.
+%built from the PDGs before and after the changes.
 %{\mvpdg} is a directed graph generated from the disjoint union of all
 %nodes and edges in the PDGs at the versions before and after the
 %changes.
@@ -113,7 +113,7 @@ sub-graphs in {\mvpdg}. It considers the impact of the surrounding
 context represented by a context vector on the building of the
 embeddings for the code changes. {\tool} uses the contextualized
 embeddings to predict if the changes have any vulnerability, and if
-yes, it provides the CVSS assessment grades for it.
+yes, it provides assessment grades.
 
 Second, we use the Label, Graph Convolution
 Network~\cite{label-gcn} to encode the {\bf program dependencies}
@@ -123,27 +123,32 @@ with $n$-grams and capture the statements that might be far
 apart but are relevant to the vulnerability.
 
 Third, the detection and assessments of different aspects of a
-vulnerability are interdependent on each other, e.g., between the
-availability and integrity of a system. During the assessment of one
-aspect, we also consider the impacts of the other aspects by
-leveraging a {\bf multi-task learning} model to propagate the learning
-from one task to another (each task learns to assess one
-aspect). Vulnerabiity detection is one task in the multi-task learning
-as {\tool} will provide assessment scores when a vulnerability is
-detected.
-%the assessment scores make sense if the detection result is positive.
+vulnerability are interdependent on each other. For example, if a
+model learns one of the assessment ratings is high (e.g., high
+severity or complete unavailability), the vulnerability detection (VD) outcome
+must be positive. If the VD outcome is negative, the assessment ratings for
+all the aspects must be {\em none}. The assessments for different
+aspects could also affect one another, e.g., between the availability and
+integrity of a system. Thus, we leverage 
+%During the assessment of one aspect, we also consider the impacts of
+%the other aspects by leveraging
+a {\bf multi-task learning} model to propagate the learning from one
+task to another (each task learns to assess one aspect). Vulnerabiity
+detection is also a task in the multi-task learning scheme as {\tool} will
+provide assessment scores when a vulnerability is detected.
+
 
 %Experimental results
 We have conducted experiments to evaluate {\tool} on real-world
-vulnerabilities. Our results on a C dataset with 7.8k vulnerabilities
+vulnerabilities. Our results on a C vulnerability dataset
 show that {\tool} achieves F-score of 25.5\% and MCC of 26.9\%
-relatively higher than DeepCVA~\cite{deepCVA-ase21}.  The
-vulnerability detection result from {\tool} is also improved over the
-state-of-the-art ML/DL-based approaches from from 13-–29.6\% in
-precision, 15.6-–28.9\% in recall, and 16.4–-25.8\% in F-score. The
-results on a Java dataset with 1,229 vulnerabilities show that {\tool}
-achieves F-score of 20.4\% and MCC of 28.0\% relatively higher than
-DeepCVA~\cite{deepCVA-ase21}.
+relatively higher than the state-of-the-art
+DeepCVA~\cite{deepCVA-ase21}.  The vulnerability detection result from
+{\tool} is also improved over the state-of-the-art ML/DL-based VD
+approaches from 13.1-–29.8\% in precision, 15.8-–29.2\% in recall,
+and 16.5–-25.9\% in F-score. The results on a Java dataset with 1,229
+vulnerabilities show that {\tool} achieves F-score of 20.4\% and MCC
+of 28.0\% relatively higher than DeepCVA~\cite{deepCVA-ase21}.
 
 %Our sensitivity analysis shows that all designed components in {\tool}
 %contribute positively to its high accuracy.
@@ -162,10 +167,9 @@ assessments.
 
 The key contributions of this work include
 
-{\bf 1. {\tool}: commit-level, context-aware, graph-based, 
-  vulnerability assessment model} overcomes the issues in the
-existing model in $n$-gram representations of dependencies and
-contexts.
+{\bf 1. {\tool}: commit-level vulnerability detection and assessment
+  model} overcomes the issues in the existing model in $n$-gram
+representations of dependencies and contexts.
 
 {\bf 2. Our novel context-aware, graph-based embeddings for code
   changes}
@@ -176,5 +180,5 @@ is applicable for other down-stream tasks.
 
 {\bf 3. Empirical evaluation.} We evaluated {\tool} 
 against the state-of-the-art approach.
-Our tool/data are available at~\cite{cat-website}.
+Our model/code are available at~\cite{cat-website}.
 

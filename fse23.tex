@@ -98,7 +98,7 @@
 
 %\title[{\tool}: Deep Fault Localization with Code Coverage Representation Learning]{{\tool}: Deep Fault Localization with Code Coverage Representation Learning}
 
-\title[Context-aware, Graph-based, Commit-level Automated Vulnerability Detection and Assessment]{Context-aware, Graph-based, Commit-level Automated Vulnerability Detection and Assessment}
+\title[{\tool}: Commit-level Vulnerability Detection and Assessment]{{\tool}: Commit-level Vulnerability Detection and Assessment}
 
 
 %%%---- AUTHORS BLOCK ------
@@ -130,37 +130,41 @@ Software Vulnerabilities (SVs) are security flaws that are exploitable
 in cyber-attacks. Delay in the detection and assessment of SVs might
 cause serious consequences due to the unknown impacts on the attacked
 systems. The state-of-the-art approaches have been proposed to work
-directly on the commited code changes for early detection. However,
+directly on the committed code changes for early detection. However,
 none of them could provide both commit-level vulnerability detection
-and assessment at once. Moreover, those assessment approaches still
+and assessment at once. Moreover, the assessment approaches still
 suffer low accuracy due to limited representations for code changes
 and surrounding contexts.
 
 We propose a Context-aware, Graph-based, Commit-level Vulnerability
-Detection and Assessment Model, {\tool}, that evaluates a
-%vulnerability-introducing
-code change, detects any vulnerability and provides the CVSS
-assessment grades for it. To build {\tool}, we have two~key novel
-components. First, we design a novel context-aware, graph-based,
-representation learning model to learn the {\em contextualized
-embeddings for the code changes} that integrate program dependencies
-and the surrounding contexts of code changes, facilitating the
-learning to detect and assess the vulnerabilities.
-%Those contextualized embeddings for code changes enable the
-%learning to provide the CVSS assessment grades for the vulnerability.
-Second, our automated assessment model,~during the assessment of one
-security aspect, also considers the impacts of the other aspects by
-leveraging multi-task learning (each~task learning to assess one
-aspect) to propagate the learning from one task to another. Our
-empirical evaluation shows that on a vulnerability dataset in C,
+Detection and Assessment Model, {\tool}, that evaluates a code change,
+detects any vulnerability and provides the CVSS assessment grades for
+it. To build {\tool}, we have key novel components. First, we design a
+novel context-aware, graph-based, representation learning model to
+learn the {\em contextualized embeddings for the code changes} that
+integrate program dependencies and the surrounding contexts of code
+changes, facilitating the automated vulnerability detection and
+assessment. Second, {\tool} considers the mutual impact of the
+learning to detect vulnerability and the learning to assess each of
+the vulnerability assessment types. To do so, it leverages multi-task
+learning among the vulnerability detection and vulnerability
+assessment tasks.
+%during the assessment of one security aspect, also considers the
+%impacts of the other aspects by leveraging multi-task learning
+%(each~task learning to assess one aspect) to propagate the learning
+%from one task to another.
+Our empirical evaluation shows that on a vulnerability dataset in C,
 {\tool} achieves F-score of 25.5\% and MCC of 26.9\% relatively higher
-than the state-of-the-art model in vulnerability
+than the state-of-the-art baseline models in vulnerability
 assessment. In a Java dataset, {\tool} achieves F-score of 20.4\% and
-MCC of 28.0\% relatively higher as well.  It also improves the
-vulnerability detection over the existing approaches.
-%than DeepCVA in the assessment.
+MCC of 28.0\% relatively higher than the baselines as well. {\tool} also
+improves the vulnerability detection over the existing approaches from
+16.5--25.9\% in F-score.
+
 \end{abstract}
 
+
+%mutual learning between detection and assessment
 
 %\settopmatter{printacmref=true, printccs=true, printfolios=false}
 
