@@ -16,120 +16,55 @@ software development. Those approaches are referred to as {\em
 could be used to warn developers early on potential vulnerable code.
 
 For potential vulnerable code, it would be also useful to provide
-developers with the assessment on the impacts and severity of the
-vulnerability on the system under development. In the Common
-Vulnerability Scoring System (CVSS)~\cite{first-website}, the security
-experts and analysts have manually provided the assessments in terms
-of numerical ratings to quantify different aspects of a software
-vulnerability including the exploitability, the impacts and the
-severity of the attacks, the level of damages of the vulnerabilities,
-etc (Figure~\ref{CVSS-tab}). The numerical scores can be translated
+developers with the assessment on the impacts of the vulnerability on
+the system under development. In the Common Vulnerability Scoring
+System (CVSS)~\cite{first-website}, the security experts and analysts
+have manually provided the assessments in terms of numerical ratings
+to quantify different aspects of a software vulnerability including
+the exploitability, the impacts and the severity of the attacks, the
+level of damages of the vulnerabilities,
+etc. (Figure~\ref{CVSS-tab}). The numerical scores can be transformed
 into qualitative representations (such as low, medium, high, and
 critical) to help organizations properly assess and prioritize their
 vulnerability management processes~\cite{first-website}. Despite its
 usefulness, there are restrictions. First, human efforts are needed
 for the {\em manual assessment}, leading to the delays in the process.
 Second, CVSS scores are provided {\em after} a vulnerability was
-reported. Therefore, for an early action, the {\em automated,
-  commit-level vulnerability assessment} is desired. The VD and
-assessment tools can be integrated into the code repositories to
-provide just-in-time assistance.
+reported. Thus, for an early action, an {\em automated, vulnerability
+  assessment} is desired at the committing time. The {\em
+  vulnerability detection and assessment tools (VDA)} can be
+integrated into the repositories as the code is checked in to provide
+just-in-time assistance.
 
-%Several frameworks have been proposed to provide assessments on
-%software vulnerabilities, which aim to quantify the exploitability,
-%the impacts and the severity of the attacks, the level of damages in
-%access control, etc.  For example, the Common Vulnerability Scoring
-%System (CVSS)~\cite{first-website} captures the principal
-%characteristics of a vulnerability and produces a numerical score and
-%ratings reflecting the different aspects of a software vulnerability
-%(Fig.~\ref{CVSS-tab}). The numerical score can then be translated into
-%a qualitative representation (such as low, medium, high, and critical)
-%to help organizations properly assess and prioritize their
-%vulnerability management processes~\cite{first-website}.
+%Le {\em et al.}~\cite{deepCVA-ase21} proposed DeepCVA,
 
-%
-%While it is urgent to have a quick assessment of the vulnerabilities,
-%there is often the delay in the manual process of assigning the CVSS
-%grades to the new software vulnerability (SV) by security
-%analysts~\cite{feutrill-candar18,meneely-esem13}.  Le {\em et
-%  al.}~\cite{deepCVA-ase21} have reported that there were 1,165 days,
-%on average, from when an SV was injected in a codebase until its
-%report was published on National Vulnerability Database (NVD). Delay
-%in the assessment of SVs might cause serious consequences due to the
-%unknown impacts of the SVs on the attacked systems.
+Recognizing such importance, the state-of-the-art, commit-level
+software vulnerability assessment tools~\cite{deepCVA-ase21} have been
+proposed to assess a committed code change. Reseachers have leveraged
+the aforementioned CVSS ratings manually assessed by security analysts
+for the vulnerabilities as labeled data to train a machine learning
+(ML) model and applied it on the code change to predict the assessment
+ratings. However, none of the existing commit-level vulnerability
+assessment tools supports both commit-level vulnerability detection
+and assessment. Importantly, they have still limited in the
+representation of code changes and do not take into account the
+context of such changes.
 
-Le {\em et al.}~\cite{deepCVA-ase21} proposed DeepCVA, the
-state-of-the-art, commit-level software vulnerability assessment tool
-operating on the code changes that were committed to the repository.
-%Tien
-%and detected as potential vulnerable by a vulnerability detection
-%tool.
-The authors have leveraged the aforementioned CVSS ratings manually
-assessed by security analysts for the vulnerabilities as labeled data
-to train a machine learning (ML) model and applied it on the committed
-code change to predict the assessment ratings.
-%trained their machine learning (ML) model with the
-%ratings manually assessed by the security analysts for the
-%vulnerabilities from CVSS and applied the model on the committed code
-%change to predict the rating estimations.
-%
-%DeepCVA has shown that the features from vulnerability-introducing
-%code changes w.r.t. the current project can help a machine learning
-%model to predict the CVSS grades for the SV.
-DeepCVA extracts $n$-grams ($n$=1,3,5) from the commits and related
-code and uses convolutional gated recurrent units~\cite{fu2016using}
-to learn over $n$-grams to predict assessment ratings, simultaneously
-using multi-task learning. 
-
-%Tien
-%To help security analysts in the assessment, several approaches have
-%been proposed to automate the
-%process~\cite{lamkanfi-msr10,han-icsme17,SPANOS-jss18,le-msr19}.
-%Those approaches operate on bug reports and software~vulnerability
-%reports after a vulnerability was detected and~filed~into a
-%vulnerablity database. Le {\em et al.}~\cite{deepCVA-ase21} recently
-%proposed Deep\-CVA, the state-of-the-art, commit-level software
-%vulnerability (SV) assessment tool operating on the code changes that
-%were committed to the repository and detected as a vulnerability by a
-%vulnerability detection (VD) tool. This type of commit-level
-%vulnerability assessment is useful for developers during the coding
-%process.  When they make a commit to the code repository, a VD tool
-%can be used to decide if the commit is vulnerability-contributing in
-%the current project. If a vulnerability is detected, such an SV
-%assessment tool can be used to obtain an estimation of the assessment
-%on the potential impacts of the vulnerability. That is, the VD and SV
-%assessment tools can be integrated into the code repositories to
-%provide just-in-time detection and assessment of potential
-%vulnerabilities.
-
-
-%works directly on the committed code changes deemed to contain
-%a vulnerability, and produces the CVSS grades for the SV.
-
-%DeepCVA has shown that the features from vulnerability-introducing
-%code changes w.r.t. the current project can help a machine learning
-%model to predict the CVSS grades for the SV. DeepCVA extracts
-%$n$-grams ($n$=1,3,5) from the commits and related code and uses
-%convolutional gated recurrent units~\cite{fu2016using} to learn over
-%$n$-grams to predict assessment grades, simultaneously using
-%multi-task learning. Despite being first to tackle commit-level SV
-%assessment, it still suffers low~accuracy.
-
-%The state-of-the-art model
-Despite being first to tackle commit-level SV assessment,
-DeepCVA~\cite{deepCVA-ase21} still suffers low~accuracy.  In general,
-it has three main drawbacks.  First, DeepCVA has limitation on {\bf
-  its representations of code changes} and surrounding
-code. Specifically, $n$-grams are insufficient to capture the
-execution flows among code elements surrounding the changes. {\em The
-  important statements having dependencies with the changed statements
-  can be useful for the assessment, but can be far apart}. For
-example, many Denial of Service (DoS) vulnerabilities are related to
-null-pointer exceptions, exception flows, segmentation faults,
-etc. The execution flows among statements are not well-represented via
-$n$-grams with such limited lengths. Moreover, {\em the statements in
-  an $n$-gram might be irrelevant to the current vulnerability}. Thus,
-the assessment of a DoS vulnerability with $n$-grams could be
+%Despite being first to tackle commit-level SV assessment,
+%DeepCVA~\cite{deepCVA-ase21} still suffers low~accuracy.  In general,
+%it has three main drawbacks. Specifically, there is a limitation on
+%{\bf the representation of code changes} and surrounding code.
+Specifically, they are limited in using $n$-grams in representing code
+changes. $n$-grams are insufficient to capture the execution flows
+among code elements surrounding the changes. {\em The important
+  statements having dependencies with the changed statements can be
+  useful for the assessment, but can be far apart}. For example, many
+Denial of Service (DoS) vulnerabilities are related to null-pointer
+exceptions, exception flows, segmentation faults, etc. The execution
+flows among statements are not well-represented via $n$-grams with
+such limited lengths. Moreover, {\em the statements in an $n$-gram
+  might be irrelevant to the current vulnerability}. Thus, the
+assessment of a DoS vulnerability with $n$-grams could be
 imprecise. {\em $n$-grams also enforce an order in source code}, which
 might not be the execution order, e.g., in the cases of loop,
 condition, or recursion. The execution order and dependencies among
@@ -137,20 +72,22 @@ the statements are important in an DoS. Thus, to assess the impact of
 %a DoS, or a general impact of
 a vulnerability, $n$-gram is limited.
 
-Second, to estimate the impacts of an SV, a model
+Second, to estimate the impacts of software vulnerability, a model
 needs to consider {\bf program dependencies} among statements since an
 attack to a vulnerability involves the~exploits of the control and
-data dependencies. DeepCVA captures code changes as code tokens in
-short sequences with $n$-grams, thus, does not model the program flows
-and dependencies. Finally, it does not represent well the {\bf code
-  context} surrounding a change. The same change occurring in
-different contexts might cause different effects, leading to different
-impact grades. In DeepCVA~\cite{deepCVA-ase21}, the context of
+data dependencies. The state-of-the-art vulnerability assessment tools
+capture code changes as code tokens in short sequences with $n$-grams,
+thus, does not model the program flows and dependencies. Finally, it
+does not represent well the {\bf code context} surrounding a
+change. The same change occurring in different contexts might cause
+different effects, leading to different impact grades. In the
+state-of-the-art approaches~\cite{deepCVA-ase21}, the context of
 un-changed code is not~distinguishable and not explicitly represented
-separately from~the code changes. The model can be confused in
-training by the two instances having the same combination of code
-changes and contexts, but with different code changes and
-contexts themselves.
+separately from~the code changes. The model can be confused by the two
+training instances having the same combination of code changes and
+contexts, but with different code changes and contexts
+themselves. Those limitations lead to low accuracy in the
+existing approaches.
 
 %Technical paras
 
