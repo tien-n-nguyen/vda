@@ -1,43 +1,30 @@
 \subsubsection{\bf Ablation Study (RQ5)}
 
-\begin{table}[t]
-	\caption{RQ6. Impact of Multi-Task Learning and Context}
-	\vspace{-6pt}
-	\begin{center}
-%		\scriptsize
-\small
-		\tabcolsep 2.5pt
-		\renewcommand{\arraystretch}{1} \begin{tabular}
-                {p{3.4cm}<{\centering}|p{1.4cm}<{\centering}| p{1.8cm}<{\centering}p{1.2cm}<{\centering}}
-			
-			\hline
-			                   & F-score (Detection)     & macro  F-Score (Assessment) & MCC (Assessment) \\ 
-			\hline
-		   \tool w/o Multi-task Learning       & 0.68  &  0.52    & 0.25         \\
-                    \tool with (VD $\rightarrow$ VA)   &  0.68      &   0.36   &  0.18  \\    
-                    \tool w/o Context                 & 0.75 &  0.57    & 0.29         \\
-                                                \hline
-			\tool             &   0.81    &  0.64    & 0.33         \\
-			\hline
-		\end{tabular}
-		\label{RQ4-result-1}
-	\end{center}
-\end{table}
+\input{sections/multi-task-table}
+
+%		   \tool w/o Multi-task Learning       & 0.68  &  0.52    & 0.25         \\
+%                    \tool with (VD $\rightarrow$ VA)   &  0.68      &   0.36   &  0.18  \\    
+%                    \tool w/o Context                 & 0.75 &  0.57    & 0.29         \\
 
 As seen in Table~\ref{RQ4-result-1}, without Multi-Task Learning, the
-performance decreases 16\% F-score in detection and 18.8\% macro
-F-score in assessment. The corresponding decrease values for the model
-without Context are 11.6\% F-score in detection and 10.9\% macro
-F-score in assessment. Thus, multi-task learning contributes more than
+performance decreases 13\% F-score in detection and 16\% macro F-score
+in assessment. The corresponding decrease values for the model without
+Context are 11.6\% F-score in detection and 10.9\% macro F-score in
+assessment. Thus, multi-task learning contributes more than
 context. We also built a model in which the detection classifier is
 applied first and if the result is positive (e.g., vulnerability), the
 classifiers for assessment will be used (i.e., VD $\rightarrow$
 VA). As seen, the cascading error due to false positives reduce the
-performance significantly. This result confirms our hypotheses that 1)
+performance significantly. This result confirms our hypotheses. (1)
 multi-task learning helps improve both vulnerability detection and
-assessment, 2) multi-task learning performs much better
-than detection-then-assessment scheme, and 3) both multi-task learning
-and context have positive contributions to {\tool}.
+assessment. Adding Multi-task learning, both VD and VA improve (0.71
+to 0.81, 0.54 to 0.64). Note: without multi-task learning, {\tool}
+also improves over the baselines (Tables~\ref{tab:rq1} and
+~\ref{rq1_results}) in both VD and VA due to its better code change
+embeddings. (2) multi-task learning performs much better than
+detection-then-assessment scheme (VD $\rightarrow$ VA). (3) both
+multi-task learning and context have positive contributions to
+{\tool}.
 
 %As seen in Table~\ref{RQ4-result-1}, without~the context, the macro
 %F-score and multi-class MCC decrease by 4.7\% and 6.1\%, respectively.
@@ -51,7 +38,7 @@ and context have positive contributions to {\tool}.
 
 \begin{table}[t]
 	\caption{RQ6. Impact of Num. of Hops $k$ for Context Size}
-	\vspace{-0.1in}
+	\vspace{-10pt}
 	\begin{center}
 %		\scriptsize
 \small
