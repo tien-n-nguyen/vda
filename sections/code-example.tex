@@ -1,0 +1,37 @@
+\begin{figure}[t]
+\centering
+\lstset{
+      		numbers=left,
+		numberstyle= \tiny,
+		keywordstyle= \color{blue!70},
+		commentstyle= \color{red!50!green!50!blue!50},
+		frame=shadowbox,
+		rulesepcolor= \color{red!20!green!20!blue!20} ,
+		xleftmargin=1.5em,xrightmargin=0em, aboveskip=1em,
+		framexleftmargin=1.5em,
+                numbersep= 5pt,
+		language=Java,
+                basicstyle=\scriptsize\ttfamily,
+                numberstyle=\scriptsize\ttfamily,
+                emphstyle=\bfseries,
+                moredelim=**[is][\color{red}]{@}{@},
+		escapeinside= {(*@}{@*)}
+	}
+	\begin{lstlisting}[]
+private: Status DoCompute(OpKernelContext* ctx) { ...
+(*@{\color{purple}{\fbox{+ DatasetBase* finalized\_dataset;}}}@*)
+(*@{\color{violet}{\fbox{+ TF\_RETURN\_IF\_ERROR(FinalizeDataset(ctx, dataset, \&finalized\_dataset));}}}@*)
+  std::unique_ptr<IteratorBase> iterator;
+(*@{\color{black}{- TF\_RETURN\_IF\_ERROR(}@*)(*@{\color{black}{dataset}@*)(*@{\color{black}{->MakeIterator(\&iter\_ctx,/*parent=*/nullptr,.));}}@*)
+(*@{\color{violet}{\fbox{+ TF\_RETURN\_IF\_ERROR(finalized\_dataset->MakeIterator(\&iter\_ctx,/*parent=*.));}}}@*)
+  std::vector<Tensor> components;
+(*@{\color{black}{- components.reserve(}@*)(*@{\color{black}{dataset}@*)(*@{\color{black}{->output\_dtypes().size());}}@*)
+(*@{\color{red}{\fbox{+ components.reserve(finalized\_dataset->output\_dtypes().size());}}}@*) ...
+}
+\end{lstlisting}
+\vspace{-15pt}
+\caption{Contributions of different statements in correct
+vulnerability prediction and classification of VATs by {\tool}}
+\vspace{-6pt}
+\label{gnn-example}
+\end{figure}
