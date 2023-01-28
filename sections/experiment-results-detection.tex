@@ -3,13 +3,14 @@
 
 \begin{table} [t]
   \caption{Vulnerability Detection on C Dataset (RQ1)}
-  \vspace{-5pt}
+  \vspace{-10pt}
   \begin{center}
     \small
 			\begin{tabular}{cccc}
 				\toprule
 \textbf{Approach} & \textbf{Precision} & \textbf{Recall} & \textbf{F-score}  \\
 \midrule
+ VCCFinder~\cite{perl2015vccfinder}      & 0.28             & 0.13          & 0.18          \\
 VulDeePecker~\cite{li2018vuldeepecker}      & 0.55             & 0.77          & 0.64           \\
 SySeVR~\cite{li2021sysevr}            & 0.54             & 0.74           & 0.63           \\
 Russell \textit{et al.}~\cite{russell2018automated} & 0.54       & 0.72          & 0.62            \\
@@ -32,8 +33,8 @@ IVDetect~\cite{li2021vulnerability} & 0.54              & 0.77    & 0.67        
 As seen in Table~\ref{tab:rq1}, to detect vulnerability, {\tool}
 improves over all the baselines in all the metrics. Specifically,
 {\tool} relatively improves over the baseline models from {\bf 13.1\%--
-  29.8\%} in Precision, from {\bf 15.8\%--29.2\%} in Recall, and from
-{\bf 16.5\%--25.9\%} in F-score.
+  157\%} in Precision, from {\bf 15.8\%--592\%} in Recall, and from
+{\bf 16.5\%--350\%} in F-score.
 
 
 %To understand how {\tool} is complementary to the baselines, we
@@ -100,20 +101,23 @@ improves over all the baselines in all the metrics. Specifically,
 %PDG    & 145 & 477  \\
 %CPG    & 622 & 1393 \\
 
-Examining the results, we found that {\tool} often performed better
-than the best baselines, Reveal~\cite{chakraborty2021deep} and
+%Examining the results,
+{\tool} performs much better than commit-level
+VCCFinder~\cite{perl2015vccfinder} because VCCFinder uses traditional
+SVM. {\tool} also often performed better than the snapshot baselines,
+Reveal~\cite{chakraborty2021deep} and
 IVDetect~\cite{li2021vulnerability}, in the cases that the code
 changes are relevant to the vulnerability. For example, a statement
 (e.g., null check) was removed, leading to the vulnerable code (e.g.,
-Null-Pointer Exception). Because examining both versions, {\tool} was
-can detect better those vulnerability-introducing changes. The baselines
+Null-Pointer Exception). Because examining the changes, {\tool} can
+detect better those vulnerability-introducing changes. The baselines
 work only on the new version.
 
 In Section~\ref{sec:ai}, we used {\em Explainable AI to display the
 changed statements} in the code that contributes to the detected
 vulnerability (Figure~\ref{gnn-example}). This is another advantage
 from commit-level VD (pointing to the {\em fine-grained}
-vulnerability-introducing change) that the VD tool working on the new
+vulnerability-introducing change) that the VD tools working on the new
 version only do not have.
 
 
@@ -139,7 +143,7 @@ version only do not have.
 We also use a real-world vulnerability setting with a 9:1
 non-vulnerability to vulnerability ratio. We randomly selected 10\% of
 the vulnerable instances in the test set ten times, and finally took
-the average of the performance. We report that the F-scores for
+the average of the F-scores. We report that the F-scores for
 {\tool} and the top baseline IVDetect are 45.3\% and 25.4\%,
 respectively. {\tool} exhibits a consistent trend with IVDetect while
 outperforming it by 78.1\%. F-score is lower than in Table~\ref{tab:rq1} due to

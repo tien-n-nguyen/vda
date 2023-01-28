@@ -56,9 +56,12 @@ Commit-level vulnerability detection is
 important~\cite{perl2015vccfinder,zhou2017automated,chen2019large}.
 %developed commit-level VD models that leveraged ML models.
 VCCFinder~\cite{perl2015vccfinder} trained a SVM classifier to flag
-suspicious commits. Zhou and Sarma~\cite{zhou2017automated} use an
-ensemble approach to combine multiple classifiers with random forest,
-gaussian naive bayes, k-nearest neighbors, SVM, etc.
+suspicious commits. We used only code change features for our
+experiment. Zhou and Sarma~\cite{zhou2017automated} work on commit
+messages and bug reports, It uses an ensemble approach to combine
+multiple classifiers.
+%with random forest,
+%gaussian naive bayes, k-nearest neighbors, SVM, etc.
 %Many studies (e.g, \cite{li2021vulnerability,
 %  zhou2019devign,li2021vuldeelocator,li2020automated,chakraborty2021deep,hin2022linevd})
 %also built machine or deep learning models to detect vulnerabilities
@@ -94,16 +97,15 @@ effectiveness in VD of using source code and the compiled
 code. VulDeePecker~\cite{li2018vuldeepecker} uses a RNN trained on
 program slices from API calls for VD. SySeVR~\cite{li2021sysevr}
 expands VulDeePecker by including the program slices from more
-syntactic units: arrays, pointers, and arithmetic expressions. Both of
-them do not consider exception flows. Devign~\cite{zhou2019devign}
-uses Gated Graph Recurrent Layers on CPG, PDG, CFG, AST and code
-sequences. Reveal~\cite{chakraborty2020deep} uses CPG with
-GGNN. IVDetect~\cite{li2021vulnerability} focuses on interpretation and directly
-uses PDG with GCN. LineVul~\cite{linevul-msr22} use BigVul dataset to
-train a transformer-based model which has over 150K training
-instances. To avoid under-training of LineVul and an unfair comparison
-(given that it has over 110M parameters), we chose to not compare with
-it.
+syntactic units: arrays, pointers, and arithmetic expressions.
+Devign~\cite{zhou2019devign} uses Gated Graph Recurrent Layers on CPG,
+PDG, CFG, AST and code sequences. Reveal~\cite{chakraborty2020deep}
+uses CPG with GGNN. IVDetect~\cite{li2021vulnerability} focuses on
+interpretation and directly uses PDG with
+GCN. LineVul~\cite{linevul-msr22} use BigVul dataset to train a
+transformer-based model which has over 150K training instances. To
+avoid under-training of LineVul and an unfair comparison (given that
+it has over 110M parameters), we chose to not compare with it.
 %Assessment is the key for earlier prioritization and resource
 %relocation for identified vulnerabilities. Furthermore, detection
 %models can be used to help detect vulnerabilities and then {\tool}

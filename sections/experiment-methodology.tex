@@ -10,15 +10,14 @@
 
 \noindent\textbf{RQ1. Comparison on Vulnerability Detection on C dataset}
 
-\emph{Baselines}. We include
-%We compare our model with the following DL-based
-%baselines:
+\emph{Baselines}. We include {\bf VCCFinder}~\cite{perl2015vccfinder}
+(a commit-level ML-based VD), and other ML VD tools:
 \textbf{VulDeePecker} \cite{li2018vuldeepecker}, \textbf{Devign}
 \cite{zhou2019devign}, \textbf{SySeVR} \cite{li2021sysevr},
 \textbf{Russell} {\em et al.}  \cite{russell2018automated},
 \textbf{Reveal} \cite{chakraborty2021deep}, and {\bf IVDetect}
-\cite{li2021vulnerability}. We ran the tools on the code after commit for
-vulnerability detection.
+\cite{li2021vulnerability}. Except VCCFinder, we ran the others
+on the code after commit. 
 
 \emph{Procedure.}  We use all vulnerable methods and randomly select
 the same number of non-vulnerable methods from the fixed version
@@ -60,17 +59,15 @@ where TP = True Positives; FP = False Positives; FN = False Negatives; TN = True
 \noindent\textbf{RQ2. Comparison on Vulnerability Assessment on C dataset.}
 
 {\em Baseline and Procedure.} We compare {\tool} with
-DeepCVA~\cite{deepCVA-ase21}. We ran the models on BigVul-2.0
-dataset. We used the same longitudinal setting as in prior
-work~\cite{deepCVA-ase21,falessi2020need} for training, validation,
-and testing to mimic the real-world scenario in which the older
-vulnerabilities are used for training to assess the newer
-vulnerabilities. Specifically, we sorted all the commits in a
-chronological order based on their absolute time. We divided the
-commits into 10 equal folds from oldest to newest. For a fold $k$ ($k
-\le 8$), we used all the folds from 1 to $k$ for training, the
-$(k+1)^{th}$ fold for validation, and the $(k+2)^{th}$~for testing. We
-tuned the models as in RQ1.
+DeepCVA~\cite{deepCVA-ase21}. We ran the models on BigVul. We used the
+same longitudinal setting in~\cite{deepCVA-ase21,falessi2020need} for
+training, validation, and testing to mimic the real-world scenario in
+which the older vulnerabilities are used for training to assess the
+newer. Specifically, we sorted all the commits in a chronological
+order based on their absolute time. We divided the commits into 10
+equal folds from oldest to newest. For a fold $k$ ($k$ $\le$ $8$), we used
+all the folds 1 to $k$ for training, the $(k$+$1)^{th}$ and $(k$+$2)^{th}$
+folds for validation and testing. Models are tuned as in~RQ1.
 
 %\subsubsection{\textbf{Evaluation Metrics}}
 
@@ -103,10 +100,10 @@ the MCCs for all classification tasks as in DeepCVA~\cite{deepCVA-ase21}.
 
 %We turned {\tool} with the following key hyper-parameters .... As we reused the dataset from the DeepCVA, we directly tune DeepCVA with the parameters reported in their paper. Same as RQ1, we use macro F1-Score and multi-class MCC to evaluate both approaches.
 
-\vspace{1pt}
+%\vspace{1pt}
 \noindent\textbf{RQ3. Code Change Embedding Analysis.} We evaluate the impact of the embeddings in the classification for VATs.
 
-\noindent\textbf{RQ4. Program Dependencies.} We use
+\noindent \textbf{RQ4. Program Dependencies.} We use
 Explainable AI to show that {\tool} in fact leverages program
 dependencies in VDA.
 
