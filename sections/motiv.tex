@@ -36,7 +36,7 @@
       \hline
     Confidentiality Impact & {\bf None}  & No impact to the confidentiality \\
     Integrity Impact & {\bf None}  & No impact to the integrity \\
-    Availability Impact & {\bf Partial} & There is reduced performance or\\
+    Availability Impact & {\bf Complete} & There is reduced performance or\\
     & & interruptions in availability\\
     Access Complexity & {\bf Low} & Specialized access conditions or \\
     & & extenuating circumstances do not exist\\
@@ -107,36 +107,62 @@ boolean process(Token t, HtmlTreeBuilder tb) { ...
 %as vulnerable by a commit-level vulnerability detection tool.
 
 Let us present an example from an HTML parser, named {\em jsoup}, and
-our observations. Figure~\ref{CVSS-tab} displays the information on the
-vulnerability CVE-2021-37714 that was reported on {\em jsoup}, and
+our observations. Figure~\ref{CVSS-tab} displays the information on
+the vulnerability CVE-2021-37714 that was reported on {\em jsoup}, and
 published on 08/18/21. The change that was deemed to contribute to the
 vulnerability were committed at version 1.12.1 to the method
 \code{process(Token,HtmlTreeBuilder)} of the
 \code{Html\-Tree\-Builder\-State} class (lines 10--11, and 12 of
 Figure~\ref{fig:motiv-code}). That change directly uses the value
 returned from \code{reset\-Inser\-tion\-Mode()} as the condition to
-insert \code{startTag} (line 13). With this~change, certain input HTML
+insert \code{startTag} (line 13). With this change, certain input HTML
 code with a specific start tag could make the program go to line 16
 with a recursive call to the method \code{process(...)}. That~call
-resulted in an NullPointerException at line 3 as noted in the
-log:~{\em ``java.\-lang.\-Null\-Pointer\-Ex\-ception: Cannot invoke
-  "org.\-jsoup.\-nodes.\-Element.\-normalName()" because the return
-  value of
-  "org.\-jsoup.\-parser.\-HtmlTree\-Builder.\-current\-Element()" is
-  null.''}. In other cases, the parser can get stuck, i.e., {\em
-  ``loop indefinitely until canceled''} as described in the official
-description of CVE-2021-37714.
-%Due to those effects, this vulnerability is considered as {\em a
-%  denial of service (DoS)}.
-Figure~\ref{CVSS-tab} also shows the Common Vulnerability Scoring
-System grades (CVSS) given by security experts for various
-\underline{v}ulnerability \underline{a}ssessment \underline{t}ypes
-(VATs) for that CVE. Due to the above effects, the availability
-impact for this vulnerability is rated as {\em Partial} (i.e., for
-some inputs, there will be reduced performance and interruptions in
-available services).
+resulted in an NullPointerException at line 3.
+%as noted in the log:~{\em ``java.\-lang.\-Null\-Pointer\-Ex\-ception:
+%  Cannot invoke "org.\-jsoup.\-nodes.\-Element.\-normalName()" because
+%  the return value of
+%  "org.\-jsoup.\-parser.\-HtmlTree\-Builder.\-current\-Element()" is
+%  null.''}.
+In other cases, the parser can get stuck, i.e., {\em ``loop
+  indefinitely until canceled''} as described in the official
+description of CVE-2021-37714. Figure~\ref{CVSS-tab} also shows the
+Common Vulnerability Scoring System grades (CVSS) given by security
+experts for various \underline{v}ulnerability \underline{a}ssessment
+\underline{t}ypes (VATs) for that CVE. Due to the above effects, the
+availability impact for this vulnerability is rated as {\em Complete}
+(i.e., for some inputs, there will be reduced performance and
+interruptions in available services).
 
-While the above vulnerability potentially cause damages, both~the
+To build a commit-level vulnerability detection and assessment tool,
+one could take advantage of the records on the vulnerabilities and
+their assessments by security experts in that CVSS
+system~\cite{first-website}. A natural next question is what features
+in a code change are useful for such detection and assessment. Toward
+answering that, from the above example, we make the following
+observations.
+
+\vspace{2pt}
+\noindent {\bf Observation 1 [Mutual Impact of Learning for
+    Vulnerability Detection and Learning for Vulnerability
+    Assessment].} In Figure~\ref{fig:motiv-code}, if a model learns
+that the availability assessment of this vulnerability is {\em
+  Complete} (i.e., system could be completely unavailable), it could
+learn that this change is a vulnerability-introducing one (i.e., the
+detection outcome is positive). On the other hand, if a model learns
+that this is a vulnerability-introducing change, it could learn that
+one of the assessment aspects must be higher than {\em
+  None}. Otherwise, if a model decides that this is not a vulnerable
+case, all the assessment outcomes must be {\em None}. Unfortunately,
+none of existing VD and VA approaches take advantage of this mutual
+impact.
+
+%VD: no assessment
+%VA: VD -> VA
+
+
+
+While the above vulnerability potentially causes damage, both the
 detection and assessment for that vulnerability are late. That could
 lead to more systems being affected by that vulnerability. Thus, it is
 desirable to detect and assess a potential vulnerability as soon as
