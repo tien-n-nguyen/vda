@@ -51,14 +51,14 @@ idea~2).
 
 \vspace{2pt}
 \subsubsection*{{\bf Step 2. Contextualized Embeddings for Code Changes with
-Graph-based Representation Learning}} We develop a context-aware,
-graph-based, representation learning model to learn the contextualized
-embeddings for the code changes in a commit that integrate both
-program dependencies and the contexts. To build the contextualized
-embeddings, we leverage the Label, Graph-based Convolution
-Network~\cite{label-gcn} to learn the vector $v$ for each node $n$ in
-the graph whose nodes can have labels. We use labels to denote the
-nodes at either versions $x$ or $y$, or at both versions $x$ and $y$.
+Graph-based Representation Learning}} We develop our representation
+learning model to learn the contextualized embeddings for the code
+changes in a commit that integrate both program dependencies and the
+contexts. To build the contextualized embeddings, we leverage the
+Label, Graph-based Convolution Network~\cite{label-gcn} to learn the
+vector $v$ for each node $n$ in the graph whose nodes can have
+labels. We use labels to denote the nodes at either the versions $x$ or
+$y$, or at both versions $x$ and $y$.
 
 For a changed node $n_c$, we collect all the un-changed nodes in the
 context of $n_c$, which is defined as the set of all the un-changed
