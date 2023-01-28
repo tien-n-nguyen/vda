@@ -1,13 +1,14 @@
 \subsubsection{\bf Comparative Study on Java Dataset (RQ6)}
 
 \begin{table}[t]
-	\caption{RQ2. Comparison with DeepCVA on Java Dataset}
+	\caption{RQ6. Performance on Java Dataset}
         \vspace{-9pt}
 	\begin{center}
+        \tabcolsep 2.5pt
 %		\footnotesize
 \small
 		\renewcommand{\arraystretch}{1}
-		\begin{tabular}{l|p{1.9cm}<{\centering}|p{1.5cm}<{\centering}|p{1.5cm}<{\centering}}
+		\begin{tabular}{l|p{2.0cm}<{\centering}|p{1.6cm}<{\centering}|p{1.5cm}<{\centering}}
 			\hline
 			\multirow{2}{*}{CVSS Metric}     & \multirow{2}{*}{Evaluation Metric}  & \multicolumn{2}{c}{Model}\\
 			\cline{3-4}
@@ -46,26 +47,37 @@
 			\cline{2-4}
 			& MCC                                 & 0.24           & 0.32 ($\Uparrow${\bf 33.3\%})\\
 			\hline
+                        \hline
+\multirow{2}{*}{Vulnerability Detection} &  & VCCFinder & CAT \\
+\cline{2-4}
+ & F-score & 0.24 & 0.76 \\
+\hline
 		\end{tabular}
 		\label{rq2_results}
 	\end{center}
 \end{table}
 
 We aim to show that our approach also works for vulnerability in a
-different language. Table~\ref{rq2_results} shows that it
-relatively improves DeepCVA~\cite{deepCVA-ase21} by {\em 31.0\% in
-macro F1-score and 33.3\% in multi-class MCC} on the overall
-multi-class classification in Java dataset. For specific VATs, {\tool}
-improves DeepCVA by {\em 3.0--25.6\% in macro-F1-score and 30.8\% in
+different language. Table~\ref{rq2_results} shows that it relatively
+improves DeepCVA~\cite{deepCVA-ase21} by {\em 31.0\% in macro F1-score
+and 33.3\% in multi-class MCC} on the overall multi-class
+classification in Java dataset. For specific VATs, {\tool} improves
+DeepCVA by {\em 3.0--25.6\% in macro-F1-score and 30.8\% in
 multi-class MCC}. Moreover, the largest relative improvement in macro
-F1-score happens for {\em Availability} and the largest relative
-improvement in multi-class MCC happens for {\em Access Vector}.
+F1-score happens for {\em Availability} and the largest one in
+multi-class MCC happens for {\em Access Vector}.
 %The lowest relative improvement in both macro F1-score and
 %multi-class MCC happens for {\em Authentication}, however,
 The absolute macro F1-score value (0.68) for {\em Authentication} is
-highest among all the VATs. This result is consistent with the trend
-as {\tool} being run on the C dataset. Thus, {\tool}'s assessment
-works for Java.
+highest among all the VATs.
+%
+The F-score for detection from {\tool} is also higher than that of the
+commit-level VCCFinder, which uses SVM. Other baselines in
+Table~\ref{tab:rq1} do not work on Java code. In brief, this result is
+consistent with the trend as {\tool} being run on the C dataset.
+
+
+%Thus, {\tool}'s assessment works for Java.
 
 %Table~\ref{rq2_results} shows that {\tool} outperforms the state-of-the-art baseline, DeepCVA, in the automation of commit-level vulnerability assessment on the Java dataset. Particularly, {\tool} improves the state-of-the-art baseline by 14.3\% in terms of macro-F1-score, and 8.0\% in terms of multi-class MCC on the overall performance. The higher values of macro-F1-score and MCC indicate that {\tool} can perform more accurate multi-classification on Java commits than DeepCVA. As for specific types of vulnerability assessment, {\tool} improves the state-of-the-art baseline by 3.0-25.6\% in terms of macro-F1-score and 0-30.8\% in terms of macro-F1-score. The lowest relative improvement of both macro-F1-score happens when testing the $Authentication$. And when testing $Availability$, \tool and DeepCVA get the same multi-class MCC. As for the biggest relative improvement, when testing $Availability$, \tool achieves the biggest relative improvement on the macro-F1-score, and the biggest relative improvement of multi-class MCC happens when testing $Access Vector$.
 
