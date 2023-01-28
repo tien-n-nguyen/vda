@@ -8,9 +8,9 @@
 
 \subsubsection{\textbf{Analysis Approaches for RQs\\}}
 
-\noindent\textbf{RQ1. Comparison on Vulnerability Detection on BigVul}
+\noindent\textbf{RQ1. Comparison on Vulnerability Detection on C dataset}
 
-\emph{Baselines}. They include
+\emph{Baselines}. We include
 %We compare our model with the following DL-based
 %baselines:
 \textbf{VulDeePecker} \cite{li2018vuldeepecker}, \textbf{Devign}
@@ -41,7 +41,7 @@ tuned DeepCVA's parameters from its documentation.
 
 \emph{Evaluation Metrics.} We use the following metrics to measure the
 effectiveness of a model: $Recall = \frac{TP}{TP+FN}$, $Precision =
-\frac{TP}{TP+FP}$, and $F\_score =
+\frac{TP}{TP+FP}$, and $F\-score =
 \frac{2*Recall*Precision}{Recall+Precision}$.
 %\begin{equation}
 %	Recall = \frac{TP}{TP+FN}
@@ -57,7 +57,7 @@ where TP = True Positives; FP = False Positives; FN = False Negatives; TN = True
 %Recall measures how many of the vulnerable methods can be correctly detected, while Precision is used to measure how many of the detected vulnerable methods are indeed labeled as vulnerable in the collected dataset. F-score is used to reflect the overall performance by combining both the Recall and Precision.
 
 %\vspace{3pt}
-\noindent\textbf{RQ2. Comparison on Vulnerability Assessment on BigVul.}
+\noindent\textbf{RQ2. Comparison on Vulnerability Assessment on C dataset.}
 
 {\em Baseline and Procedure.} We compare {\tool} with
 DeepCVA~\cite{deepCVA-ase21}. We ran the models on BigVul-2.0
@@ -108,7 +108,7 @@ the MCCs for all classification tasks as in DeepCVA~\cite{deepCVA-ase21}.
 
 \noindent\textbf{RQ4. Program Dependencies.} We use
 Explainable AI to show that {\tool} in fact leverages program
-dependencies in VA.
+dependencies in VDA.
 
 %\vspace{1pt}
 %\noindent\textbf{RQ5. Overlapping Analysis.}  We counted the
@@ -118,10 +118,10 @@ dependencies in VA.
 
 
 \vspace{1pt}
-\noindent\textbf{RQ5. Sensitivity Analysis.}  We evaluate the impacts
-of key factors in {\tool} on its performance: (1) code
-context; and (2) multi-task learning. We conducted ablation analysis
-by removing a main factor from the model and make a comparison.
+\noindent\textbf{RQ5. Ablation Study on Multi-Task Learning and
+  Context.}  We evaluate the impacts of key factors in {\tool}: (1)
+multi-task learning, and (2) change context. We conducted ablation analysis
+by removing a main factor from the model and made a comparison.
 %d it with the xcomplete model.
 
 \vspace{3pt}
