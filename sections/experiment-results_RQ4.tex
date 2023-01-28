@@ -1,36 +1,51 @@
 \subsubsection{\bf Ablation Study (RQ5)}
 
 \begin{table}[t]
-	\caption{RQ6. Impact of Key Components}
-	\vspace{-0.1in}
+	\caption{RQ6. Impact of Multi-Task Learning and Context}
+	\vspace{-6pt}
 	\begin{center}
 %		\scriptsize
 \small
-		\tabcolsep 4pt
-		\renewcommand{\arraystretch}{1} \begin{tabular}{p{3.5cm}<{\centering}|p{2cm}<{\centering}p{1.2cm}<{\centering}}
+		\tabcolsep 2.5pt
+		\renewcommand{\arraystretch}{1} \begin{tabular}
+                {p{3.4cm}<{\centering}|p{1.4cm}<{\centering}| p{1.8cm}<{\centering}p{1.2cm}<{\centering}}
 			
 			\hline
-			                         & macro  F-Score & MCC \\ 
+			                   & F-score (Detection)     & macro  F-Score (Assessment) & MCC (Assessment) \\ 
 			\hline
-			
-			\tool w/o Context        &  0.61    & 0.31         \\
-			\tool w/o Multi-task Learning  &  0.60    & 0.30         \\
-			\tool                    &  0.64    & 0.33         \\
+		   \tool w/o Multi-task Learning       & 0.68  &  0.52    & 0.25         \\
+                    \tool with (VD $\rightarrow$ VA)   &  0.68      &   0.36   &  0.18  \\    
+                    \tool w/o Context                 & 0.75 &  0.57    & 0.29         \\
+                                                \hline
+			\tool             &   0.81    &  0.64    & 0.33         \\
 			\hline
 		\end{tabular}
 		\label{RQ4-result-1}
 	\end{center}
 \end{table}
 
-As seen in Table~\ref{RQ4-result-1}, without~the context, the macro
-F-score and multi-class MCC decrease by 4.7\% and 6.1\%,
-respectively.
-%in comparison with the complete model.
-Without the multi-task learning, the macro F-score and multi-class
-MCC decrease by 6.3\% and 9.1\%, respectively. While both the
-context and multi-task learning play positive roles in 
-{\tool}'s accuracy, multi-task learning contributes slightly
-more.
+As seen in Table~\ref{RQ4-result-1}, without Multi-Task Learning, the
+performance decreases 16\% F-score in detection and 18.8\% macro
+F-score in assessment. The corresponding decrease values for the model
+without Context are 11.6\% F-score in detection and 10.9\% macro
+F-score in assessment. Thus, multi-task learning contributes more than
+context. We also built a model in which the detection classifier is
+applied first and if the result is positive (e.g., vulnerability), the
+classifiers for assessment will be used (i.e., VD $\rightarrow$
+VA). As seen, the cascading error due to false positives reduce the
+performance significantly. This result confirms our hypotheses that 1)
+multi-task learning helps improve both vulnerability detection and
+assessment, 2) multi-task learning performs much better
+than detection-then-assessment scheme, and 3) both multi-task learning
+and context have positive contributions to {\tool}.
+
+%As seen in Table~\ref{RQ4-result-1}, without~the context, the macro
+%F-score and multi-class MCC decrease by 4.7\% and 6.1\%, respectively.
+%Without the multi-task learning, the macro F-score and multi-class MCC
+%decrease by 6.3\% and 9.1\%, respectively. While both the context and
+%multi-task learning play positive roles in {\tool}'s accuracy,
+%multi-task learning contributes slightly more.
+
 
 %Table~\ref{RQ4-result-1} shows the overall macro-F-score and multi-class MCC results when the key features in {\tool} were removed. As seen in Table~\ref{RQ4-result-1}, without the context vector, the macro-F-score and multi-class MCC decrease by 4.7\% and 6.1\%, respectively. And without the multi-tasking framework, the macro-F-score and multi-class MCC decrease by 6.3\% and 9.1\%, respectively. While both context vector and the multi-tasking framework play a positive role in the overall performance, the multi-tasking framework contributes more to {\tool}.
 
