@@ -1,27 +1,45 @@
-\vspace{-6pt}
 \subsection{Key Ideas}
 \label{key-ideas:sec}
 
 We develop {\tool}, a Context-aware, Graph-based,
-Commit-level~Vulnerability Detection and Assessment Model that
-detects any vulnerability in a committed change and provides
-the CVSS assessment grades for it if any.
-%a vulnerability-introduc\-ing commit and contexts, and outputs
-%CVSS assessment grades.
-{\tool} is designed with the following ideas:
+Commit-level~Vulnerability Detection and Assessment Model that detects
+any vulnerability in a committed change and provides the CVSS
+assessment grades for it if any.  {\tool} is designed with the
+following ideas:
 
 \vspace{1pt}
-%\indent {\bf Key Idea 1 [Graph-based, Representation Learning (RL) Model to learn Contextualized Embeddings for Code Changes]}.
-\indent {\bf Key Idea 1 [Contextualized Embeddings for
+\indent {\bf Key Idea 1 [Multi-Task Learning among Vulnerability Detection
+and Assessments]}. From Observation 1, we leverage multi-task learning
+to propagate the mutual impact between learning for vulnerability
+detection and learning for vulnerability assessment. Moreover, the
+learning of the assessment for one aspect could also affect the
+learning for another (e.g., between Availability and Access
+Complexity). Therefore, our multi-task learning scheme is designed
+with one task for VD, and each task for each vulnerability assessment
+type (VAT). We use the joint loss function for all the tasks. When the
+VD's outcome is positive, {\tool} will provide the assessment
+ratings. Otherwise, non-impact scores are given.
+
+%If a model learns one of the assessment ratings is high (e.g.,
+%complete unavailability), the VD outcome must be positive. If it is
+%negative, the assessment ratings for all the aspects must be
+%none. Morever, the learning of one aspect has impact on that of
+%another one. Thus, we leverage multi-task learning to propagate such
+%mutual learning. We consider the detection is one task of multi-task
+%learning as when its outcome is positive, {\tool} will provide the
+%assessment. Otherwise, non-impact scores are given.
+
+\vspace{1pt}
+\indent {\bf Key Idea 2 [Contextualized Embeddings for
 Code Changes with Graph-based Representation Learning]}. To overcome
 the limitation of code change representation, we introduce a
 graph-based model to build the {\em
 contextualized embeddings for code changes} that integrate both {\em
 program dependencies} and {\em surrounding contexts}.
 
-Unlike some existing code change embedding
+Unlike existing code change embedding
 approaches~\cite{cc2vec,commit2vec} that code changes are represented
-as sequences, we explicitly represent code changes and the surrounding
+as sequences, we explicitly represent code changes and the
 context of a change via a graph representation, called multi-version
 PDG~\cite{flexeme-fse20}. The graph consists of
 the program entities of both versions before and after the changes,
@@ -36,44 +54,33 @@ the contexts as the weights in computation.
 %(Label-GCN)~\cite{label-gcn} are then used as the weights representing
 %the impacts of contexts in building the contextualized embeddings for
 %code changes.
+We use past vulnerabilities and experts' ratings to train {\tool}
+to build such embeddings, and use them for classification.
 %
-With such embeddings, we train {\tool} with the past vulnerabilities
-and human experts' ratings in CVSS to predict any vulnerability and
-its assessment.
+%With such embeddings, we train {\tool} with the past vulnerabilities
+%and human experts' ratings in CVSS to predict any vulnerability and
+%its assessment.
 
 %We train the Label-GCN~\cite{label-gcn} to learn the embeddings that
 %are used in our automated assessment of the vulnerability types.
 
 
 \vspace{1pt}
-\indent {\bf Key Idea 2 [Program Dependencies in Code Change Representation
+\indent {\bf Key Idea 3 [Program Dependencies in Code Change Representation
 via Graph-based Neural Network]}.
 %Graph-based Neural Network for
 %Code Change Representation Learning of Program Dependencies]}.
-From Observation~1, we integrate program dependencies into our SV
-assessment model. We leverage the Label-GCN~\cite{label-gcn} to
-represent the program dependencies among the changed code and the
-surrounding un-changed code.
+We integrate program dependencies into {\tool}. We leverage
+Label-GCN~\cite{label-gcn} to represent the program dependencies among
+the changed code and the surrounding un-changed code.
 %
 The graph enables a partial order among program entities in a PDG,
 rather than enforcing a total order as in $n$-gram.
 %
-This enables {\tool} overcome the issues
-with $n$-grams and capture the statements that
-%the semantically related statements that
-are far apart but are relevant to the assessment.
+This enables {\tool} overcome the issues with $n$-grams and capture
+the distant statements yet relevant to VDA.
 
-\vspace{1pt}
-\indent {\bf Key Idea 3 [Multi-Task Learning among Vulnerability Detection
-and Assessments]}. If a model learns one of the assessment ratings is
-high (e.g., complete unavailability), the VD outcome must be
-positive. If it is negative, the assessment ratings for all the
-aspects must be none. Morever, the learning of one aspect has impact
-on that of another one. Thus, we leverage multi-task learning to
-propagate such mutual learning. We consider the detection is
-one task of multi-task learning as when its outcome is
-positive, {\tool} will provide the assessment. Otherwise, non-impact
-scores are given.
+
 
 %\vspace{1pt}
 %\indent {\bf Key Idea 2 [Contextualized Embeddings for Code Changes].}
