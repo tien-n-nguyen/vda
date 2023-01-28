@@ -1,148 +1,246 @@
 \section{Introduction}
 \label{intro:sec}
 
-%The need for cyber resilience is increasingly important in our~techno\-logy-dependent society, where software systems have been, and will continue to be the target of cyber attackers. 
+%The need for cyber resilience is increasingly important in our~techno\-logy-dependent society, where software systems have been, and will continue to be the target of cyber attackers.
+
 Software Vulnerabilities (SVs) are security weaknesses and flaws that
-are exploitable in the cyber-attacks. New software security
-vulnerabilities are discovered on an almost daily basis. It is crucial
-to identify software vulnerabilities as early as possible, because
-late corrections of errors could cost much more than early correction
-or even cause more severe damage. Recognizing this, researchers
-propose the approaches to detect software vulnerabilities as soon as
-new code changes are committed to the code repositories during
-software development. Those approaches are referred to as {\em
-  commit-level vulnerability detection
-  (VD)}~\cite{perl2015vccfinder,zhou2017automated,chen2019large}. They
-could be used to warn developers early on potential vulnerable code.
+are exploitable in the cyber-attacks. Vulnerability detection
+models~\cite{li2018vuldeepecker,zhou2019devign,li2021sysevr} scan a
+version of a software project and report any vulnerable code. It is
+crucial to identify SVs as early as possible because late corrections
+could cost much more and even cause severe damage due to more
+affected systems. Toward that, {\em commit-level vulnerability
+  detection} (VD)
+approaches~\cite{perl2015vccfinder,zhou2017automated,chen2019large}
+have been proposed to catch SVs as soon as new code changes are
+committed to the code repositories during software development. They
+are used to warn developers early on potential vulnerable code and
+also help better prioritize the code review task.
 
-For potential vulnerable code, it would be also useful to provide
-developers with the assessment on the impacts of the vulnerability on
-the system under development. In the Common Vulnerability Scoring
-System (CVSS)~\cite{first-website}, the security experts and analysts
-have manually provided the assessments in terms of numerical ratings
-to quantify different aspects of a software vulnerability including
-the exploitability, the impacts and the severity of the attacks, the
-level of damages of the vulnerabilities,
-etc. (Figure~\ref{CVSS-tab}). The numerical scores can be transformed
-into qualitative representations (such as low, medium, high, and
-critical) to help organizations properly assess and prioritize their
-vulnerability management processes~\cite{first-website}. Despite its
-usefulness, there are restrictions. First, human efforts are needed
-for the {\em manual assessment}, leading to the delays in the process.
-Second, CVSS scores are provided {\em after} a vulnerability was
-reported. Thus, for an early action, an {\em automated, vulnerability
-  assessment} is desired at the committing time. The {\em
-  vulnerability detection and assessment tools (VDA)} can be
-integrated into the repositories as the code is checked in to provide
-just-in-time assistance.
+%New software security vulnerabilities are discovered on an almost
+%daily basis. It is crucial to identify software vulnerabilities as
+%early as possible, because late corrections of errors could cost much
+%more than early correction or even cause more severe
+%damage. Recognizing this, researchers propose the approaches to detect
+%software vulnerabilities as soon as new code changes are committed to
+%the code repositories during software development. Those approaches
+%are referred to as {\em commit-level vulnerability detection
+%  (VD)}~\cite{perl2015vccfinder,zhou2017automated,chen2019large}. They
+%could be used to warn developers early on potential vulnerable code.
 
-%Le {\em et al.}~\cite{deepCVA-ase21} proposed DeepCVA,
+For potential vulnerable code, it would be equally important to
+provide developers with the assessment on the impacts of the detected
+vulnerability on the system under development. The assessment could be
+on the severity of the attack and the levels of damage regarding
+confidentiality, integrity, availability, etc. However, the
+commit-level VD
+approaches~\cite{perl2015vccfinder,zhou2017automated,chen2019large} do
+not support such automated assessment. Recognizing that importance,
+the commit-level software vulnerability assessment (VA)
+tools~\cite{deepCVA-ase21} have been proposed to assess a committed
+code change. Researchers have leveraged the Common Vulnerability
+Scoring System (CVSS) ratings~\cite{first-website} manually assessed
+by security analysts for the vulnerabilities as labeled data to train
+a machine learning (ML) model and applied it on the code change to
+predict the assessment ratings. In CVSS, the security experts provide
+the numerical scores that can be transformed into qualitative
+representations (such as low, medium, high, and critical) for
+vulnerability assessment. However, the state-of-the-art VA tools still
+have key limitations.
 
-Recognizing such importance, the state-of-the-art, commit-level
-software vulnerability assessment tools~\cite{deepCVA-ase21} have been
-proposed to assess a committed code change. Reseachers have leveraged
-the aforementioned CVSS ratings manually assessed by security analysts
-for the vulnerabilities as labeled data to train a machine learning
-(ML) model and applied it on the code change to predict the assessment
-ratings. However, none of the existing commit-level vulnerability
-assessment tools supports {\em both commit-level vulnerability
-  detection and assessment}. Importantly, they are still limited in
-the {\em representation of code changes} and do not take into account
-the {\em context} of such changes.
+First, the vulnerability assessment models~\cite{deepCVA-ase21} work
+only on a committed change that was detected as vulnerable by a VD
+tool. This strategy that runs VD and then VA (VD $\rightarrow$ VA)
+would suffer the cascading error. For the false positive cases from
+VD, the VA tool would give incorrect assessments, which should not be
+given at all. Importantly, the VD $\rightarrow$ VA strategy would not
+benefit from the {\em mutual impact between the learning of detection
+  and the learning of assessment}. Our philosophy in this work is that
+the detection and assessments of different aspects of a vulnerability
+are interdependent on one another. If a model learns that one of the
+assessment ratings is high (e.g., high severity or complete
+unavailability), the vulnerability detection outcome must be
+positive. If the detection outcome is negative, the assessment ratings
+for all the aspects must be at the lowest (e.g., none). Thus, it is
+more beneficial if a model learns both vulnerability detection and
+assessment at the same time, leading to the performance improvement in
+both tasks.
 
-%Despite being first to tackle commit-level SV assessment,
-%DeepCVA~\cite{deepCVA-ase21} still suffers low~accuracy.  In general,
-%it has three main drawbacks. Specifically, there is a limitation on
-%{\bf the representation of code changes} and surrounding code.
-Specifically, they are limited in using $n$-grams in representing code
-changes. $n$-grams are insufficient to capture the execution flows
-among code elements surrounding the changes. {\em The important
-  statements having dependencies with the changed statements can be
-  useful for the assessment, but can be far apart}. For example, many
-Denial of Service (DoS) vulnerabilities are related to null-pointer
-exceptions, exception flows, segmentation faults, etc. The execution
-flows among statements are not well-represented via $n$-grams with
-such limited lengths. Moreover, {\em the statements in an $n$-gram
-  might be irrelevant to the current vulnerability}. Thus, the
-assessment of a DoS vulnerability with $n$-grams could be
-imprecise. {\em $n$-grams also enforce an order in source code}, which
-might not be the execution order, e.g., in the cases of loop,
-condition, or recursion. The execution order and dependencies among
-the statements are important in an DoS. Thus, to assess the impact of
-%a DoS, or a general impact of
-a vulnerability, $n$-gram is limited.
+Second, the state-of-the-art VA approaches~\cite{deepCVA-ase21} are
+still limited in the {\em representation of code changes} and do not
+take into account the {\em context} of such changes. They use $n$-gram
+representation for code changes that are insufficient to capture the
+changed statements useful for the VD/VA but far apart. The statements
+in an $n$-gram might not all contain important features for
+VD/VA. $n$-grams also enforce an order in source code, which might not
+be the execution order (e.g., in the cases of loop, condition, or
+recursion), which is important to detect vulnerabilities involving
+execution and exception flows. Moreover, for VD/VA, a model needs to
+consider {\em program dependencies} among statements since an attack
+to a vulnerability involves the exploits of the control and data
+dependencies. With $n$-grams, the VA tools do not model the program
+dependencies. Finally, it does not represent well the {\em code
+  context} surrounding a change. The same change occurring in
+different contexts might cause different effects, leading to different
+impact grades. In the state-of-the-art VA tools, the context of
+un-changed code is not distinguishable and not represented separately
+from the code changes. The model can be confused by the two training
+instances having the same combination of code changes and contexts,
+but with different code changes and contexts themselves.
 
-Second, to estimate the impacts of software vulnerability, a model
-needs to consider {\bf program dependencies} among statements since an
-attack to a vulnerability involves the~exploits of the control and
-data dependencies. The state-of-the-art vulnerability assessment tools
-capture code changes as code tokens in short sequences with $n$-grams,
-thus, does not model the program dependencies. Finally, it
-does not represent well the {\bf code context} surrounding a
-change. The same change occurring in different contexts might cause
-different effects, leading to different impact grades. In the
-state-of-the-art approaches~\cite{deepCVA-ase21}, the context of
-un-changed code is not~distinguishable and not represented
-separately from the code changes. The model can be confused by the two
-training instances having the same combination of code changes and
-contexts, but with different code changes and contexts
-themselves. Those limitations lead to low accuracy in the
-existing approaches.
+In this work, we present {\tool}, a Context-aware, Graph-based,
+Commit-level Vulnerability Detection and Assessment Model to evaluate
+a changed code, detect any vulnerability and provide the CVSS
+assessment grades for the detected vulnerability. {\tool} provides
+assessment scores when a vulnerability is detected. To build {\tool},
+we provide a novel integration among three key ideas. First, we make
+an {\bf integration of vulnerability detection and assessment (VDA)}
+that could be built into a repository to evaluate the committed code
+change to provide just-in-time assistance. Because the detection and
+assessments of a vulnerability are interdependent, we leverage a {\bf
+  multi-task learning} scheme to propagate the learning between VD and
+VA, leading to better performance for both tasks. Moreover, the
+assessments for different aspects could also affect one
+another~\cite{deepCVA-ase21}, e.g., between the availability and
+integrity of a system. Thus, our multi-task learning scheme includes
+the VD task and all the assessment tasks for different security
+aspects.
 
-%Technical paras
-
-We present {\tool}, a Context-aware, Graph-based, Commit-level
-Vulnerability Detection and Assessment Model to evaluate a changed
-code, detect any vulnerability and provide the CVSS
-assessment grades for the detected vulnerability. To build {\tool}, we
-provide a novel integration among three key ideas. First, to make
-prediction on the CVSS assessment grades on code changes, we develop a
-novel {\bf context-aware, graph-based, representation learning 
-  model} to {\bf learn the contextualized embeddings for the code
-  changes} that integrate {\em program dependencies}, and the
-surrounding {\em contexts} of code changes.  Both versions of the
-program dependence graphs (PDGs) before and after the commit are
-modeled via the multi-version {\mvpdg}~\cite{flexeme-fse20}.
-%built from the PDGs before and after the changes.
-%{\mvpdg} is a directed graph generated from the disjoint union of all
-%nodes and edges in the PDGs at the versions before and after the
-%changes.
-To build such embeddings for code changes, {\tool} {\em explicitly
-  represents the contexts} surrounding the changed statements via the
-sub-graphs in {\mvpdg}. It considers the impact of the surrounding
-context represented by a context vector on the building of the
-embeddings for the code changes. {\tool} uses the contextualized
-embeddings to predict if the changes have any vulnerability, and if
-yes, it provides assessment grades.
-
-Second, we use the Label, Graph Convolution
+Second, regarding the code change representation, we develop a novel
+{\em context-aware, graph-based, representation learning model} to
+{\bf learn the contextualized embeddings for the code changes} that
+integrate {\em program dependencies}, and the surrounding {\em
+  contexts} of code changes.  Both versions of the program dependence
+graphs (PDGs) before and after the commit are modeled via the
+multi-version {\mvpdg}~\cite{flexeme-fse20}. To build such embeddings
+for code changes, {\tool} {\em explicitly represents the contexts}
+surrounding the changed statements via the sub-graphs in {\mvpdg}. It
+considers the impact of the surrounding context represented by a
+context vector on the building of the embeddings for the code
+changes. {\tool} uses the contextualized embeddings to predict if the
+changes have any vulnerability, and if yes, to provide assessment
+grades. Third, we use the Label, Graph Convolution
 Network~\cite{label-gcn} to encode the {\bf program dependencies}
-among the entities in the changed code and the ones in the
-surrounding un-changed code. This helps overcome the issues
-with $n$-grams and capture the statements that might be far
-apart but are relevant to the vulnerability.
+among the entities in the changed code and the ones in the surrounding
+un-changed code. This helps overcome the issues with $n$-grams and
+capture the statements that might be far apart but are relevant to the
+vulnerability.
 
-Third, the detection and assessments of different aspects of a
-vulnerability are interdependent on each other. For example, if a
-model learns one of the assessment ratings is high (e.g., high
-severity or complete unavailability), the vulnerability detection (VD) outcome
-must be positive. If the VD outcome is negative, the assessment ratings for
-all the aspects must be {\em none}. The assessments for different
-aspects could also affect one another, e.g., between the availability and
-integrity of a system. Thus, we leverage 
-%During the assessment of one aspect, we also consider the impacts of
-%the other aspects by leveraging
-a {\bf multi-task learning} model to propagate the learning from one
-task to another (each task learns to assess one aspect). Vulnerabiity
-detection is also a task in the multi-task learning scheme as {\tool} will
-provide assessment scores when a vulnerability is detected.
+%---------- OLD INTRO ----------------
+%%%For potential vulnerable code, it would be also useful to provide
+%%%developers with the assessment on the impacts of the vulnerability on
+%%%the system under development. In the Common Vulnerability Scoring
+%%%System (CVSS)~\cite{first-website}, the security experts and analysts
+%%%have manually provided the assessments in terms of numerical ratings
+%%%to quantify different aspects of a software vulnerability including
+%%%the exploitability, the impacts and the severity of the attacks, the
+%%%level of damages of the vulnerabilities,
+%%%etc. (Figure~\ref{CVSS-tab}). The numerical scores can be transformed
+%%%into qualitative representations (such as low, medium, high, and
+%%%critical) to help organizations properly assess and prioritize their
+%%%vulnerability management processes~\cite{first-website}. Despite its
+%%%usefulness, there are restrictions. First, human efforts are needed
+%%%for the {\em manual assessment}, leading to the delays in the process.
+%%%Second, CVSS scores are provided {\em after} a vulnerability was
+%%%reported. Thus, for an early action, an {\em automated, vulnerability
+%%%  assessment} is desired at the committing time. The {\em
+%%%  vulnerability detection and assessment tools (VDA)} can be
+%%%integrated into the repositories as the code is checked in to provide
+%%%just-in-time assistance.
+%%%
+%%%Recognizing such importance, the state-of-the-art, commit-level
+%%%software vulnerability assessment tools~\cite{deepCVA-ase21} have been
+%%%proposed to assess a committed code change. Researchers have leveraged
+%%%the aforementioned CVSS ratings manually assessed by security analysts
+%%%for the vulnerabilities as labeled data to train a machine learning
+%%%(ML) model and applied it on the code change to predict the assessment
+%%%ratings. However, none of the existing commit-level vulnerability
+%%%assessment tools supports {\em both commit-level vulnerability
+%%%  detection and assessment}. Importantly, they are still limited in
+%%%the {\em representation of code changes} and do not take into account
+%%%the {\em context} of such changes.
+%%%
+%%%Specifically, they are limited in using $n$-grams in representing code
+%%%changes. $n$-grams are insufficient to capture the execution flows
+%%%among code elements surrounding the changes. {\em The important
+%%%  statements having dependencies with the changed statements can be
+%%%  useful for the assessment, but can be far apart}. For example, many
+%%%Denial of Service (DoS) vulnerabilities are related to null-pointer
+%%%exceptions, exception flows, segmentation faults, etc. The execution
+%%%flows among statements are not well-represented via $n$-grams with
+%%%such limited lengths. Moreover, {\em the statements in an $n$-gram
+%%%  might be irrelevant to the current vulnerability}. Thus, the
+%%%assessment of a DoS vulnerability with $n$-grams could be
+%%%imprecise. {\em $n$-grams also enforce an order in source code}, which
+%%%might not be the execution order, e.g., in the cases of loop,
+%%%condition, or recursion. The execution order and dependencies among
+%%%the statements are important in an DoS. Thus, to assess the impact of
+%%%a vulnerability, $n$-gram is limited.
+%%%
+%%%Second, to estimate the impacts of software vulnerability, a model
+%%%needs to consider {\bf program dependencies} among statements since an
+%%%attack to a vulnerability involves the~exploits of the control and
+%%%data dependencies. The state-of-the-art vulnerability assessment tools
+%%%capture code changes as code tokens in short sequences with $n$-grams,
+%%%thus, does not model the program dependencies. Finally, it
+%%%does not represent well the {\bf code context} surrounding a
+%%%change. The same change occurring in different contexts might cause
+%%%different effects, leading to different impact grades. In the
+%%%state-of-the-art approaches~\cite{deepCVA-ase21}, the context of
+%%%un-changed code is not~distinguishable and not represented
+%%%separately from the code changes. The model can be confused by the two
+%%%training instances having the same combination of code changes and
+%%%contexts, but with different code changes and contexts
+%%%themselves. Those limitations lead to low accuracy in the
+%%%existing approaches.
+%%%
+%%%We present {\tool}, a Context-aware, Graph-based, Commit-level
+%%%Vulnerability Detection and Assessment Model to evaluate a changed
+%%%code, detect any vulnerability and provide the CVSS
+%%%assessment grades for the detected vulnerability. To build {\tool}, we
+%%%provide a novel integration among three key ideas. First, to make
+%%%prediction on the CVSS assessment grades on code changes, we develop a
+%%%novel {\bf context-aware, graph-based, representation learning
+%%%  model} to {\bf learn the contextualized embeddings for the code
+%%%  changes} that integrate {\em program dependencies}, and the
+%%%surrounding {\em contexts} of code changes.  Both versions of the
+%%%program dependence graphs (PDGs) before and after the commit are
+%%%modeled via the multi-version {\mvpdg}~\cite{flexeme-fse20}.
+%%%To build such embeddings for code changes, {\tool} {\em explicitly
+%%%  represents the contexts} surrounding the changed statements via the
+%%%sub-graphs in {\mvpdg}. It considers the impact of the surrounding
+%%%context represented by a context vector on the building of the
+%%%embeddings for the code changes. {\tool} uses the contextualized
+%%%embeddings to predict if the changes have any vulnerability, and if
+%%%yes, it provides assessment grades.
+%%%
+%%%Second, we use the Label, Graph Convolution
+%%%Network~\cite{label-gcn} to encode the {\bf program dependencies}
+%%%among the entities in the changed code and the ones in the
+%%%surrounding un-changed code. This helps overcome the issues
+%%%with $n$-grams and capture the statements that might be far
+%%%apart but are relevant to the vulnerability.
+%%%
+%%%Third, the detection and assessments of different aspects of a
+%%%vulnerability are interdependent on each other. For example, if a
+%%%model learns one of the assessment ratings is high (e.g., high
+%%%severity or complete unavailability), the vulnerability detection (VD)
+%%%outcome must be positive. If the VD outcome is negative, the
+%%%assessment ratings for all the aspects must be {\em none}. The
+%%%assessments for different aspects could also affect one another, e.g.,
+%%%between the availability and integrity of a system. Thus, we leverage
+%%%a {\bf multi-task learning} model to propagate the learning from one
+%%%task to another (each task learns to assess one aspect). Vulnerability
+%%%detection is also a task in the multi-task learning scheme as {\tool}
+%%%will provide assessment scores when a vulnerability is detected.
 
+%-------------------------------------------------------------------------
 
 %Experimental results
 We have conducted experiments to evaluate {\tool} on real-world
 vulnerabilities. Our results on a C vulnerability dataset
 show that {\tool} achieves F-score of 25.5\% and MCC of 26.9\%
-relatively higher than the state-of-the-art
+relatively higher than the state-of-the-art VA tool
 DeepCVA~\cite{deepCVA-ase21}.  The vulnerability detection result from
 {\tool} is also improved over the state-of-the-art ML/DL-based VD
 approaches from 13.1-–29.8\% in precision, 15.8-–29.2\% in recall,
@@ -153,23 +251,24 @@ of 28.0\% relatively higher than DeepCVA~\cite{deepCVA-ase21}.
 %Our sensitivity analysis shows that all designed components in {\tool}
 %contribute positively to its high accuracy.
 
-For the insights, we conducted experiments to show that the
-higher~accuracy of {\tool} over DeepCVA roots from~our designed
-components.
+For the insights, we conducted experiments to show that the better
+performance of {\tool} roots from our designed components.
 %We also conducted experiments to show that the higher~accuracy of
 %{\tool} over DeepCVA comes from our designed~components.
 Our results show that {\em our novel code change embeddings} help
-{\tool} better in classifying the commits into the classes for
-vulnerability assessment than DeepCVA. Moreover, we used an {\em
-  explainable AI tool} to show that {\tool} indeed leverages the key
-features in {\em program dependencies} for its correct
-assessments.
-
+{\tool} have better class-separation, i.e., better in classifying the
+commits into the classes for vulnerability detection and
+assessment. Moreover, we used {\em explainable AI} to show
+that {\tool} indeed leverages the correct features in {\em program
+  dependencies} among statements for its assessments.
 The key contributions of this work include
 
 {\bf 1. {\tool}: commit-level vulnerability detection and assessment
-  model} overcomes the issues in the existing model in $n$-gram
-representations of dependencies and contexts.
+  model} that performs VD and VA in tandem, leveraging multi-task
+learning to improve both detection and assessment.
+
+%overcomes the issues in the existing model in $n$-gram representations
+%of dependencies and contexts.
 
 {\bf 2. Our novel context-aware, graph-based embeddings for code
   changes}
@@ -178,7 +277,7 @@ integrate dependencies and contexts. This embedding model
 is applicable for other down-stream tasks.
 
 
-{\bf 3. Empirical evaluation.} We evaluated {\tool} 
+{\bf 3. Empirical evaluation.} We evaluated {\tool}
 against the state-of-the-art approach.
 Our model/code are available at~\cite{cat-website}.
 
