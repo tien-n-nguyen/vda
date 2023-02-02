@@ -2,18 +2,19 @@
 
 This paper proposes {\tool}, a Context-aware, Graph-based,
 Commit-level Vulnerability Detection and Assessment Model that
-evaluates a commit, and detect any vulnerability and provides the CVSS
-assessment grades for the detected vulnerability. The key advances in
-{\tool} over the state-of-the-art commit-level approaches include 1)
-multi-task learning between vulnerability detection and assessments of
-different aspects, 2) code change embedding model that integrates
-program dependencies and contexts, and 3) explicit graph-based
-representations of depedencies and contexts. Our evaluation shows that
-on a vulnerability dataset in C, CAT achieves F-score of 25.5\% and
-MCC of 26.9\% relatively higher than the baseline in vulnerability
-assessment. In Java dataset, CAT achieves F-score of 31\% and MCC of
-33.3\% relatively higher. Our contextualized embeddings have other
-applications related to code changes.
+evaluates a commit, detects any vulnerability and provides the CVSS
+assessment grades.
+%for the detected vulnerability.
+The key advances in {\tool} over the existing approaches include 1) multi-task learning between vulnerability
+detection and assessments of different aspects, 2) code change
+embedding model that integrates program dependencies and contexts, and
+3) graph-based representations of dependencies and
+contexts. Our evaluation shows that on a vulnerability dataset in C,
+CAT achieves F-score of 25.5\% and MCC of 26.9\% relatively higher
+than the baseline in vulnerability assessment. In Java dataset, CAT
+achieves F-score of 31\% and MCC of 33.3\% relatively higher. Our
+contextualized embeddings have other applications related to code
+changes.
 
 %(1) Integrating program dependencies into our commit-level
 %vulnerability assessment approach; (2) Learning contexualized
