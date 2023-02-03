@@ -7,17 +7,18 @@ any vulnerability in a committed change and provides the CVSS
 assessment grades for it if any.  {\tool} is designed with the
 following ideas:
 
-\vspace{1pt}
-\indent {\bf Key Idea 1 [Multi-Task Learning among Vulnerability Detection
-and Assessments]}. From Observation 1, we choose to leverage multi-task learning
-to propagate the mutual benefits of learning of vulnerability
-detection to vulnerability assessment, and vice versa. Moreover, the
-learning of one type of vulnerability assessment could affect the
-learning of the other (e.g., between Availability and Access
-Complexity). Thus, our multi-task learning scheme is designed
-with one task for VD, and one task for each of the assessment types. During training, we optimize the joint loss function for all the tasks. When the
-VD's outcome is positive, {\tool} will provide the assessment
-ratings. Otherwise, non-impact scores are given.
+\vspace{1pt} \indent {\bf Key Idea 1 [Vulnerability Detection and
+    Assessments with Multi-Task Learning]}. From Observation 1, we
+aim to build a commit-level VDA tool by leveraging multi-task
+learning to propagate the mutual benefits of learning of vulnerability
+detection to assessment, and vice versa. Moreover, the learning of one
+type of vulnerability assessment could affect the learning of the
+other (e.g., between Availability and Access Complexity). Thus, our
+multi-task learning scheme is designed with one task for VD, and one
+task for each of the assessment types. In training, we optimize
+the joint loss function for all the tasks. When the VD's outcome is
+positive, {\tool} provides assessments. Otherwise,
+non-impact scores are given.
 
 %If a model learns one of the assessment ratings is high (e.g.,
 %complete unavailability), the VD outcome must be positive. If it is
