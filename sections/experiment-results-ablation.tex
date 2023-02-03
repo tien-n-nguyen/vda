@@ -6,27 +6,33 @@
 %                    \tool with (VD $\rightarrow$ VA)   &  0.68      &   0.36   &  0.18  \\    
 %                    \tool w/o Context                 & 0.75 &  0.57    & 0.29         \\
 
-As seen in Table~\ref{RQ4-result-1}, without multi-task learning, the
-performance decreases 13\% F-score in detection and 16\% macro F-score
-in assessment. Without context, it decreases 11.6\% F-score in
-detection and 10.9\% macro F-score in assessment. We also built the
-model (VD $\rightarrow$ VA) in which the detection classifier is used
-first, and the assessment classifier is then used if the detection
-outcome is positive. Table~\ref{RQ4-result-1} confirms our
-hypotheses:
+As seen in Tables~\ref{tab:impact-multi-task-on-detection}
+and \ref{tab:impact-multi-task-on-assessment}, without multi-task
+learning, the performance decreases 10.5\% F-score in detection and 15.6\%
+macro F-score in assessment. Without context, it decreases 7.9\%
+F-score in detection and 10.9\% macro F-score in assessment.
+%We also built the model (VD $\rightarrow$ VA) in which the detection
+%classifier is used first, and the assessment classifier is then used
+%if the detection outcome is positive.
+This result confirms our hypotheses:
 
 (1) Multi-task learning helps improve both vulnerability detection and
-assessment: adding multi-task learning, both VD and VA improve (0.71
-to 0.81, 0.54 to 0.64). Note: without multi-task learning, {\tool}
-also improves over the baselines (Tables~\ref{tab:rq1}--~\ref{rq1_results}) in both VD and VA due to {\tool}'s better code
-change embeddings (Section~\ref{sec:separation}).
+assessment: adding multi-task learning, both VD and VA improve (0.68
+to 0.76, 0.54 to 0.64). Note: without multi-task learning, {\tool}
+also improves over the baselines
+(Tables~\ref{tab:rq1}--~\ref{rq1_results}) in both VD and VA due to
+{\tool}'s code change embeddings
+(Section~\ref{sec:separation}).
 
-(2) Multi-task learning model performs much better than
-(VD $\rightarrow$ VA), which has the cascading error due to
-false positives in VD.
+%(2) Multi-task learning model performs much better than
+%(VD $\rightarrow$ VA), which has the cascading error due to
+%false positives in VD.
 
-(3) both multi-task learning and context have positive contributions,
+(2) both multi-task learning and context have positive contributions,
 in which multi-task learning contributes more.
+
+Multi-task learning model performs better than cascading VD to
+VA, which has the cascading error due to false positives in VD.
 
 %The corresponding decrease values for the model without Context are
 %11.6\% F-score in detection and 10.9\% macro F-score in

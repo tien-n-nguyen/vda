@@ -2,25 +2,64 @@
 	\caption{RQ5. Impact of Multi-Task Learning and Context}
 	\vspace{-10pt}
 	\begin{center}
-%		\scriptsize
 \small
 		\tabcolsep 2.5pt
-		\renewcommand{\arraystretch}{1} \begin{tabular}
-                {p{3.4cm}<{\centering}|p{1.4cm}<{\centering}| p{1.8cm}<{\centering}}
+		\renewcommand{\arraystretch}{1}
+                \begin{tabular}
+                {p{2.5cm}<{\centering}|p{2.5cm}<{\centering}| p{2cm}<{\centering}| p{0.6cm}<{\centering}}
 			
 			\hline
-			                   & F-score (Detection)     & macro  F-Score (Assessment) \\ 
+			                   &  {\tool} w/o Multi-Task  &  {\tool} w/o Context & {\tool} \\ 
 			\hline
-		   \tool w/o Multi-Task Learning       & 0.71  &  0.54             \\
-                    \tool with (VD $\rightarrow$ VA)   &  0.71     &   0.36   \\    
-                    \tool w/o Context                 & 0.75 &  0.57            \\
-                                                \hline
-			\tool             &   0.81    &  0.64          \\
+		       F-score (Detection)   & 0.68  &  0.70 & 0.76       \\
 			\hline
 		\end{tabular}
-		\label{RQ4-result-1}
+		\label{tab:impact-multi-task-on-detection}
 	\end{center}
 \end{table}
+
+\begin{table}[t]
+	\caption{RQ5. Impact of Multi-Task Learning and Context}
+	\vspace{-10pt}
+	\begin{center}
+\small
+		\tabcolsep 2.5pt
+		\renewcommand{\arraystretch}{1}
+                \begin{tabular}
+                {p{2.5cm}<{\centering}|p{2.5cm}<{\centering}| p{2cm}<{\centering}| p{0.6cm}<{\centering}}
+			
+			\hline
+			                   &  {\tool} w/o Multi-Task  &  {\tool} w/o Context & {\tool} \\ 
+			\hline
+		       F-score (Assessment)   & 0.54  &  0.57 & 0.64     \\
+			\hline
+		\end{tabular}
+		\label{tab:impact-multi-task-on-assessment}
+	\end{center}
+\end{table}
+
+%\begin{table}[t]
+%	\caption{RQ5. Impact of Multi-Task Learning and Context}
+%	\vspace{-10pt}
+%	\begin{center}
+%\small
+%		\tabcolsep 2.5pt
+%		\renewcommand{\arraystretch}{1} \begin{tabular}
+%                {p{3.4cm}<{\centering}|p{1.4cm}<{\centering}| p{1.8cm}<{\centering}}
+%			
+%			\hline
+%			                   & F-score (Detection)     & macro  F-Score (Assessment) \\ 
+%			\hline
+%		   \tool w/o Multi-Task Learning       & 0.71  &  0.54             \\
+%                   \tool with (VD $\rightarrow$ VA)   &  0.71     &   0.36   \\    
+%                    \tool w/o Context                 & 0.75 &  0.57            \\
+%                                                \hline
+%			\tool             &   0.81    &  0.64          \\
+%			\hline
+%		\end{tabular}
+%		\label{RQ4-result-1}
+%	\end{center}
+%\end{table}
 
 %\begin{table}[t]
 %	\caption{RQ6. Impact of Multi-Task Learning and Context}
