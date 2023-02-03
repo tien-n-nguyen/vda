@@ -47,30 +47,28 @@ is prone to cascading errors.
 For instance, in commits that have wrongly been identified as vulnerable by a VD tool, 
 the VA tool would give incorrect assessments, which should not be
 given at all. 
-Also, the VA tool fails to learn from assessment patterns within commits that are vulnerable, but missed by the VD tool.
-As a result, the VD $\rightarrow$ VA strategy would not
-benefit from the {\em mutual impact between the learning of detection
-  and the learning of assessment}. Our philosophy in this work is that
-the detection and assessments of different aspects of a vulnerability
-are interdependent on one another. If a model learns that one of the
+Also, the VA tool fails to predict assessment patterns in commits that are vulnerable, but missed by the VD tool.
+As a result, the VD $\rightarrow$ VA strategy is limited, and would not
+take advantage of the {\em mutual benefits of the learning of detection
+  on the learning of assessment, and vice versa}. 
+Our philosophy in this work is driven by this inter-dependence, wherein the former could help isolate the part of the code change that is vulnerability-inducing, which, in turn, could help assess it better.
+Besides, if a model learns that one of the
 assessment ratings is high (e.g., high severity or complete
 unavailability), the vulnerability detection outcome must be
 positive. If the detection outcome is negative, the assessment ratings
 for all the aspects must be at the lowest (e.g., none). Thus, it is
-more beneficial if a model learns both vulnerability detection and
-assessment at the same time, leading to performance enhancement in
-both tasks.
+more beneficial for an approach to jointly learn to detect and assess vulnerabilities at the same time, leading to performance enhancement in both tasks.
 
 Second, the state-of-the-art VA approaches~\cite{deepCVA-ase21} are
-still limited in their {\em representation of code changes}, 
+inept in their {\em representation of code changes}, 
 %and do not take into account the {\em context} of such changes. 
 which are not sufficiently {\em context-aware}.
 %They use $n$-gram
 They learn an $n$-gram
 %representation for code changes that are insufficient to capture the
 %changed statements useful for the VD/VA but far apart. 
-representation for code changes that only captures limited local context,
-but is incapable of capturing VD/VA-relevant program statements that
+representation for code changes that captures limited local context,
+and is incapable of learning from VD/VA-relevant program statements that
 are further apart from the changed statements.
 As a result, the statements
 in the $n$-gram representation might not all contain important features for
@@ -79,13 +77,13 @@ be the order of execution (e.g., in the cases of loop,  branch condition, or
 recursion), which contribute to detecting vulnerabilities involving
 execution and exception flows. Moreover, given that a vulnerability attack exploits the
 control and data dependencies, a VD/VA tool needs to consider the {\em program dependencies}.
-This facet is ignored in an $n$-gram representation learning approach.
+This facet is completely ignored in the state-of-the-art VA tool.
  %With $n$-grams, the VA tools do not model the program
 %dependencies. Finally, it does not represent well the {\em code
 %  context} surrounding a change. The same change occurring in
 %different contexts might cause different effects, leading to different
 %impact grades. 
-Finally, in the state-of-the-art VA tool, the context of
+Finally, the context of
 un-changed code is not distinguishable and is not represented separately
 from the code changes. As a result, it can be confused by two training
 instances that possess the same combinations of code changes and contexts overall,
@@ -108,13 +106,15 @@ integrity of a system. Thus, our multi-task learning scheme includes
 the VD task and all the assessment tasks for different security
 aspects.
 
-Second, regarding the code change representation, we develop a novel
-{\em context-aware, graph-based, representation learning model} to
-{\bf learn the contextualized embeddings for the code changes} that
-integrate {\em program dependencies}, and the surrounding {\em
-  contexts} of code changes.  Both versions of the program dependence
-graphs (PDGs) before and after the commit are modeled via the
-multi-version {\mvpdg}~\cite{flexeme-fse20}. To build such embeddings
+Second, we address the limitation of code change representations described earlier via 
+%Second, regarding the code change representation, we develop 
+a novel
+{\em context-aware, graph-based, representation learning model} 
+%to {\bf learn the contextualized embeddings for the code changes} 
+that
+integrates the {\em program dependencies}, and the surrounding {\em
+  contexts} of code changes. We leverage both versions of the program
+dependence graphs (PDGs), i.e., before and after a commit via the multi-version {\mvpdg}~\cite{flexeme-fse20}. To build such embeddings
 for code changes, {\tool} {\em explicitly represents the contexts}
 surrounding the changed statements via the sub-graphs in {\mvpdg}. It
 considers the impact of the surrounding context represented by a
@@ -125,7 +125,7 @@ grades. Third, we use the Label, Graph Convolution
 Network~\cite{label-gcn} to encode the {\bf program dependencies}
 among the entities in the changed code and the ones in the surrounding
 un-changed code. This helps overcome the issues with $n$-grams and
-capture the statements that might be far apart but are relevant to the
+capture the statements that might be far apart, but still relevant to the
 vulnerability.
 
 %---------- OLD INTRO ----------------
@@ -256,12 +256,12 @@ than DeepCVA~\cite{deepCVA-ase21}.
 %Our sensitivity analysis shows that all designed components in {\tool}
 %contribute positively to its high accuracy.
 
-For the insights, we conducted experiments to show that the better
+To gain better insights, we conducted experiments to show that the better
 performance of {\tool} roots from our designed components.
 %We also conducted experiments to show that the higher~accuracy of
 %{\tool} over DeepCVA comes from our designed~components.
 Our results show that {\em our novel code change embeddings} help
-{\tool} have better class-separation, i.e., better in classifying the
+{\tool} learn better class-separation, i.e., better in classifying the
 commits into the classes for vulnerability detection and
 assessment. Moreover, we used {\em explainable AI} to show
 that {\tool} indeed leverages the correct features in {\em program
