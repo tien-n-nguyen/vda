@@ -103,15 +103,14 @@ improves over all the baselines in all the metrics. Specifically,
 
 %Examining the results,
 {\tool} performs much better than commit-level
-VCCFinder~\cite{perl2015vccfinder} because VCCFinder uses traditional
-SVM. {\tool} also often performed better than the snapshot baselines,
+VCCFinder~\cite{perl2015vccfinder}, possibly because VCCFinder only uses traditional
+SVM. We can also see that {\tool} performs better than the snapshot baselines (i.e.,
 Reveal~\cite{chakraborty2021deep} and
-IVDetect~\cite{li2021vulnerability}, in the cases that the code
-changes are relevant to the vulnerability. For example, a statement
-(e.g., null check) was removed, leading to the vulnerable code (e.g.,
-Null-Pointer Exception). Because examining the changes, {\tool} can
-detect better those vulnerability-introducing changes. The baselines
-work only on the new version.
+IVDetect~\cite{li2021vulnerability}), in the cases where the code
+changes are relevant to the vulnerability. Consider an example in which a statement
+(e.g., null check) was removed leading to vulnerable code (e.g.,
+Null-Pointer Exception). Due to its ability to examine changes, as opposed to the baselines which only look at the modified version, {\tool} can detect the vulnerability-introducing elements better.
+
 
 In Section~\ref{sec:ai}, we used {\em Explainable AI to display the
 changed statements} in the code that contributes to the detected

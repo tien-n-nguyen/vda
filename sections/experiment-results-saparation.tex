@@ -64,7 +64,7 @@
 
 In this study, we aim to show that our {\em embeddings for code
 changes helps {\tool} have better class-separation}, i.e., {\em better
-classification} for detection and assessment, than the baseline's.
+classification measures} for detection and assessment than that of the baseline.
 
 %In this experiment, we aim to show that our novel graph-based, code
 %change embeddings help {\tool} perform better classification for the
@@ -75,69 +75,66 @@ classification} for detection and assessment, than the baseline's.
 
 For each class~$C$ regarding a vulnerability assessment type (VAT), we
 selected 366 commits that are labeled with the class $C$ in the
-oracle. For example, for {\em Confidentiality}, we randomly selected
-366 commits that are marked as {\em None}, 366 commits marked as {\em
-Partial}, and 366 commits marked as {\em Complete}. Since our study
-does not depend on the distribution across classes, we chose the same
-number of samples for a class. Given the population of our data, that
-sample size gives the confidence level of 95\% and the confidence
-interval of 5\% for a~VAT.
-%
+oracle. This was chosen based on the population of the data, such that the sample size corresponded to a 95\% confidence level, with a confidence interval of 5\% for each VAT. 
+For example, for {\em Confidentiality}, we randomly selected
+an equal number of commits (i.e., 366), that are marked as {\em None}, {\em Partial}, and {\em Complete}.
+%Since our study
+%does not depend on the distribution across classes, we chose the same
+%number of samples for a class. The sample size, i.e., 366, was chosen based on the population of our data, and a , and a corresponding confidence interval of 
 For each type, we took those 366 $\times$ 3 = 1,098 commits and used
 {\em {\tool}'s code change representation learning model} and {\em DeepCVA's
 $n$-gram-based embedding model} to produce the embeddings for
-those commits.  We projected the embeddings from two models
-into the vector space using t-SNE technique. t-SNE~\cite{tsne}~is~a
-statistical method for visualizing high-dimensional data by giving
+those commits.  We projected the embeddings from these approaches
+into the vector space using t-SNE~\cite{tsne} technique, based on which we can visualize high-dimensional data by giving
 each data point its projected location in a two-dimensional vector
-space. We used the silhouette plot~\cite{silhouette-plot} to
-present the data points for those embeddings. The silhouette plot
-provides a succinct graphical view of how well the data points have
+space. Next, in the silhouette plots~\cite{silhouette-plot}, we succinctly present the data points for these embeddings, which represent how well they have
 been classified.
 
 Figure~\ref{fig:confidentiality} shows the comparison between the
 silhouette plots for the embeddings produced by {\tool} and DeepCVA
 regarding 3 classes of
 Confidentiality. Figures~\ref{fig:confidentiality}a. and c. display
-the t-SNE visualizations for the embeddings.
+the t-SNE visualizations for the embeddings, while
 %produced by {\tool} and DeepCVA, respectively.
-Figures~\ref{fig:confidentiality}b. and d. display the silhouette
-plots for the data in the t-SNE visualization.
+figures~\ref{fig:confidentiality}b. and d. display the silhouette
+plots for the data in these visualizations.
 %for {\tool} and DeepCVA.
 The silhouette coefficient value ($X$-axis in
 Figures~\ref{fig:confidentiality}b., d., e.) is a measure of how
-similar an object is to its own class compared to~other classes. The
-silhouette coefficient value is in [-1,1], where a high value
+similar an object is to its own class compared to~other classes, which ranges from [-1, 1]. Here, a higher value
 indicates that an object is well matched to~its own class and poorly
 matched to neighboring classes. If most objects have high values, the
 class configuration is proper. That corresponds
 to better-formed classes, facilitating a model to group the commits
-into the correct classes ({\em None, Partial, Complete)}.
+into the correct classes (i.e., {\em None, Partial,} and {\em Complete}).
 %regarding Confidentiality.
 If many points have low or negative values, the
-class configuration is poor-formed, which does not help in
+class configuration is ill-formed, which does not help with
 classification.
 
 Let us consider the commits in the {\em Complete} class
-in~Figures \ref{fig:confidentiality}a. and b. Each line in the {\em
+in~Figures \ref{fig:confidentiality}a. and b. Each line in {\em
 Complete} class in Figure~\ref{fig:confidentiality}b. corresponds to a
-point in the {\em Complete} class in the vector space in
-Figure~\ref{fig:confidentiality}a. The length of the line is equal to
-the silhouette coefficient for a point. The lines are
-sorted from largest to smallest and drawn from top to bottom, creating
-a knife shape.
-
-As seen, the knife shapes from DeepCVA have longer and thicker
-tails than the ones from {\tool}, which actually have no tail for the
-classes {\em Partial} and {\em None}. This means that DeepCVA produces
-those embeddings that are not well-matched with its own classes and
-mixed with the embeddings of the neighboring classes. In
+point in {\em Complete} class in the vector space in
+Figure~\ref{fig:confidentiality}a. Length of a line is equal to
+the silhouette coefficient for a point. These lines are
+sorted from largest to smallest, and drawn from top to bottom, creating
+a knife shape. As seen, the knife shapes from DeepCVA have longer and thicker
+tails than those from {\tool}, which actually have no tail for the
+classes {\em Partial} and {\em None}. 
+%This means that DeepCVA produces
+%those embeddings that are not well-matched with its own classes and
+%mixed with the embeddings of the neighboring classes. 
+%This means that 
+Thus, DeepCVA produces
+embeddings that overlap more with their neighboring classes.
+In
 Figure~\ref{fig:confidentiality}e., we place two silhouette plots in
 an overlay image. The plot from {\tool} is thicker than that from
 DeepCVA: {\tool} produces more points with positive values than
 DeepCVA. In brief, Figures~\ref{fig:confidentiality}a--e show that the
 {\em embeddings for code changes from {\tool} facilitates better
-classification for VA than the embeddings from DeepCVA}.
+classification for VA than those from DeepCVA}.
 
 %~\ref{fig:access-vector},
 %~\ref{fig:access-complexity},
@@ -148,12 +145,10 @@ classification for VA than the embeddings from DeepCVA}.
 
 Figure~\ref{fig:availability} shows the comparison among the
 silhouette plots for the embeddings from {\tool} and DeepCVA on
-Availability (The ones for others are not shown due to space limit).
-As seen, the comparisons for the VATs have the same trend. The knife
-shapes from {\tool} have no or shorter tails and are thicker than
-those of DeepCVA.
-
-In brief, the silhouette plots indicate that {\tool} produces the
+{\em Availability} (remaining VAT types are not shown here due to space limit).
+We can see that the comparisons for all VATs have the same trend, i.e., the knife
+shapes from {\tool} have no or shorter tails, and are thicker than
+those of DeepCVA. In brief, the silhouette plots indicate that {\tool} produces 
 embeddings that have more cohesion with the ones in the same class and
 more separation with the ones in the different classes. Thus, our {\bf
 embeddings with more class-separability help {\tool} perform better
