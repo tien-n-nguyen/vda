@@ -66,15 +66,15 @@ correct classification (detection and assessment).
 \begin{table}[t]
 \caption{Vunerable Statements/Dependencies as Key Features}
 	\vspace{-12pt}
-	\tabcolsep 2.1pt
+	\tabcolsep 2.3pt
 %	\footnotesize
 \small
 	\begin{center}
-\begin{tabular}{|r||r|r|r|r|r|r|r||r|}
+\begin{tabular}{|r|r|r|r|r|r|r||r|}
   \hline
-    {\bf VulDet} & {\em Confi} & {\em Integ.} & {\em Avail} & {\em AccessVec} & {\em AccCompl} & {\em Auth} & {\em Severity} & {\bf Avg} \\
+     {\em Confidence} & {\em Integrity} & {\em Avail} & {\em AccessVec} & {\em AccCompl} & {\em Auth} & {\em Severity} & {\bf Avg} \\
   \hline
-  {\bf 84} & 63 & 84 & 81 & 72 & 93 & 93 & 81 & 81.4 \\
+    63 & 84 & 81 & 72 & 93 & 93 & 81 & 81.4 \\
  % \% & 17 & 22 & 11 & 19 & 24.5 & 37 & 21 & 21.6 \\
   \hline
 \end{tabular}
@@ -106,11 +106,13 @@ features in its prediction.
 As seen, across different assessment types, the degree of {\tool}'s
 relying on the vulnerable statements/dependencies for its assessment
 is different.  While in 84\%, {\tool} relies on vulnerable
-statements/dependencies to assess the impact of {\em Integrity}, in 81\% samples, it relies on them for assessing that of {\em Severity}.
-For vulnerability detection, 84\% of samples, {\tool} uses
-the right statements/dependencies in its correct prediction.
+statements/dependencies to assess the impact of {\em Integrity}, in
+81\% samples, it relies on them for assessing that of {\em Severity}.
+For {\em vulnerability detection}, in 84\% of samples, {\tool} uses
+the right statements/dependencies in its correct prediction (not
+shown).
 %
-On average, in 81.4\% samples on average, {\tool} correctly
+On average, in {\bf 81.4\%} samples, {\tool} correctly
 relies on the vulnerable statements/dependencies.
 %To correctly assess the remaining samples, {\tool} might use other
 %features, e.g., contexts, code tokens, and the impacts of
