@@ -26,7 +26,7 @@ classification tasks for detection and assessment.
 
 %with the code change context in the last step, in this step, the goal is to learn the representation vector for code changes in a commit and use the learned representation vector to do the classification for a specific vulnerability assessment type. The key point of the code change representation learning is {\em contextualized} which includes the influence of surrounding source code and the dependency relationships.
 
-\subsection{Feature vectors $v^{f}_n$ for {\mvpdgxy} nodes}
+\subsection{Feature Vectors $v^{f}_n$ for {\mvpdgxy} Nodes}
 \label{feature:sec}
 
 After the previous step, we obtain {\mvpdgxy} and the context
@@ -72,7 +72,7 @@ $n$.
 %versions $x$ and $y$. Specifically, the label $x$ is for a deleted
 %node, $y$ for an inserted node, and ($x,y$) for an un-changed node.
 
-\subsection{Contextualized embedding $v_n$ for node $n$}
+\subsection{Contextualized Embedding $v_n$ for Node $n$}
 \label{label-gcn-compute}
 
 Next, we replace each node $n$ in {\mvpdgxy} with the node feature
@@ -123,7 +123,7 @@ for the nodes in the {\mvpdgxy} graph after Label-GCN in Figure~\ref{fig:step-2}
 
 %To make the Label-GCN can work on the incoming {\mvpdgxy}, \tool firstly generates the node feature vector for each node $n$ in the {\mvpdgxy}. To do that, \tool regards the content of each node $n$ (the content is the statement) as a sequence of token $t_n$ and then uses the GloVe \cite{} to learn the embedding vector $v_t$ for each token. Then \tool uses the average vector $v_{avg}$ for all token embedding vectors $v_t$ in node $n$ as the node content vector. To combine the label information $x$, $y$, and $x, y$ for each node into the node feature, \tool uses a one-hot vector with a length of $3$ to represent the label. By concatenating the node content vector with the one-hot vector for the label, each node $n$ in {\mvpdgxy} will have the node feature vector $v_{n}^{fea}$. Next, we feed the {\mvpdgxy} with the node feature vector for each node $n$ together to the Label-GCN to generate the representation vector $v_n$ for all nodes in the graph.
 
-\subsection{Integrating context and building the vector for a commit}
+\subsection{Integrating Context and Building the Vector for a Commit}
 \label{class:sec}
 
 For each changed node $n_c$ in {\mvpdgxy}, we build the sub-graph
@@ -149,7 +149,7 @@ into each SoftMax classifier for each task.
 
 %To generate the representation vector for code changes in a commit, \tool first collects all representation vectors for the unchanged nodes in its $k$-hop neighbors for each changed node $n_c$ in graph {\mvpdgxy}. And then \tool uses a fully connected layer to learn the vector $v_{ctx}$ representing the context of the changed node $n_c$ by using the merged matrix that is built with all collected representation vectors as the input. Next, \tool calculates the final representation vector $v'_{n_c}$ by using the cross product to combine the representation vector $v_{n_c}$ for Label-GCN and $v_{ctx}$. After this, to consider on the whole commit level, \tool puts all representation vector $v'_{n_c}$ for the changed nodes $n_c$ in {\mvpdgxy} as a matrix, and then apply the other fully connected layer to learn the final vector $v^{com}$ for the entire commit. By having the commit-level representation vector $v^{com}$, \tool uses a SoftMax layer as the classifier to classify the commit for a specific type of vulnerability assessment. As for the details for all types of vulnerability assessment, we will introduce them in the next step.
 
-\subsection{Illustrating example}
+\subsection{Illustrating Example}
 
 Figure~\ref{fig:step-2} illustrates the vector building for the code
 changes in Figure~\ref{fig:multi-version-pdg}. From
