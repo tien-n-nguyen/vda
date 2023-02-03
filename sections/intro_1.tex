@@ -3,19 +3,22 @@
 
 %The need for cyber resilience is increasingly important in our~techno\-logy-dependent society, where software systems have been, and will continue to be the target of cyber attackers.
 
-Software Vulnerabilities (SVs) are security weaknesses and flaws that one can exploit in cyber-attacks. 
+Software Vulnerabilities (SVs) are security weaknesses and flaws that one can exploit in cyber-attacks.
 Such vulnerable code can be found and reported by scanning a version of a software project with the help of vulnerability detection tools~\cite{li2018vuldeepecker,zhou2019devign,li2021sysevr}.
-%Vulnerability detection (VD) tools~\cite{li2018vuldeepecker,zhou2019devign,li2021sysevr} scan a version of a software project and report the presence of any vulnerable code. 
-However, it is crucial to identify SVs as 
-%early as possible because late corrections could cost much more and even cause severe damage due to more affected systems. 
-soon as possible because late fixes and consequent damage due to affected systems is severe.
+%Vulnerability detection (VD) tools~\cite{li2018vuldeepecker,zhou2019devign,li2021sysevr} scan a version of a software project and report the presence of any vulnerable code.
+However, it is crucial to identify SVs as
+%early as possible because late corrections could cost much more and even cause severe damage due to more affected systems.
+soon as possible because late fixes and consequent damage due to affected systems are severe.
 Toward that, {\em commit-level vulnerability
   detection} (VD)
 approaches~\cite{perl2015vccfinder,zhou2017automated,chen2019large}
 have been proposed to catch SVs as soon as new code changes are
-committed to the code repositories during 
+committed to the code repositories during
 % software development. They are used to warn developers early on potential vulnerable code and also help better prioritize the code review task.
-the software development process. They are useful in warning developers early about potentially vulnerable code patterns in their code change.
+the software development process. They are useful in warning
+developers early and isolating vulnerability-inducing, fine-grained code change.
+%about potentially vulnerable code patterns in their code change.
+
 %which will also help better prioritize the code review tasks.
 
 %New software security vulnerabilities are discovered on an almost
@@ -29,99 +32,108 @@ the software development process. They are useful in warning developers early ab
 %  (VD)}~\cite{perl2015vccfinder,zhou2017automated,chen2019large}. They
 %could be used to warn developers early on potential vulnerable code.
 
-While addressing software vulnerabilities is crucial, providing developers with the assessment on the impacts of the detected vulnerability in the system under development is of equal interest. 
-%For potential vulnerable code, it would be equally important to provide developers with the assessment on the impacts of the detected vulnerability on the system under development. 
+While addressing software vulnerabilities is crucial, providing developers with the assessment on the impacts of the detected vulnerability in the system under development is of equal interest.
+%For potential vulnerable code, it would be equally important to provide developers with the assessment on the impacts of the detected vulnerability on the system under development.
 Such knowledge will help better prioritize code review tasks, while showing which areas need patching first.
-The assessment could be on the severity of the attack and the levels of damage regarding confidentiality, integrity, availability, etc. However, the commit-level VD approaches~\cite{perl2015vccfinder,zhou2017automated,chen2019large} do not support such automated assessment. 
-%Recognizing that importance, the commit-level software vulnerability assessment (VA) tools~\cite{deepCVA-ase21} have been proposed to assess a committed code change. Researchers have leveraged the Common Vulnerability Scoring System (CVSS) ratings~\cite{first-website} manually assessed by security analysts for the vulnerabilities as labeled data to train a machine learning (ML) model and applied it on the code change to predict the assessment ratings. 
-Recognizing this, Le et al.~\cite{deepCVA-ase21} proposed a commit-level software vulnerability assessment (VA) tool to assess a committed code change. They leveraged the Common Vulnerability Scoring System (CVSS)~\cite{first-website} ratings (i.e., numerical scores which can be transformed into qualitiative representations such as low, medium, high, and critical) manually provided by security analysts to build a learning-based approach to predict assessment ratings for a code change possessing vulnerabilities.
-%In CVSS, the security experts provide the numerical scores that can be transformed into qualitative representations (such as low, medium, high, and critical) for vulnerability assessment. 
-However, the state-of-the-art VA tools still have key limitations.
+The assessment could be on the severity of the attack and the levels of damage regarding confidentiality, integrity, availability, etc. However, the commit-level VD approaches~\cite{perl2015vccfinder,zhou2017automated,chen2019large} do not support such automated assessment.
+%Recognizing that importance, the commit-level software vulnerability assessment (VA) tools~\cite{deepCVA-ase21} have been proposed to assess a committed code change. Researchers have leveraged the Common Vulnerability Scoring System (CVSS) ratings~\cite{first-website} manually assessed by security analysts for the vulnerabilities as labeled data to train a machine learning (ML) model and applied it on the code change to predict the assessment ratings.
+Recognizing this, the state-of-the-art approaches~\cite{deepCVA-ase21} proposed commit-level software vulnerability assessment (VA) tools to assess a committed code change. They leveraged the Common Vulnerability Scoring System (CVSS)~\cite{first-website} ratings (i.e., numerical scores which can be transformed into qualitative representations such as low, medium, high, and critical) manually provided by security analysts to build a learning-based approach to predict assessment ratings for a code change possessing vulnerabilities.
+%In CVSS, the security experts provide the numerical scores that can be transformed into qualitative representations (such as low, medium, high, and critical) for vulnerability assessment.
+However, the existing VA tools still have limitations.
 
-%First, the vulnerability assessment models~\cite{deepCVA-ase21} work only on a committed change that was detected as vulnerable by a VD tool. 
+%First, the vulnerability assessment models~\cite{deepCVA-ase21} work only on a committed change that was detected as vulnerable by a VD tool.
 First, they work only on a committed code change that has already been identified as vulnerable by a VD tool.
-This strategy that runs VD and then VA (i.e., VD $\rightarrow$ VA)
-%would suffer the cascading error. 
+This strategy~that runs VD and then VA (i.e., VD $\rightarrow$ VA)
+%would suffer the cascading error.
 is prone to cascading errors.
 %For the false positive cases from VD
-For instance, in commits that have wrongly been identified as vulnerable by a VD tool, 
-the VA tool would give incorrect assessments, which should not be
-given at all. 
-Also, the VA tool fails to predict assessment patterns in commits that are vulnerable, but missed by the VD tool.
-As a result, the VD $\rightarrow$ VA strategy is limited, and would not
-take advantage of the {\em mutual benefits of the learning of detection
-  on the learning of assessment, and vice versa}. 
-Our philosophy in this work is driven by this inter-dependence, wherein the former could help isolate the part of the code change that is vulnerability-inducing, which, in turn, could help assess it better.
+For instance, in commits that have wrongly been
+identified~as~vulnerable by a VD tool, the VA tool would give
+incorrect assessments, which should not be given at all.  Also, the VA
+tool fails to predict~assessment patterns in commits that are
+vulnerable, but missed by the VD tool.  As a result, the VD
+$\rightarrow$ VA strategy is limited, and would~not take advantage of
+the {\em mutual benefits of the learning of detection on the learning
+  of assessment, and vice versa}.  Our philosophy is driven by this
+inter-dependence, wherein the former could help isolate the part of
+the code change that is vulnerability-inducing, which, in turn, could
+help assess it better. The existing VD tools running on the snapshot
+after a commit are not able to isolate the vulnerability-inducing code
+change.
+%
 Besides, if a model learns that one of the
 assessment ratings is high (e.g., high severity or complete
 unavailability), the vulnerability detection outcome must be
 positive. If the detection outcome is negative, the assessment ratings
 for all the aspects must be at the lowest (e.g., none). Thus, it is
-more beneficial for an approach to jointly learn to detect and assess vulnerabilities at the same time, leading to performance enhancement in both tasks.
+more beneficial for a model to jointly learn to detect and assess
+vulnerabilities at~the same time, leading to performance enhancement
+in both tasks.
 
 Second, the state-of-the-art VA approaches~\cite{deepCVA-ase21} are
-inept in their {\em representation of code changes}, 
-%and do not take into account the {\em context} of such changes. 
+inept in their {\em representation of code changes},
+%and do not take into account the {\em context} of such changes.
 which are not sufficiently {\em context-aware}.
 %They use $n$-gram
 They learn an $n$-gram
 %representation for code changes that are insufficient to capture the
-%changed statements useful for the VD/VA but far apart. 
+%changed statements useful for the VD/VA but far apart.
 representation for code changes that captures limited local context,
-and is incapable of learning from VD/VA-relevant program statements that
-are further apart from the changed statements.
-As a result, the statements
-in the $n$-gram representation might not all contain important features for
-VD/VA. Such a sequential $n$-gram representation learning also enforces an order in source code, which might not
-be the order of execution (e.g., in the cases of loop,  branch condition, or
+and is incapable of learning from VD/VA-relevant program statements
+that are further apart from the changed statements.  As a result, the
+statements in the $n$-gram representation might not all contain
+important features for VD/VA. Such a sequential representation
+learning also enforces an order in source code, which might not be the
+order of execution (e.g., in the cases of loop, branch condition, or
 recursion), which contribute to detecting vulnerabilities involving
-execution and exception flows. Moreover, given that a vulnerability attack exploits the
-control and data dependencies, a VD/VA tool needs to consider the {\em program dependencies}.
-This facet is completely ignored in the state-of-the-art VA tool.
+execution and exception flows. Moreover, given that a vulnerability
+attack exploits the control and data flows, a VD/VA tool needs to
+consider {\em program dependencies}.  This facet is ignored
+in the existing VA tools.
  %With $n$-grams, the VA tools do not model the program
 %dependencies. Finally, it does not represent well the {\em code
 %  context} surrounding a change. The same change occurring in
 %different contexts might cause different effects, leading to different
-%impact grades. 
-Finally, the context of
-un-changed code is not distinguishable and is not represented separately
-from the code changes. As a result, it can be confused by two training
-instances that possess the same combinations of code changes and contexts overall,
-but with different code changes and associated contexts.
+%impact grades.
+Finally, the context of un-changed code is indistinguishable and not
+represented separately from the changes. As a result, it can be
+confused by two training instances that have the same combination
+of changes and contexts overall, but with different changes and
+associated contexts.
 
 In this work, we present {\tool}, a Context-aware, Graph-based,
 Commit-level Vulnerability Detection and Assessment model that evaluates
 a changed code to detect the presence of a vulnerability, while also providing corresponding CVSS
-assessment scores for the detected vulnerability. 
-%{\tool} provides assessment scores when a vulnerability is detected. 
-We build {\tool} via the novel integration of three key ideas. 
-First, we {\bf integrate vulnerability detection and assessment (VDA)} processes
-such that our tool can directly be built into a repository to evaluate committed code
-changes and provide just-in-time assistance. Due to the inter-dependence of these
-processes, we adopt a {\bf multi-task learning} approach to propagate the learning between VD and
-VA, leading to better performance of both tasks. Moreover, the
+assessment scores for the detected vulnerability.
+%{\tool} provides assessment scores when a vulnerability is detected.
+We build {\tool} via the novel integration of three key ideas.  First,
+we {\bf integrate vulnerability detection and assessment (VDA)}
+processes such that our tool can directly be~built into a repository
+to evaluate committed code changes and provide just-in-time
+assistance. Due to the inter-dependence of these processes, we adopt a
+{\bf multi-task learning} approach to propagate the learning between
+VD and VA, leading to better performance of both tasks. Moreover, the
 assessments for different aspects could also affect one
 another~\cite{deepCVA-ase21}, e.g., between the availability and
 integrity of a system. Thus, our multi-task learning scheme includes
-the VD task and all the assessment tasks for different security
-aspects.
+the VD task and the assessment tasks for different security aspects.
 
-Second, we address the limitation of code change representations described earlier via 
-%Second, regarding the code change representation, we develop 
+Second, we address the limitation of code change representations described earlier via
+%Second, regarding the code change representation, we develop
 a novel
-{\em context-aware, graph-based, representation learning model} 
-%to {\bf learn the contextualized embeddings for the code changes} 
+{\em context-aware, graph-based, representation learning model}
+%to {\bf learn the contextualized embeddings for the code changes}
 that
 integrates the {\em program dependencies}, and the surrounding {\em
   contexts} of code changes. We leverage both versions of the program
 dependence graphs (PDGs), i.e., before and after a commit via the multi-version {\mvpdg}~\cite{flexeme-fse20}. To build such embeddings
 for code changes, {\tool} {\em explicitly represents the contexts}
 surrounding the changed statements via the sub-graphs in {\mvpdg}. It
-considers the impact of the surrounding context represented by a
-context vector on the building of the embeddings for the code
-changes. {\tool} uses the contextualized embeddings to predict if the
+considers the impact of the context represented by a
+context~vector on the building of the embeddings for the code
+changes. It uses the contextualized embeddings to predict if the
 changes have any vulnerability, and if yes, to provide assessment
-grades. Third, we use the Label, Graph Convolution
+grades. Third, it utilizes the Label, Graph Convolution
 Network~\cite{label-gcn} to encode the {\bf program dependencies}
 among the entities in the changed code and the ones in the surrounding
 un-changed code. This helps overcome the issues with $n$-grams and
@@ -245,8 +257,8 @@ show that {\tool} achieves F-score of 25.5\% and MCC of 26.9\%
 relatively higher than the state-of-the-art VA tool
 DeepCVA~\cite{deepCVA-ase21}.  The vulnerability detection result from
 {\tool} is also improved over the state-of-the-art ML/DL-based VD
-approaches from 13.1-–157\% in precision, 15.8-–592\% in recall,
-and 16.5–-350\% in F-score.
+approaches from 11.3-–146\% in precision, 10.4-–553\% in recall,
+and 13.4–-322\% in F-score.
 %approaches from 13.1-–29.8\% in precision, 15.8-–29.2\% in recall,
 %and 16.5–-25.9\% in F-score.
 The results on a Java dataset with 1,229 vulnerabilities show that
@@ -269,7 +281,7 @@ that {\tool} indeed leverages the correct features in {\em program
 The key contributions of this work include
 
 {\bf 1. {\tool}: commit-level vulnerability detection and assessment
-  model} that performs VD and VA in tandem, leveraging multi-task
+  model (VDA)} that performs VD and VA in tandem, leveraging multi-task
 learning to improve both detection and assessment.
 
 %overcomes the issues in the existing model in $n$-gram representations
