@@ -46,7 +46,7 @@
     Gained Access & {\bf None}  & No gained access with the vulnerability \\
     Access Vector & {\bf Local} & The vulnerability is in the local parser \\
     \end{tabular}%
-  \label{CVSS:tab}%
+  \vspace{-8pt}
 \caption{Vulnerability Details: CVE-2021-37714}
 \label{CVSS-tab}
 \end{figure}
@@ -90,7 +90,7 @@ boolean process(Token t, HtmlTreeBuilder tb) { ...
       ...
 }
 	\end{lstlisting}
-        \vspace{-15pt}
+        \vspace{-19pt}
         \caption{Code Change at Version 1.12.1 for CVE-2021-37714}
         \vspace{-6pt}
         \label{fig:motiv-code}
@@ -112,7 +112,7 @@ the vulnerability CVE-2021-37714 that was reported on {\em Jsoup}, and
 published on 08/18/21. The change that was deemed to contribute to the
 vulnerability were committed at version 1.12.1 to the method
 \code{process(Token,HtmlTreeBuilder)} of the
-\code{Html\-Tree\-Builder\-State} class (lines 10--11, and 12 of
+\code{Html\-Tree\-Builder\-State} class (lines 10--12 of
 Figure~\ref{fig:motiv-code}). That change directly uses the value
 returned from \code{reset\-Inser\-tion\-Mode()} as the condition to
 insert \code{startTag} (line 13). With this change, certain input HTML
@@ -137,7 +137,22 @@ interruptions in available services).
 %While the above vulnerability potentially causes damage, both the
 %detection and assessment for that vulnerability are late. A
 %commit-level vulnerability detection and assessment tool is desired.
-The above vulnerability is potentially damaging. However, in the existing workflow, it was detected late, reported late, and finally assessed by the security experts in the CVSS system~\cite{first-website}. In the meantime, a similar vulnerability with the same assessments was also reported in other applications from {\em Netapp}, {\em Oracle}, and {\em Quarkus}. In contrast, by taking advantage of the records of vulnerabilities and their corresponding assessments in CVSS via a learning-based approach, this could have been addressed sooner. Toward enabling such a learning process, we make the following observations.
+
+The above vulnerability is potentially damaging. However, in the
+existing workflow, it was detected late, reported late, and finally
+assessed by the security experts in the CVSS
+system~\cite{first-website}. In the meantime, a similar vulnerability
+with the same assessments was also reported in other applications from
+{\em Netapp}, {\em Oracle}, and {\em Quarkus}. In contrast, by taking
+advantage of the records of vulnerabilities and their corresponding
+assessments in CVSS via a learning-based approach, this could have
+been addressed as soon as the code change is committed.  Such a
+{\em commit-level VDA not only allows an early detection and assessment,
+but also isolates the vulnerability-inducing code change}, which cannot
+be achieved if a VD tool is run on the snapshot after changes.  For
+example, the above code change in {\em Jsoup} needs to be pinpointed
+among several other benign changes at lines 10--12 in the same commit. Toward enabling
+such a learning process, we make the following observations.
 
 % The next question that arises is -- what features in a code change are most useful for such a joint detection and assessment? Toward this, from the above example, we make the following observations.
 
@@ -168,25 +183,41 @@ The above vulnerability is potentially damaging. However, in the existing workfl
 %works only on the vulnerability-introducing change with the usage
 %that a VD tool is used first to detect such a commit.
 
-\vspace{2pt}
-{\bf Observation 1 [Joint Learning of Vulnerability Detection and Assessment].} In Figure~\ref{fig:motiv-code}, if a model learns that the availability assessment of this vulnerability is {\em Complete} (i.e., system could be completely unavailable), it could learn that this change is a vulnerability-introducing one (i.e., the
-detection outcome is positive). On the other hand, if a model learns that this is a vulnerability-introducing change, it could learn more about the semantics of the code change, and consequently how the code change relates to the VATs. In contrast, if a model decides that this does not possess any vulnerabilities, it would learn that all the VAT outcomes must be {\em None}. Unfortunately, none of existing VD and VA approaches take advantage of this mutual impact. The ML-based vulnerability detection approaches~\cite{perl2015vccfinder,zhou2017automated,chen2019large} focus only on VD, without any VA support. In contrast, the state-of-the-art ML-based VA approaches~\cite{deepCVA-ase21} works only on the vulnerability-introducing change with the usage that a VD tool is used first to detect such a commit.
+\vspace{2pt} {\bf Observation 1 [Joint Learning of Vulnerability
+    Detection and Assessment].} In Figure~\ref{fig:motiv-code}, if a
+model learns that the availability assessment of this vulnerability is
+{\em Complete} (i.e., system could be completely unavailable), it
+could learn that this change is a vulnerability-introducing one (i.e.,
+the detection outcome is positive). On the other hand, if a model
+learns that this is a vulnerability-introducing change, it could learn
+more about the semantics of the code change, and consequently how the
+code change relates to the VATs. In contrast, if a model decides that
+this does not possess any vulnerability, it would learn that all the
+VAT outcomes must be {\em None}. Unfortunately, none of existing VD
+and VA approaches take advantage of this mutual impact. The ML-based
+vulnerability detection
+approaches~\cite{perl2015vccfinder,zhou2017automated,chen2019large}
+focus only on VD, without any VA support. In contrast, the
+existing ML-based VA approaches~\cite{deepCVA-ase21} works
+only on the vulnerability-introducing change with the usage that a VD
+tool is used first to detect such a commit.
 
-\vspace{2pt}
-{\bf Observation 2 [Program Dependencies].}  {\em To detect
-  and assess a vulnerability, a model needs to consider the program
-  dependencies among the statements}. For example, to assess
+\vspace{2pt} {\bf Observation 2 [Program Dependencies].}  {\em To
+  detect and assess a vulnerability, a model needs to consider the
+  program dependencies among the statements}. For example, to assess
 Availability, one needs to check the potential infinite loop or
 null-pointer exception, and examine the control and data dependencies
 between the changed line 12 and the line 16. That is where the method
 \code{process} is recursively called, which leads to the null-pointer
 exception at line~3 (\code{currentElement()} returns
 null). Unfortunately, the state-of-the-art vulnerability assessment
-models, e.g., DeepCVA~\cite{deepCVA-ase21} learn only $n$-gram representations ($n$=1,3,5),
-and do not consider long-range dependencies. However, program statements that can help with
-automated assessment (e.g., line 12, line 16, and line 3) can be far apart.
-Moreover, consider line 12, that has data/control flow to line 16, which in turn has data/control flow to line 3 via recursion.
-DeepCVA is incapable of capturing such a program execution order.
+models, e.g., DeepCVA~\cite{deepCVA-ase21} learn only $n$-gram
+representations ($n$=1,3,5), and do not consider long-range
+dependencies. However, program statements that can help with automated
+assessment (e.g., line 12 $\rightarrow$ line 16 $\rightarrow$ line 3) can be far~apart.
+%Moreover, consider line 12, that has data/control flow to line 16,
+%which in turn has data/control flow to line 3 via recursion.
+DeepCVA is incapable of capturing such a flow.
 
 \vspace{2pt}
 {\bf Observation 3 [Context].} By examining {\em only the
@@ -196,15 +227,23 @@ DeepCVA is incapable of capturing such a program execution order.
 a model can not decide on the vulnerability or its impacts on the
 system's availability or not. Generally, {\em the same/similar changes
   occurring in different surrounding contexts might cause different
-  effects, leading to different grades for the VATs}. For example,
-adding a null check: \code{if p != null} is a common change in many
-places. However, it could prevent a null-pointer exception in some
-context, while does not in the others.
+  effects}.
+%, leading to different grades for the VATs}.
+For example, adding a null check: \code{if p != null} is a common
+change in many places. However, it could prevent a null-pointer
+exception in some context, while does not in the others.
 %(e.g., the availability impact in this case).
 Unfortunately, DeepCVA~\cite{deepCVA-ase21} does not capture well the
-contexts of the changes. First, it learns representations corresponding to $n$-gram ($n$=1,3,5) features, which, as explained earlier, is limited. Second, DeepCVA does not model the inter-relationships
-between the context, i.e., the un-changed code elements and the changed code elements (both pre-change, and post-change).
-This is essential in understanding the nature of code changes better -- resulting in improved vulnerability detection and assessment.
+contexts of the changes. First, the $n$-gram representation learning
+is limited as explained.
+%First, it learns representations corresponding to $n$-gram ($n$=1,3,5)
+%features, which, as explained earlier, is limited.
+%
+Second, DeepCVA does not model the inter-relationships between the
+context, i.e., the un-changed code elements and the changed code
+elements (both pre-change, and post-change).  This is essential in
+capturing code changes better -- resulting in
+improved detection and assessment.
 
 %------------- OLD STUFF --------------------------------------------
 %%%While the above vulnerability potentially causes damage, both the
