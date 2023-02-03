@@ -92,9 +92,9 @@ correct classification (detection and assessment).
 
 Table~\ref{gnn} shows how much {\tool} uses the vulnerable
 statements and their dependencies in correctly predicting the
-VATs. For example, among 366 commits that {\tool} successfully
-classified into ({\em None},{\em Single}) for {\em Authentication},
-GNNExplainer determines 93\% of them that {\tool}
+VATs. For example, among the 366 commits that {\tool} successfully
+classified into ({\em None}, {\em Single}) for {\em Authentication},
+GNNExplainer determines that in 93\% of them, {\tool}
 uses the actual vulnerable statements and their dependencies as key
 features in its prediction.
 %GNNExplainer determines that {\tool} had made the correct
@@ -103,16 +103,17 @@ features in its prediction.
 %That is, in 139 commits, {\tool} used the vulnerable
 %statements/dependencies as its key features in the correct
 %classifications.
-As seen, across different assessment types, the degree of {\tool}'s
-relying on the vulnerable statements/dependencies for its assessment
+As seen, the degree of {\tool}'s
+reliance on vulnerable statements/dependencies for its assessment
+across different types
 is different.  While in 84\%, {\tool} relies on vulnerable
-statements/dependencies to assess the impact of {\em Integrity}, in
+statements/dependencies to assess the impact of {\em Integrity}; in
 81\% samples, it relies on them for assessing that of {\em Severity}.
 For {\em vulnerability detection}, in 84\% of samples, {\tool} uses
 the right statements/dependencies in its correct prediction (not
 shown).
 %
-On average, in {\bf 81.4\%} samples, {\tool} correctly
+On an average, in {\bf 81.4\%} samples, {\tool} correctly
 relies on the vulnerable statements/dependencies.
 %To correctly assess the remaining samples, {\tool} might use other
 %features, e.g., contexts, code tokens, and the impacts of
