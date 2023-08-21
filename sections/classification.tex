@@ -1,12 +1,12 @@
 \section{Multi-Task Learning for Prediction and Assessment Classification}
 \label{multi-task:sec}
 
-In the previous sections, we have explained how {\tool} performs a
+In the previous sections, we have explained how {\tool} performs each
 classification task for detection or assessment.
 %the classification for vulnerability detection and for a
 %vulnerability assessment type (VAT).
 In this section, we will explain our multi-task learning mechanism to
-perform the classification for vulnerability prediction (VD) and the
+perform the classification for vulnerability prediction and the
 classifications for seven VATs with the following prediction
 classes for each VAT:
 
@@ -28,7 +28,7 @@ As explained in Section~\ref{class:sec}, the vector $v^{com}$
 representing the entire commit is passed through a SoftMax layer for
 the classification for vulnerability detection or for a specific VAT.
 %Let us call it a classification task.
-In CAT, the multi-task learning mechanism uses the uncertainty
+In {\tool}, the multi-task learning mechanism uses the uncertainty
 weighted multi-task loss~\cite{kendall2018multi} to learn all 
 classification tasks at the same time. Specifically, for each
 classification task, \tool uses a cross-entropy loss function to do
@@ -53,9 +53,9 @@ the model.
 With Formula (\ref{eq6}), {\tool} uses the multi-task
 learning to train all classification models together with the
 features for each task. For training, we set as the objective the
-highest average F-score (Section~\ref{method:sec}) for all
+highest average F-score (Section~\ref{method:sec}) for all 
 tasks. For prediction, the trained model produces the
-classification results for VD and for all VATs.
+classification results for vulnerability detection and for all VATs.
 
 %In brief, the multi-task learning can help propagate the mutual impact
 %of the important features for each VAT classification task on the
