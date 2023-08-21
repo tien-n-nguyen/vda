@@ -7,18 +7,22 @@ any vulnerability in a committed change and provides the CVSS
 assessment grades for it if any.  {\tool} is designed with the
 following ideas:
 
-\vspace{1pt} \indent {\bf Key Idea 1 [Vulnerability Detection and
-    Assessments with Multi-Task Learning]}. From the Observations,
-a commit-level VDA tool is desired. We leverage multi-task
-learning to propagate the mutual benefits of learning of vulnerability
-detection to assessment, and vice versa. Moreover, the learning of one
-type of vulnerability assessment could affect the learning of the
-other (e.g., between Availability and Access Complexity). Thus, our
-multi-task learning scheme is designed with one task for VD, and one
-task for each of the assessment types. In training, we optimize
-the joint loss function for all the tasks. When the VD's outcome is
-positive, {\tool} provides assessments. Otherwise,
-non-impact scores are given.
+%\vspace{1pt} \indent {\bf Key Idea 1 [Vulnerability Detection and
+%    Assessments with Multi-Task Learning]}.
+
+\subsubsection{{\bf Key Idea 1} [Vulnerability Detection and
+    Assessments with Joint Learning]}
+
+From the Observations, a commit-level VDA tool is desired. We leverage
+multi-task learning to propagate the mutual benefits of learning of
+vulnerability detection to that of assessment,~and vice
+versa. Moreover, the learning of one type of vulnerability assessment
+can affect the learning of another (e.g., between Availability and
+Access Complexity). Thus, our multi-task learning scheme is designed
+with one task for VD, and one task for each of the assessment
+types. In training, we optimize the joint loss function for all the
+tasks. When the VD's outcome is positive, {\tool} provides
+assessments. Otherwise, non-impact scores are given.
 
 %If a model learns one of the assessment ratings is high (e.g.,
 %complete unavailability), the VD outcome must be positive. If it is
@@ -29,13 +33,16 @@ non-impact scores are given.
 %learning as when its outcome is positive, {\tool} will provide the
 %assessment. Otherwise, non-impact scores are given.
 
-\vspace{1pt}
-\indent {\bf Key Idea 2 [Contextualized Embeddings for
-Code Changes with Graph-based Representation Learning]}. To overcome
-the limitation of code change representation, we introduce a
-graph-based model to build the {\em
-contextualized embeddings for code changes} that integrate both {\em
-program dependencies} and {\em surrounding contexts}.
+%\vspace{1pt}
+%\indent {\bf Key Idea 2 [Contextualized Embeddings for
+%    Code Changes with Graph-based Representation Learning]}.
+
+\subsubsection{{\bf Key Idea 2} [Contextualized Embeddings for
+    Code Changes with Graph-based Representation Learning]}
+To overcome the limitation of code change representation, we introduce
+a graph-based model to build the {\em contextualized embeddings for
+  code changes} that integrate both {\em program dependencies} and
+{\em surrounding contexts}.
 
 Unlike existing code change embedding
 approaches~\cite{cc2vec,commit2vec} where code changes are represented
@@ -65,11 +72,12 @@ to build such embeddings, and use them for classification.
 %are used in our automated assessment of the vulnerability types.
 
 
-\vspace{1pt}
-\indent {\bf Key Idea 3 [Program Dependencies in Code Change Representation
-via Graph-based Neural Network]}.
-%Graph-based Neural Network for
-%Code Change Representation Learning of Program Dependencies]}.
+
+%\vspace{1pt}
+%\indent {\bf Key Idea 3 [Program Dependencies in Code Change Representation
+%    via Graph-based Neural Network]}.
+
+\subsubsection{{\bf Key Idea 3} [Program Dependencies in Code Change Representation via Graph-based Neural Network]}
 We leverage Label-GCN~\cite{label-gcn} to incorporate the program dependencies among
 the changed code elements and the surrounding un-changed code elements into {\tool}.
 %
@@ -79,7 +87,7 @@ rather than enforcing a total order as in $n$-gram learning.
 This enables {\tool} overcome the aforementioned issues, 
 %with $n$-grams 
 and capture
-dependencies on distant yet VDA-relevant statements.
+dependencies on distant yet vulnerability-relevant statements.
 
 
 %\vspace{1pt}
