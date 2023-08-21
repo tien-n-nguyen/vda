@@ -51,24 +51,22 @@ For instance, in commits that have wrongly been
 identified~as~vulnerable by a VD tool, the VA tool would give
 incorrect assessments, which should not be given at all.  Also, the VA
 tool fails to predict~assessment patterns in commits that are
-vulnerable, but missed by the VD tool.  As a result, the VD
+vulnerable, but missed by the VD tool. As a result, the VD
 $\rightarrow$ VA strategy is limited, and would~not take advantage of
 the {\em mutual benefits of the learning of detection on the learning
   of assessment, and vice versa}.  Our philosophy is driven by this
 inter-dependence, wherein the former could help isolate the part of
 the code change that is vulnerability-inducing, which, in turn, could
-help assess it better. The existing VD tools running on the snapshot
-after a commit are not able to isolate the vulnerability-inducing code
-change.
-%
-Besides, if a model learns that one of the
+help assess it better. Specifically, if a model learns that one of the
 assessment ratings is high (e.g., high severity or complete
 unavailability), the vulnerability detection outcome must be
 positive. If the detection outcome is negative, the assessment ratings
 for all the aspects must be at the lowest (e.g., none). Thus, it is
 more beneficial for a model to jointly learn to detect and assess
 vulnerabilities at~the same time, leading to performance enhancement
-in both tasks.
+in both tasks. Besides, an alternative solution with an existing VD
+tool running on the snapshot after a commit would not be able to
+isolate the vulnerability-inducing code change.
 
 Second, the state-of-the-art VA approaches~\cite{deepCVA-ase21} are
 inept in their {\em representation of code changes},
@@ -85,7 +83,7 @@ statements in the $n$-gram representation might not all contain
 important features for VD/VA. Such a sequential representation
 learning also enforces an order in source code, which might not be the
 order of execution (e.g., in the cases of loop, branch condition, or
-recursion), which contribute to detecting vulnerabilities involving
+recursion), which contributes to detecting vulnerabilities involving
 execution and exception flows. Moreover, given that a vulnerability
 attack exploits the control and data flows, a VD/VA tool needs to
 consider {\em program dependencies}.  This facet is ignored
@@ -102,21 +100,21 @@ of changes and contexts overall, but with different changes and
 associated contexts.
 
 In this work, we present {\tool}, a Context-aware, Graph-based,
-Commit-level Vulnerability Detection and Assessment model that evaluates
-a changed code to detect the presence of a vulnerability, while also providing corresponding CVSS
-assessment scores for the detected vulnerability.
-%{\tool} provides assessment scores when a vulnerability is detected.
-We build {\tool} via the novel integration of three key ideas.  First,
-we {\bf integrate vulnerability detection and assessment (VDA)}
-processes such that our tool can directly be~built into a repository
-to evaluate committed code changes and provide just-in-time
-assistance. Due to the inter-dependence of these processes, we adopt a
-{\bf multi-task learning} approach to propagate the learning between
-VD and VA, leading to better performance of both tasks. Moreover, the
-assessments for different aspects could also affect one
-another~\cite{deepCVA-ase21}, e.g., between the availability and
-integrity of a system. Thus, our multi-task learning scheme includes
-the VD task and the assessment tasks for different security aspects.
+Commit-level Vulnerability Detection and Assessment model that
+evaluates a changed code to detect the presence of a vulnerability,
+while also providing corresponding CVSS assessment scores for the
+detected vulnerability. We build {\tool} via the novel integration of
+three key ideas.  First, we {\em integrate vulnerability detection and
+  assessment (VDA)} processes such that our tool can directly be~built
+into a repository to evaluate committed code changes and provide
+just-in-time assistance. Due to the inter-dependence of these
+processes, we adopt a {\em multi-task learning} approach to propagate
+the learning between VD and VA, leading to better performance of both
+tasks. Moreover, the assessments for different aspects could also
+affect one another~\cite{deepCVA-ase21}, e.g., between the
+availability and integrity of a system. Thus, our multi-task learning
+scheme includes the VD task and the assessment tasks for different
+security aspects.
 
 Second, we address the limitation of code change representations described earlier via
 %Second, regarding the code change representation, we develop
@@ -134,7 +132,7 @@ context~vector on the building of the embeddings for the code
 changes. It uses the contextualized embeddings to predict if the
 changes have any vulnerability, and if yes, to provide assessment
 grades. Third, it utilizes the Label, Graph Convolution
-Network~\cite{label-gcn} to encode the {\bf program dependencies}
+Network~\cite{label-gcn} to encode the {\em program dependencies}
 among the entities in the changed code and the ones in the surrounding
 un-changed code. This helps overcome the issues with $n$-grams and
 capture the statements that might be far apart, but still relevant to the
@@ -252,18 +250,18 @@ vulnerability.
 
 %Experimental results
 We have conducted experiments to evaluate {\tool} on real-world
-vulnerabilities. Our results on a C vulnerability dataset
-show that {\tool} achieves F-score of 25.5\% and MCC of 26.9\%
-relatively higher than the state-of-the-art VA tool
-DeepCVA~\cite{deepCVA-ase21}.  The vulnerability detection result from
-{\tool} is also improved over the state-of-the-art ML/DL-based VD
-approaches from 11.3-–146\% in precision, 10.4-–553\% in recall,
-and 13.4–-322\% in F-score.
+vulnerabilities. Our results on a C vulnerability dataset show that
+{\tool} achieves 25.5\% and 26.9\% relatively higher than the
+state-of-the-art VA tool DeepCVA~\cite{deepCVA-ase21} in F-score and
+MCC, respectively. The vulnerability detection result from {\tool} is
+improved over the state-of-the-art ML/DL-based VD approaches from
+11.3-–146\% in precision, 10.4-–553\% in recall, and 13.4–-322\% in
+F-score.
 %approaches from 13.1-–29.8\% in precision, 15.8-–29.2\% in recall,
 %and 16.5–-25.9\% in F-score.
 The results on a Java dataset with 1,229 vulnerabilities show that
-{\tool} achieves F-score of 31.0\% and MCC of 33.3\% relatively higher
-than DeepCVA~\cite{deepCVA-ase21}.
+{\tool} also achieves 31.0\% and 33.3\% relatively higher
+than DeepCVA~\cite{deepCVA-ase21} in F-score and MCC, respectively.
 
 %Our sensitivity analysis shows that all designed components in {\tool}
 %contribute positively to its high accuracy.
@@ -290,7 +288,7 @@ learning to improve both detection and assessment.
 {\bf 2. Our novel context-aware, graph-based embeddings for code
   changes}
 %Our {\em contextualized embeddings for code changes}
-integrate dependencies and contexts. This embedding model
+integrate program dependencies and contexts. This embedding model
 is applicable for other down-stream tasks.
 
 

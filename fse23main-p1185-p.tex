@@ -156,7 +156,7 @@
   title=#2,#1
 }
 
-\newcommand{\tool}{\textsc{CAT}\xspace}
+\newcommand{\tool}{\textsc{VDA}\xspace}
 
 \newcommand{\mvpdg}{$\delta$-PDG}
 
@@ -396,17 +396,18 @@ context-aware, graph-based, representation learning model to learn the
 {\em contextualized embeddings for the code changes} that integrate
 program dependencies and the surrounding contexts of code changes,
 facilitating the automated vulnerability detection and
-assessment. Second, {\tool} considers the mutual impact of 
-learning to detect vulnerability and learning to assess each of
-the vulnerability assessment types. To do so, it leverages multi-task
-learning among the vulnerability detection and vulnerability
-assessment tasks, improving all the tasks at the same time. Our
-empirical evaluation shows that on a C vulnerability dataset, {\tool}
-achieves F-score of 25.5\% and MCC of 26.9\% relatively higher than
-the baselines in vulnerability assessment. In a Java dataset, {\tool}
-achieves F-score of 31\% and MCC of 33.3\% relatively higher than
-the baselines as well. {\tool} also improves the vulnerability
-detection over the baselines from 13.4--322\% in F-score.
+assessment. Second, {\tool} considers the mutual impact of learning to
+detect vulnerability and learning to assess~each vulnerability
+assessment type. To do so, it leverages multi-task learning among the
+vulnerability detection and vulnerability assessment tasks, improving
+all the tasks at the same time. Our empirical evaluation shows that on
+a C vulnerability dataset, {\tool} achieves 25.5\% and 26.9\%
+relatively higher than the baselines in vulnerability assessment
+regarding F-score and MCC, respectively. In a~Java dataset, it
+achieves 31\% and 33.3\% relatively higher than the baselines
+in F-score and MCC, respectively. {\tool} also relatively improves the
+vulnerability detection over the baselines from 13.4--322\%
+in~F-score.
 \end{abstract}
 
 %%
@@ -477,7 +478,6 @@ Our data and code are available at~\cite{cat-website}.
 \section*{Acknowledgments}
 This work was supported in part by the US NSF grant CNS-2120386 and
 the NSA grant NCAE-C-002-2021.
-CNS-1513263.
 
 \newpage
 
