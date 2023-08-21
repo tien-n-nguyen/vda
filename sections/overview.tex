@@ -18,7 +18,8 @@ Vulnerability Detection and Assessment}
 
 %\subsubsection*{{\bf Step 1. Multi-version PDG ({\mvpdgxy}) Generation}}
 
-\vspace{2pt}
+%\vspace{2pt}
+
 \subsubsection*{{\bf Step 1. Representing Code Changes and Contexts with Multi-version PDG}}
 Program Dependence Graph (PDG)~\cite{pdg} is a directed graph with a
 set $N$ of nodes and a set $E$ of edges, in which a node $n \in N$
@@ -49,16 +50,18 @@ idea~2).
 
 %Contextualized Embeddings for Code Changes
 
-\vspace{2pt}
+%\vspace{2pt}
+
 \subsubsection*{{\bf Step 2. Contextualized Embeddings for Code Changes with
-Graph-based Representation Learning}} We develop our representation
-learning model to learn the contextualized embeddings for the code
-changes in a commit that integrate both program dependencies and the
-contexts. To build the contextualized embeddings, we leverage the
-Label, Graph-based Convolution Network~\cite{label-gcn} to learn the
-vector $v$ for each node $n$ in the graph whose nodes can have
-labels. We use labels to denote the nodes at either the versions $x$ or
-$y$, or at both versions $x$ and $y$.
+    Graph-based Representation Learning}}
+We develop our representation learning model to learn the
+contextualized embeddings for the code changes in a commit that
+integrate both program dependencies and the contexts. To build the
+contextualized embeddings, we leverage the Label, Graph-based
+Convolution Network~\cite{label-gcn} to learn the vector $v$ for each
+node $n$ in the graph whose nodes can have labels. We use labels to
+denote the nodes at either the versions $x$ (before changes) or $y$
+(after changes), or at both versions.
 
 For a changed node $n_c$, we collect all the un-changed nodes in the
 context of $n_c$, which is defined as the set of all the un-changed
@@ -67,13 +70,15 @@ Figure~\ref{fig:multi-version-pdg}, for the changed statement at line
 4, if $k=1$, the context of that change includes the statements at
 lines 2, 5, and 7 (i.e., 1-hop neighbors from line 4).
 
-From the context nodes, we compute the vector for the context
-for a changed node $n_c$ and use it as a weight to represent the
-impact of context to build the contextualized embedding for $n_c$.
-From those embeddings, we compute the vector for the entire
-commit and feed it to a SoftMax layer acting as
-a classifier to perform vulnerability classification or assessment
-classification for each assessment type.
+From the context nodes, we compute the vector for the context for a
+changed node $n_c$ and use it as a weight to represent the impact of
+context to build the contextualized embedding for $n_c$.  From those
+embeddings, we compute the vector for the entire commit and feed it to
+a SoftMax layer acting as a classifier to perform vulnerability
+classification or assessment classification for each assessment
+type. The softmax function is often used as the last activation
+function of a neural network to normalize the output of a network to a
+probability distribution over the predicted output classes.
 
 %Tien rewrote this para as above
 %We collect the vectors of the context nodes into a matrix and use a
@@ -97,7 +102,7 @@ classification for each assessment type.
 
 %Because the vulnerability assessment we want to get is for the whole vulnerability bring in commits, \tool concatenates $v'^c$ as a matrix and uses a fully connected layer to summarize the final code change representation vector $v^{commit}$. After having the final code change representation vector $v^{commit}$, \tool uses the SoftMax layer as a classifier to do the vulnerability assessment classification based on the $v^{commit}$.
 
-\vspace{2pt}
+%\vspace{2pt}
 \subsubsection*{{\bf Step 3. Multi-Task Learning for Classification}}
 
 For each assessment type, we~have a SoftMax layer working as an
@@ -114,8 +119,7 @@ on one another, we leverage multi-task learning among all the
 classification models. We use the uncertainty weighted multi-task
 loss~\cite{kendall2018multi} for each classification task as the final
 multi-task learning loss function and use the maximum of the average
-F-score from all classification tasks as the
-training~target.
+F-score from all the classification tasks as the training~target.
 
 %After \tool has seven different classification tasks as we introduced above, \tool uses the weighted linear sum of the losses for each task as the final multi-task learning loss function and uses the maximum of the average F-1 score from all vulnerability assessment classification tasks as the training target to train the model.
 

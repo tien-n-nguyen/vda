@@ -3,7 +3,7 @@
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=3.2in]{graphs/multi-version-pdg.png}
+	\includegraphics[width=3.4in]{graphs/multi-version-pdg.png}
 	\vspace{-8pt}
 	\caption{Multi-Version Program Dependence Graph}
         \vspace{-12pt}
@@ -11,19 +11,19 @@
 \end{figure}
 
 %Let us next explain {\tool} in details.
-The first step is to build the multi-version PDG.
+The first step in {\tool} is to build the multi-version PDG.
 %({\mvpdgxy}).
 Figure~\ref{fig:multi-version-pdg}(*) shows the vulnerable method
 \code{rsvg\_io\_get\_file\_path}. The change at line 3 into line 4 was
 deemed as a vulnerability-introducing change by a detection tool, in
 which \code{g\_file\_test(filename,} \code{G\_FILE\_TEST\_EXISTS)} was
 removed from the condition at line
-3. Figs~\ref{fig:multi-version-pdg}(1)
-and~\ref{fig:multi-version-pdg}(2) display the PDGs of the method
+3. Figure~\ref{fig:multi-version-pdg}(1)
+and Figure~\ref{fig:multi-version-pdg}(2) display the PDGs of the method
 \code{rsvg\_io\_get\_file\_path} before and after the change. All the
 nodes of the PDG before the change are marked with $x$, and those of
 the PDG after the change are marked with
-$y$. Fig.~\ref{fig:multi-version-pdg}(3) shows the multi-version
+$y$. Figure~\ref{fig:multi-version-pdg}(3) shows the multi-version
 PDG ({\mvpdgxy}) built from the two versions $x$ and
 $y$ of that method before and after the change. In {\mvpdgxy}, the
 nodes labeled with either $x$ or $y$ appear only in the PDG of the
@@ -72,7 +72,7 @@ After building $\delta$-PDG$^{x,y}$, for each changed node in the
 graph, \tool collects all the unchanged nodes within the $k$-hops and
 the inducing edges among them to build a sub-graph as the context for
 the changed node. $\delta$-PDG$^{x,y}$ and the context for each
-changed node are used as the input next. Building
+changed node are used as the input of the Label-GCN. Building
 $\delta$-PDG$^{x,y}$ and contexts is needed in both training and
 predicting.
 
