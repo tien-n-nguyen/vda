@@ -5,17 +5,27 @@
 
 \begin{figure*}[t]
 	\centering
-	\includegraphics[width=5.8in]{graphs/model-4.png}
-	\vspace{-10pt}
+	\includegraphics[width=5.9in]{graphs/model-6.png}
+	\vspace{-12pt}
 	\caption{Context-aware, Graph-based Representation Learning for Contextualized Embeddings for Code Changes}
 	\label{fig:step-2}
 \end{figure*}
 
-The goal of our representation learning model is to build the {\em
-  code change contextualized embeddings} that integrate both {\em
-  program dependencies and contexts}.  From those embeddings, {\tool}
-builds the embedding for the entire commit, which will be used in the
-classification tasks for detection and assessment.
+%The goal of our representation learning model is
+
+Let us first explain how we extract the feature vectors for the nodes
+in {\mvpdgxy} and build the {\em code change contextualized
+  embeddings} that integrate both {\em program dependencies and
+  contexts} via Label-GCN. From those embeddings for code changes,
+we build the embedding for the entire commit, which will be later used
+in the classification tasks for vulnerability detection and assessment.
+
+%Let us first explain how we build the feature vectors for the nodes in
+%{\mvpdgxy}. We then explain how we build the contextualized embeddings
+%for those nodes via Label-GCN. Finally, we explain how we integrate
+%context to build the embedding for a commit to be used for
+%classification.
+
 
 %After the previous step, we obtain the {\mvpdgxy} and the context
 %sub-graphs for the changed nodes in {\mvpdgxy}.
@@ -44,7 +54,7 @@ all the vectors $v_t$ of all the tokens in the statement $s$.
 %{\em node content vector}.
 %
 To integrate the labels $x$, $y$, and ($x,y$) into the node feature,
-we use a one-hot vector with the length of 3 for those labels. By
+we use a one-hot vector with the length of three for those labels. By
 concatenating the node content vector with the one-hot vector for the
 labels, we have the {\em node feature~vector $v^{f}_n$} for the node
 $n$. 
@@ -82,14 +92,15 @@ vector~$v^{f}_n$.
 Similar to the traditional GCN~\cite{gcn}, Label-GCN~\cite{label-gcn}
 takes the graph with the node feature vectors as the input and
 generates the embeddings for each node in the graph. In addition, for
-the current node, in the first layer, Label-GCN considers the change
-labels of the neighboring nodes as part of the feature vectors.
+the current node, in the first layer, {\em Label-GCN considers the
+  version labels ($x$,$y$, $(x,y)$) of the neighboring nodes as part of the
+  feature vectors, which helps distinguish the old/new nodes}.
 %it accepts the node labels in the first layer to better integrate the
 %features from the neighboring nodes based on the known labels. To
 %consider the label information, it takes the labels of the neighboring
 %nodes into account as parts of the features of neighboring
 %nodes.
-Label-GCN generates the representation vectors (embeddings) for the nodes in each
+Label-GCN generates the vectors (embeddings) for the nodes in each
 layer as follows:
 \begin{equation}\label{eq1}
 	H_{(l)} = 
@@ -123,8 +134,8 @@ for the nodes in the {\mvpdgxy} graph after Label-GCN in Figure~\ref{fig:step-2}
 
 %To make the Label-GCN can work on the incoming {\mvpdgxy}, \tool firstly generates the node feature vector for each node $n$ in the {\mvpdgxy}. To do that, \tool regards the content of each node $n$ (the content is the statement) as a sequence of token $t_n$ and then uses the GloVe \cite{} to learn the embedding vector $v_t$ for each token. Then \tool uses the average vector $v_{avg}$ for all token embedding vectors $v_t$ in node $n$ as the node content vector. To combine the label information $x$, $y$, and $x, y$ for each node into the node feature, \tool uses a one-hot vector with a length of $3$ to represent the label. By concatenating the node content vector with the one-hot vector for the label, each node $n$ in {\mvpdgxy} will have the node feature vector $v_{n}^{fea}$. Next, we feed the {\mvpdgxy} with the node feature vector for each node $n$ together to the Label-GCN to generate the representation vector $v_n$ for all nodes in the graph.
 
-\subsection{Integrating Context and Building the Vector for a Commit}
-\label{class:sec}
+\subsection{Context Integration}
+\label{context:sec}
 
 For each changed node $n_c$ in {\mvpdgxy}, we build the sub-graph
 containing all the un-changed nodes in the $k$-hop neighbors of $n_c$
@@ -137,12 +148,16 @@ To integrate the context into the embeddings, we compute the final
 vector $v{'}_{n_{c}}$ for the changed node $n_c$ by performing the
 cross-product between $v_{ctx}$ and the vector $v_{n_c}$ for $n_c$
 computed by the Label-GCN model as described in
-Section~\ref{label-gcn-compute}:$v{'}_{n_c} = v_{ctx} \times
+Section~\ref{label-gcn-compute}: $v{'}_{n_c} = v_{ctx} \times
 v_{n_c}$.
+
+\subsection{Classification for Each Task}
+\label{class:sec}
+
 To compute the vector for the entire commit, we collect all
 the vectors $v{'}_{n_c}$s of the changed nodes $n_c$ in {\mvpdgxy}
 into a matrix. We apply a fully connected layer to learn
-the vector $v_{Mi}$ for a changed method $Mi$. The vectors for all changed
+the vector $v_{M_i}$ for a changed method $M_i$. The vectors for all changed
 methods are passed through another fully connected layer to get the
 vector $v^{com}$ for the commit. This vector is fed
 into each SoftMax classifier for each task.
