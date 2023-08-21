@@ -15,8 +15,13 @@ approaches~\cite{perl2015vccfinder,zhou2017automated,chen2019large}
 have been proposed to catch SVs as soon as new code changes are
 committed to the code repositories during
 % software development. They are used to warn developers early on potential vulnerable code and also help better prioritize the code review task.
-the software development process. They are useful in warning
-developers early and isolating vulnerability-inducing, fine-grained code change.
+software development. They are useful in warning developers early and
+isolating vulnerability-inducing, fine-grained code change.
+%Tien
+An alternative solution as using a VD tool running on the
+snapshot after a commit would not be able to isolate 
+vulnerability-inducing changes.
+
 %about potentially vulnerable code patterns in their code change.
 
 %which will also help better prioritize the code review tasks.
@@ -49,7 +54,7 @@ is prone to cascading errors.
 %For the false positive cases from VD
 For instance, in commits that have wrongly been
 identified~as~vulnerable by a VD tool, the VA tool would give
-incorrect assessments, which should not be given at all.  Also, the VA
+incorrect assessments, which should not be given at all. Moreover, the VA
 tool fails to predict~assessment patterns in commits that are
 vulnerable, but missed by the VD tool. As a result, the VD
 $\rightarrow$ VA strategy is limited, and would~not take advantage of
@@ -64,14 +69,17 @@ positive. If the detection outcome is negative, the assessment ratings
 for all the aspects must be at the lowest (e.g., none). Thus, it is
 more beneficial for a model to jointly learn to detect and assess
 vulnerabilities at~the same time, leading to performance enhancement
-in both tasks. Besides, an alternative solution with an existing VD
-tool running on the snapshot after a commit would not be able to
-isolate the vulnerability-inducing code change.
+in both detection and assessment.
+
+%Tien
+%Besides, an alternative solution with an existing VD
+%tool running on the snapshot after a commit would not be able to
+%isolate the vulnerability-inducing code change.
 
 Second, the state-of-the-art VA approaches~\cite{deepCVA-ase21} are
 inept in their {\em representation of code changes},
 %and do not take into account the {\em context} of such changes.
-which are not sufficiently {\em context-aware}.
+which are not sufficiently context-aware.
 %They use $n$-gram
 They learn an $n$-gram
 %representation for code changes that are insufficient to capture the
@@ -86,7 +94,7 @@ order of execution (e.g., in the cases of loop, branch condition, or
 recursion), which contributes to detecting vulnerabilities involving
 execution and exception flows. Moreover, given that a vulnerability
 attack exploits the control and data flows, a VD/VA tool needs to
-consider {\em program dependencies}.  This facet is ignored
+consider program dependencies.  This facet is ignored
 in the existing VA tools.
  %With $n$-grams, the VA tools do not model the program
 %dependencies. Finally, it does not represent well the {\em code
@@ -96,7 +104,7 @@ in the existing VA tools.
 Finally, the context of un-changed code is indistinguishable and not
 represented separately from the changes. As a result, it can be
 confused by two training instances that have the same combination
-of changes and contexts overall, but with different changes and
+of change and context overall, but with different changes and
 associated contexts.
 
 In this work, we present {\tool}, a Context-aware, Graph-based,
@@ -132,7 +140,7 @@ context~vector on the building of the embeddings for the code
 changes. It uses the contextualized embeddings to predict if the
 changes have any vulnerability, and if yes, to provide assessment
 grades. Third, it utilizes the Label, Graph Convolution
-Network~\cite{label-gcn} to encode the {\em program dependencies}
+Network~\cite{label-gcn} to encode the program dependencies
 among the entities in the changed code and the ones in the surrounding
 un-changed code. This helps overcome the issues with $n$-grams and
 capture the statements that might be far apart, but still relevant to the
@@ -274,9 +282,9 @@ Our results show that {\em our novel code change embeddings} help
 {\tool} learn better class-separation, i.e., better in classifying the
 commits into the classes for vulnerability detection and
 assessment. Moreover, we used {\em explainable AI} to show
-that {\tool} indeed leverages the correct features in {\em program
-  dependencies} among statements for its assessments.
-The key contributions of this work include
+that {\tool} indeed leverages the correct features in the
+  dependencies among statements for its assessments.
+The key contributions of our work include
 
 {\bf 1. {\tool}: commit-level vulnerability detection and assessment
   model (VDA)} that performs VD and VA in tandem, leveraging multi-task
