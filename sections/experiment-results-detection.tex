@@ -1,4 +1,4 @@
-\subsubsection{{\bf Comparison on Vulnerability Detection on C Dataset (RQ1)}}
+\subsection{{\bf Comparison on Vulnerability Detection on BigVul C Dataset (RQ1)}}
 \label{sec:vd-result}
 
 \begin{table} [t]
@@ -109,14 +109,14 @@ Reveal~\cite{chakraborty2021deep} and
 IVDetect~\cite{li2021vulnerability}), in the cases where the code
 changes are relevant to the vulnerability. Consider an example in which a statement
 (e.g., null check) was removed leading to vulnerable code (e.g.,
-Null-Pointer Exception). Due to its ability to examine changes, as opposed to the baselines which only look at the modified version, {\tool} can detect the vulnerability-introducing elements better.
+Null-Pointer Exception). Due to its ability to examine changes, as opposed to the baselines which only look at the modified version, {\tool} can detect the vulnerability-inducing changes better.
 
 
 In Section~\ref{sec:ai}, we used {\em Explainable AI to display the
 changed statements} in the code that contributes to the detected
 vulnerability (Figure~\ref{gnn-example}). This is another advantage
-from commit-level VD (pointing to the {\em fine-grained}
-vulnerability-introducing change) that the VD tools working on the new
+from commit-level VD (pointing to the {\em fine-grained
+vulnerability-inducing change}) that the VD tools working on the new
 version only do not have.
 
 

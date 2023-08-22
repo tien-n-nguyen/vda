@@ -120,8 +120,23 @@ classification for VATs.
 
 \subsubsection{\bf \em Program Dependencies (RQ4)}
 
-We use Explainable AI to show that {\tool} in fact leverages program
-dependencies in VDA.
+We employ Explainable AI (XAI) to demonstrate the utilization of
+program dependencies by our VDA model in vulnerability detection and
+assessment. An XAI model enables us to analyze the essential features
+within the input code that influence the model's predictive
+outcomes. If XAI highlights program dependencies within the input
+code, we can subsequently investigate whether VDA appropriately
+employs these program dependency-related features for accurate
+predictions.
+
+%We use Explainable AI (XAI) to show that {\tool} in fact leverages
+%program dependencies in detection and assessment. XAI allows us to
+%examine what features in the input code are crucial for a model to
+%make a prediction. If XAI points to program dependencies in the input
+%code, we could examine whether {\tool} uses the correct features in
+%program dependencies or not.
+%------------------------------
+
 
 %\vspace{1pt}
 %\noindent\textbf{RQ5. Overlapping Analysis.}  We counted the
@@ -135,9 +150,10 @@ dependencies in VDA.
 
 \subsubsection{\bf \em Ablation Study on Multi-Task Learning and Context (RQ5)}
 
-We evaluate the impacts of key factors in {\tool}: (1)
-multi-task learning, and (2) change context. We conducted ablation analysis
-by removing a main factor from the model and made a comparison.
+We evaluate the impacts of the following factors in {\tool}: (1)
+multi-task learning, and (2) change context. We conducted an analysis
+by removing each factor from {\tool} and made a comparison.
+
 %d it with the xcomplete model.
 
 %\vspace{3pt}
