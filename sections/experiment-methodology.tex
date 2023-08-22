@@ -43,7 +43,7 @@ tuned DeepCVA's parameters from its documentation.
 
 \emph{Evaluation Metrics.} We use the following metrics to measure the
 effectiveness of a model: $Recall = \frac{TP}{TP+FN}$, $Precision =
-\frac{TP}{TP+FP}$, and $F\-score =
+\frac{TP}{TP+FP}$, and $F$-$score =
 \frac{2*Recall*Precision}{Recall+Precision}$.
 %\begin{equation}
 %	Recall = \frac{TP}{TP+FN}
@@ -89,7 +89,7 @@ some of the VATs. MCC ranges from -1 to 1 (the best).
 %evaluate classification tasks. We chose F-score to handle the class
 %imbalance prevalent in some of the VATs.
 Since we evaluate the classification models with multiple classes,
-we used the macro F-Score~\cite{spanos2018multi} and the multi-class
+we used the macro F-score~\cite{spanos2018multi} and the multi-class
 version of MCC~\cite{gorodkin04}. The overall MCC is computed as the
 average of the MCCs for all classification tasks as in
 DeepCVA~\cite{deepCVA-ase21}.
@@ -113,8 +113,9 @@ DeepCVA~\cite{deepCVA-ase21}.
 \subsubsection{\bf \em Code Change Embedding Analysis (RQ3)}
 
 We aim to evaluate the impact of our novel graph-based, contextualized
-code change embedding model on {\tool} in the
-classification for VATs.
+code change embedding model on {\tool}'s ability in class separation.
+
+%{\tool} in the classification for VATs.
 
 %\noindent \textbf{RQ4. Program Dependencies.}
 

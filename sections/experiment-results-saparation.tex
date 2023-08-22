@@ -1,4 +1,4 @@
-\subsubsection{\bf Class Separability with Code Change Embeddings (RQ3)}
+\subsection{\bf Class Separability with Code Change Embeddings (RQ3)}
 \label{sec:separation}
 
 %\subsubsection{\bf Contribution of Code Change Embeddings in Classification (RQ3)}
@@ -11,13 +11,13 @@
 	\label{fig:confidentiality}
 \end{figure*}
 
-%\begin{figure*}[t]
-%	\centering
-%	\includegraphics[width=6.9in]{graphs/integrity}
-%        \vspace{-6pt}
-%	\caption{Silhouette Plots for the Embeddings of Commits produced by {\tool} and DeepCVA regarding INTEGRITY}
-%	\label{fig:integrity}
-%\end{figure*}
+\begin{figure*}[t]
+	\centering
+	\includegraphics[width=6.9in]{graphs/integrity}
+        \vspace{-6pt}
+	\caption{Silhouette Plots for the Embeddings of Commits produced by {\tool} and DeepCVA regarding INTEGRITY}
+	\label{fig:integrity}
+\end{figure*}
 
 \begin{figure*}[t]
 	\centering
@@ -108,7 +108,7 @@ class configuration is proper. That corresponds
 to better-formed classes, facilitating a model to group the commits
 into the correct classes (i.e., {\em None, Partial,} and {\em Complete}).
 If many points have low or negative values, the
-class configuration is ill-formed, which does not help with
+class configuration is ill-formed, i.e. does not help with
 classification.
 
 Let us consider the commits in the {\em Complete} class
@@ -125,15 +125,14 @@ classes {\em Partial} and {\em None}.
 %those embeddings that are not well-matched with its own classes and
 %mixed with the embeddings of the neighboring classes. 
 %This means that 
-Thus, DeepCVA produces
-embeddings that overlap more with their neighboring classes.
-In
-Figure~\ref{fig:confidentiality}e., we place two silhouette plots in
-an overlay image. The plot from {\tool} is thicker than that from
-DeepCVA: {\tool} produces more points with positive values than
-DeepCVA. In brief, Figures~\ref{fig:confidentiality}a--e show that the
-{\em embeddings for code changes from {\tool} facilitates better
-classification for VA than those from DeepCVA}.
+Thus, DeepCVA produces embeddings that overlap more with their
+neighboring classes.  In Figure~\ref{fig:confidentiality}e., we place
+two silhouette plots in an overlay image. The plot from {\tool} is
+thicker than that from DeepCVA: {\tool} produces more points with
+positive values than DeepCVA. In brief,
+Figures~\ref{fig:confidentiality}a--e show that the {\em embeddings
+for code changes from {\tool} facilitates better classification for
+vulnerability assessment than the embeddings produced by DeepCVA}.
 
 %~\ref{fig:access-vector},
 %~\ref{fig:access-complexity},
@@ -142,16 +141,17 @@ classification for VA than those from DeepCVA}.
 %Figures~\ref{fig:integrity},~\ref{fig:availability},
 %and~\ref{fig:severity}
 
-Figure~\ref{fig:availability} shows the comparison among the
-silhouette plots for the embeddings from {\tool} and DeepCVA on
-{\em Availability} (remaining VAT types are not shown here due to space limit).
-We can see that the comparisons for all VATs have the same trend, i.e., the knife
-shapes from {\tool} have no or shorter tails, and are thicker than
-those of DeepCVA. In brief, the silhouette plots indicate that {\tool} produces 
+Figure~\ref{fig:integrity} and Figure~\ref{fig:availability} show the
+comparison among the silhouette plots for the embeddings from {\tool}
+and DeepCVA on {\em Integrity} and {\em Availability} (remaining VAT
+types are not shown here due to space limit). We can see that the
+comparisons for all VATs have the same trend, i.e., the knife shapes
+from {\tool} have no or shorter tails, and are thicker than those of
+DeepCVA. In brief, the silhouette plots indicate that {\tool} produces
 embeddings that have more cohesion with the ones in the same class and
 more separation with the ones in the different classes. Thus, our {\bf
 embeddings with more class-separability help {\tool} perform better
-classification for VA}.
+classification for vulnerability assessment}.
 
 %regarding each vulnerability assessment type}.
 
@@ -160,7 +160,7 @@ classification for VA}.
 	\centering
 	\includegraphics[width=1.3in]{graphs/plot-vd}
        \vspace{-6pt}
-	\caption{Silhouette Plots for the Embeddings of Commits produced by {\tool} and DeepCVA for Vulnerability Detection: {\tool} has better Class Separability}
+	\caption{Silhouette Plots for the Embeddings of Commits produced by {\tool} and IVDetect for Vulnerability Detection: {\tool} has better Class Separability}
 	\label{fig:vd}
 \end{figure}
 
