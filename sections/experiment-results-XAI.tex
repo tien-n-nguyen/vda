@@ -1,8 +1,6 @@
-%\subsection{Discussion and Implications}
+%\subsection{{\bf Using Explainable AI to Study Relevant Features in Classification regarding Program Dependencies (RQ4)}}
 
-%\subsubsection{Using Explainable AI to explain the graph as the key features in {\tool}}
-
-\subsubsection{{\bf Using Explainable AI to Study Relevant Features in Classification regarding Program Dependencies (RQ4)}}
+\subsection{{\bf Key Features in Program Dependencies for Classification with Explainable AI (RQ4)}}
 \label{sec:ai}
 
 %\subsubsection*{Using Explainable AI to explain the graph as the key features in {\tool}}
@@ -16,17 +14,18 @@
 %commits that facilitate {\tool} in better classifying the
 %commit-level changes into more correct classes regarding  the assessment
 %types than DeepCVA~\cite{deepCVA-ase21}.
-We aim to evaluate whether {\tool} uses the vulnerable statements
-and their dependencies in its vulnerability prediction and
+We aim to evaluate whether {\tool} uses the vulnerable statements and
+their dependencies in its vulnerability prediction and
 assessment. This also allows us to evaluate its ability to pinpoint
 the changed statements relevant to the detected vulnerability.
 %capable of {\em capturing the key vulnerable statements and
 %dependencies}, leading to its accuracy in vulnerability assessment.
 Specifically, for each vulnerability assessment type (VAT), we
 randomly selected 366 samples of the commits in our dataset that
-{\tool} predicts the correct classes (e.g., {\em None}, {\em Partial},
-{\em Complete}) of the vulnerability detection and VATs for them. That sample size gives us the confidence level of 95\% and
-the confidence interval of 5\% for each VAT.
+{\tool} predicts the correct classes of the vulnerability detection
+and VATs (e.g., {\em None}, {\em Partial}, {\em Complete}). That
+sample size gives us the confidence level of 95\% and the confidence
+interval of 5\% for each~VAT.
 
 We use an explainable Artificial Intelligence (XAI) model,
 called {\em GNNExplainer}~\cite{GNNExplainer}, which takes a GNN-based
@@ -90,12 +89,12 @@ correct classification (detection and assessment).
 
 %Table~\ref{gnn} shows us how much {\tool} uses the vulnerable statements and their dependencies in predicting the correct assessments. For example, among a sample of 366 commits that {\tool} successfully classified into {\em None} or {\em Single} for {\em Authentication}, there are 139 commits in which {\tool} uses the actual vulnerable statements and their dependencies in its prediction/assessment. GNNExplainer determines that {\tool} had made the correct classifications for {\em Authentication} because {\tool} used at least one of the actual vulnerable statements/dependencies. In other words, in 139 commits, {\tool} used the vulnerable statements/dependencies as its key features in the correct classifications. As seen, across different assessment types, the degree of {\tool}'s relying on the vulnerable statements and dependencies for its assessment is different. While only 11\% of the samples, {\tool} relies on vulnerable statements/dependencies to assess the impact of {\em Availability}, in 37\% of the samples, it relies on them for assessing that of {\em Authentication}. On average, in 21.6\% of the samples, {\tool} correctly relies on the vulnerable statements and their dependencies in vulnerability assessment. 
 
-Table~\ref{gnn} shows how much {\tool} uses the vulnerable
-statements and their dependencies in correctly predicting the
-VATs. For example, among the 366 commits that {\tool} successfully
-classified into ({\em None}, {\em Single}) for {\em Authentication},
-GNNExplainer determines that in 93\% of them, {\tool}
-uses the actual vulnerable statements and their dependencies as key
+Table~\ref{gnn} shows the percentages of the cases in which {\tool} correctly uses
+the vulnerable statements and their dependencies in correctly
+predicting the VATs. For example, among the 366 commits that {\tool}
+successfully classified into ({\em None}, {\em Single}) for {\em
+Authentication}, GNNExplainer determines that in 93\% of them, {\tool}
+uses at least one actual vulnerable statement or dependency as key
 features in its prediction.
 %GNNExplainer determines that {\tool} had made the correct
 %classifications for {\em Authentication} because {\tool} used at least
@@ -113,14 +112,15 @@ For {\em vulnerability detection}, in 84\% of samples, {\tool} uses
 the right statements/dependencies in its correct prediction (not
 shown).
 %
-On an average, in {\bf 81.4\%} samples, {\tool} correctly
-relies on the vulnerable statements/dependencies.
+On an average, in 81.4\% samples, {\tool} correctly relies on the
+vulnerable statements/dependencies.
 %To correctly assess the remaining samples, {\tool} might use other
 %features, e.g., contexts, code tokens, and the impacts of
 %multiple~tasks.
 In brief, this result shows that {\em program dependencies among
 vulnerable statements are key features to {\tool} in its correct
-vulnerability detection and assessment}.
+vulnerability detection and assessment}, which corroborates with our
+design choice with program dependencies.
 
 
 

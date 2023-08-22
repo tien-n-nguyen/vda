@@ -20,10 +20,10 @@ overflow. {\tool} correctly~predicted this vulnerability and its
 assessment {\em Severity=Medium}. GNNExplainer pointed out that
 {\tool} used the changed statements and their dependencies at lines 2,
 3, 6, 9 and another line (not shown), to perform classification. This
-is correct because despite line 9 being a fixed line (in a later
+is correct because despite~line~9 being a fixed line (in a later
 version), lines 2, 3, 6 are parts of the control/data flows leading to
-line 9. In brief, {\tool} used the vulnerability-relevant statements
-and dependencies in correct~prediction.
+line 9. Thus, {\tool} correctly used the vulnerability-relevant
+statements and dependencies in correct~prediction.
 
 %Thus, program dependencies encoded in our embeddings are the
 %key features enabling {\tool} in correct classification.
