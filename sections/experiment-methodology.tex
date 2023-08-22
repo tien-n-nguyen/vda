@@ -1,14 +1,17 @@
 \subsection{Experimental Methodology}
 \label{method:sec}
 
-\input{sections/datasets}
+%
 
 %To evaluate the performance of automated commit-level vulnerability assessment, we use the following two metrics: F1-Score and Matthews Correlation Coefficient (MCC). These two metrics have been widely, commonly, and frequently in the literature (check deepcva page 6, evaluation metrics for literature). Due to the fact that our {\tool} is built for multi-class classification, we used the macro F1-Score and multi-class version of MCC as in~\cite{le2021deepcva}.
 
 
-\subsubsection{\textbf{Analysis Approaches for RQs\\}}
+%\subsubsection{\textbf{Experimental Methodology.\\}}
+%\vspace{-6pt}
 
-\noindent\textbf{RQ1. Comparison on Vulnerability Detection on C dataset}
+%\noindent\textbf{RQ1. Comparison on Vulnerability Detection on C dataset}
+
+\subsubsection{\bf \em Comparison on Vulnerability Detection on BigVul (RQ1).\\}
 
 \emph{Baselines}. We include {\bf VCCFinder}~\cite{perl2015vccfinder}
 (a commit-level ML-based VD), and other ML VD tools:
@@ -19,10 +22,10 @@
 \cite{li2021vulnerability}. Except VCCFinder, we ran the others
 on the code after commit. 
 
-\emph{Procedure.}  We use all vulnerable methods and randomly select
+\emph{Procedure.}  We used all vulnerable methods and randomly selected
 the same number of non-vulnerable methods from the fixed version
 projects, to build a dataset with the vul:non-vul ratio of 1:1. We
-also evaluate the tools with the real-world ratio of 9:1. We randomly split the
+also evaluated the tools with the real-world ratio of 9:1. We randomly split the
 data 80\%, 10\%, 10\% on the project basis without changing the
 vul:non-vul ratio for training, tuning, and testing.
 
@@ -55,19 +58,22 @@ where TP = True Positives; FP = False Positives; FN = False Negatives; TN = True
 
 %Recall measures how many of the vulnerable methods can be correctly detected, while Precision is used to measure how many of the detected vulnerable methods are indeed labeled as vulnerable in the collected dataset. F-score is used to reflect the overall performance by combining both the Recall and Precision.
 
-%\vspace{3pt}
-\noindent\textbf{RQ2. Comparison on Vulnerability Assessment on C dataset.}
+%\noindent\textbf{RQ2. Comparison on Vulnerability Assessment on C dataset.}
+\subsubsection{\bf \em Comparison on Vulnerability Assessment on BigVul (RQ2)}
 
-{\em Baseline and Procedure.} We compare {\tool} with
-DeepCVA~\cite{deepCVA-ase21}. We ran the models on BigVul. We used the
-same longitudinal setting in~\cite{deepCVA-ase21,falessi2020need} for
+{\em Baseline.} We compare {\tool} with DeepCVA~\cite{deepCVA-ase21}.
+
+
+{\em Procedure.} We used BigVul dataset with the same
+longitudinal setting in~\cite{deepCVA-ase21,falessi2020need} for
 training, validation, and testing to mimic the real-world scenario in
 which the older vulnerabilities are used for training to assess the
 newer. Specifically, we sorted all the commits in a chronological
 order based on their absolute time. We divided the commits into 10
-equal folds from oldest to newest. For a fold $k$ ($k$ $\le$ $8$), we used
-all the folds 1 to $k$ for training, the $(k$+$1)^{th}$ and $(k$+$2)^{th}$
-folds for validation and testing. Models are tuned as in~RQ1.
+equal folds from oldest to newest. For a fold $k$ ($k$ $\le$ $8$), we
+used all the folds 1 to $k$ for training, the $(k$+$1)^{th}$ and
+$(k$+$2)^{th}$ folds for validation and testing. Models are tuned as
+in~RQ1.
 
 %\subsubsection{\textbf{Evaluation Metrics}}
 
@@ -76,14 +82,17 @@ folds for validation and testing. Models are tuned as in~RQ1.
 
 \emph{Evaluation Metrics.} We use the same metrics in
 DeepCVA~\cite{deepCVA-ase21}: F-score and Matthews Correlation
-Coefficient (MCC). F-score ranges from 0 to 1 (the best), and MCC
-ranges from -1 to 1 (the best). F-score is a metric to evaluate
-classification tasks. We chose F-score to handle the class imbalance
-prevalent in some of the VATs. Because we evaluate the classification
-models with multiple classes, we used the macro
-F-Score~\cite{spanos2018multi} and the multi-class version of
-MCC~\cite{gorodkin04}. The overall MCC is computed as the average of
-the MCCs for all classification tasks as in DeepCVA~\cite{deepCVA-ase21}.
+Coefficient (MCC). F-score ranges from 0 to 1 (the best), to evaluate
+classification tasks and to handle the class imbalance prevalent in
+some of the VATs. MCC ranges from -1 to 1 (the best).
+%and MCC ranges from -1 to 1 (the best). F-score is a metric to
+%evaluate classification tasks. We chose F-score to handle the class
+%imbalance prevalent in some of the VATs.
+Since we evaluate the classification models with multiple classes,
+we used the macro F-Score~\cite{spanos2018multi} and the multi-class
+version of MCC~\cite{gorodkin04}. The overall MCC is computed as the
+average of the MCCs for all classification tasks as in
+DeepCVA~\cite{deepCVA-ase21}.
 
 %We turned {\tool} with the following key hyper-parameters ....
 %We turned DeepCVA with the following key hyper-parameters ...
@@ -100,11 +109,18 @@ the MCCs for all classification tasks as in DeepCVA~\cite{deepCVA-ase21}.
 
 %We turned {\tool} with the following key hyper-parameters .... As we reused the dataset from the DeepCVA, we directly tune DeepCVA with the parameters reported in their paper. Same as RQ1, we use macro F1-Score and multi-class MCC to evaluate both approaches.
 
-%\vspace{1pt}
-\noindent\textbf{RQ3. Code Change Embedding Analysis.} We evaluate the impact of the embeddings in the classification for VATs.
+%\noindent\textbf{RQ3. Code Change Embedding Analysis.}
+\subsubsection{\bf \em Code Change Embedding Analysis (RQ3)}
 
-\noindent \textbf{RQ4. Program Dependencies.} We use
-Explainable AI to show that {\tool} in fact leverages program
+We aim to evaluate the impact of our novel graph-based, contextualized
+code change embedding model on {\tool} in the
+classification for VATs.
+
+%\noindent \textbf{RQ4. Program Dependencies.}
+
+\subsubsection{\bf \em Program Dependencies (RQ4)}
+
+We use Explainable AI to show that {\tool} in fact leverages program
 dependencies in VDA.
 
 %\vspace{1pt}
@@ -114,15 +130,20 @@ dependencies in VDA.
 %that were correctly classified by both.
 
 
-\vspace{1pt}
-\noindent\textbf{RQ5. Ablation Study on Multi-Task Learning and
-  Context.}  We evaluate the impacts of key factors in {\tool}: (1)
+%\vspace{1pt}
+%\noindent\textbf{RQ5. Ablation Study on Multi-Task Learning and Context.}
+
+\subsubsection{\bf \em Ablation Study on Multi-Task Learning and Context (RQ5)}
+
+We evaluate the impacts of key factors in {\tool}: (1)
 multi-task learning, and (2) change context. We conducted ablation analysis
 by removing a main factor from the model and made a comparison.
 %d it with the xcomplete model.
 
-\vspace{3pt}
-\noindent\textbf{RQ6. Comparison on Assessment on CVAD (Java dataset).}
+%\vspace{3pt}
+%\noindent\textbf{RQ6. Comparison on Assessment on CVAD (Java dataset).}
+
+\subsubsection{\bf \em Comparison on Assessment on CVAD Java dataset (RQ6).\\}
 
 {\em Baseline and Procedure.} We compared {\tool} with the baseline
 DeepCVA~\cite{deepCVA-ase21}. We used the same procedure, tuning, and

@@ -1,4 +1,4 @@
-\subsubsection{\textbf{Datasets}}\label{dataset}
+\subsection{\textbf{Datasets}}\label{dataset}
 %\begin{table}[h]
 %	\caption{Statistics on Dataset}
 %	\vspace{-15pt}
@@ -17,8 +17,9 @@ We used two vulnerability datasets in C and Java: BigVul
 %Both were built by crawling the Common Vulnerabili\-ties and Exposures
 %(CVE) database and the code repositories mentioned in the CVEs.
 Both were manually~checked and used in prior
-research~\cite{bigvul-msr20,li2021vulnerability,deepCVA-ase21}. Experiments were
-conducted on a server with 16 core CPU and a single Nvidia A100 GPU.
+research~\cite{bigvul-msr20,li2021vulnerability,deepCVA-ase21}. Our
+experiments were conducted on a server with 16 core CPU and a single
+Nvidia A100~GPU.
 
 %Table~\ref{dataset:tab} shows the statistics of the datasets.
 
@@ -34,7 +35,7 @@ conducted on a server with 16 core CPU and a single Nvidia A100 GPU.
 \small
 		\renewcommand{\arraystretch}{1}
 		\begin{tabular}{l|p{1.5cm}<{\centering}|p{2cm}<{\centering}}
-			
+		\hline	
         	Datasets	& BigVul (C) & CVAD (Java)\\\hline
 		\# of Projects  & 303 & 246 \\\hline
 	    \# of Vulnerabilities & 3336 & 542\\\hline
