@@ -9,15 +9,17 @@
 
 %The most relevant work to {\tool} is the state-of-the-art commit-level approach, DeepCVA, working on code changes. However, {\tool} is designed to overcome the shortcomings of DeepCVA in code change representation and embeddings, program dependencies and surrounding contexts of changed code. Our empirical studies have shown that {\tool} can outperform DeepCVA.
 
-\vspace{3pt}
-\noindent{\bf ML-based Vulnerability Prediction. }
+%\vspace{3pt}
+%\noindent{\bf ML-based Vulnerability Prediction. }
+
+\subsubsection*{\bf ML-based Vulnerability Prediction}
 %Commit-level vulnerability detection is an important direction.
 Machine Learning has been applied in commit-level vulnerability
 detection~\cite{perl2015vccfinder,zhou2017automated,chen2019large}.
 %developed commit-level VD models that leveraged ML models.
-VCCFinder~\cite{perl2015vccfinder} trained a SVM classifier to flag
+VCCFinder~\cite{perl2015vccfinder} trains a SVM classifier to flag
 suspicious commits. We used only code change features for our
-experiment. Zhou and Sarma~\cite{zhou2017automated} work on commit
+experiment. Zhou and Sarma~\cite{zhou2017automated}'s works on commit
 messages and bug reports. It uses an ensemble model to combine
 multiple classifiers.
 %with random forest,
@@ -46,7 +48,7 @@ AST for VD. Russell {\em et al.}~\cite{russell2018automated} combine
 the neural features of functions with random forest as
 a classifier.
 %It does not consider program dependencies.
-Harer {\em et al.}~\cite{harer2018automated} compared the
+Harer {\em et al.}~\cite{harer2018automated} compare the
 effectiveness in VD of using source code and the compiled
 code. VulDeePecker~\cite{li2018vuldeepecker} uses a RNN trained on
 program slices from API calls for VD. SySeVR~\cite{li2021sysevr}
@@ -67,10 +69,14 @@ compare with it.
 
 %\noindent{\bf Code Embedding Learning.}
 
+%\vspace{2pt}
+%\noindent{\bf Automated Vulnerability Assessment. }
 
-\noindent{\bf Automated Vulnerability Assessment. } Distinct software
-vulnerabilities can have different levels of threats and severity, and
-require
+\vspace{-2pt}
+\subsubsection*{\bf Automated Vulnerability Assessment}
+
+Distinct software vulnerabilities can have different levels of threats
+and severity, and require
 assessment~\cite{nayak2014some,le2019automated,khan2018review}.
 %Thus, it is desired to assess vulnerabilities for prioritizing actions
 %and resources
@@ -78,7 +84,7 @@ assessment~\cite{nayak2014some,le2019automated,khan2018review}.
 %before more exploits~\cite{khan2018review}.
 The automated approaches have been recently
 proposed~\cite{bozorgi2010beyond,allodi2014comparing,deepCVA-ase21}.
-Bozorgi {\em et al.}~\cite{bozorgi2010beyond} proposed a SVM-based
+Bozorgi {\em et al.}~\cite{bozorgi2010beyond} propose a SVM-based
 approach to predict whether a vulnerability will be exploited or not.
 %Specifically, they extracted over 93k features from vulnerability data
 %and classify vulnerabilities using these features.
@@ -88,7 +94,7 @@ Lamkanfi {\em et al.}~\cite{lamkanfi2010predicting} predict the
 severity of a reported bug using text mining algorithms on bug reports.
 %to analyze the textual descriptions on the bugs.
 %
-Han {\em et al.}~\cite{han2017learning} proposed a multi-class text
+Han {\em et al.}~\cite{han2017learning} propose a multi-class text
 classification DL-based model that is based on the
 description to predict the severity level of a vulnerability.
 %critical, high, medium, and low in CVSS~\cite{first-website}.
@@ -97,15 +103,15 @@ description to predict the severity level of a vulnerability.
 %text into one of the severity levels, for example, critical, high,
 %medium, low of the Common Vulnerability Scoring System (CVSS)
 %framework~\cite{first-website}.
-Georgios {\em et al.}~\cite{spanos2018multi} adopted a multi-target
+Georgios {\em et al.}~\cite{spanos2018multi} adopt a multi-target
 classification coupled with text analysis on vulnerability
 descriptions to predict their characteristics and scores.
-Le {\em et al.}~\cite{le2019automated} proposed a ML-based approach to
+Le {\em et al.}~\cite{le2019automated} propose a ML-based approach to
 learn the word features in vulnerability description,
 and handle the extended concepts in the description.
 %Unlike the above studies built for analyzing
 %vulnerability description, some
-Other studies~\cite{ponta2018beyond,ponta2020detection} leveraged code
+Other studies~\cite{ponta2018beyond,ponta2020detection} leverage code
 patterns in fixing commits of third-party libraries to assess
 vulnerabilities. In comparison,
 %{\tool} is fundamentally different from the above studies, as it
@@ -113,10 +119,13 @@ vulnerabilities. In comparison,
 using code changes.
 
 
-\noindent{\bf Code Change Embeddings.} Our work is also related to
-code change embedding models~\cite{cc2vec,commit2vec}. Those
-approaches mainly treat code as sequences and do not consider
-structures and/or program dependencies. The key departure points of
-{\tool} include the use of graph representation to model the changes
-and dependencies, as well as the surrounding context to build the
-embeddings.
+%\noindent{\bf Code Change Embeddings.}
+
+\vspace{-4pt}
+\subsubsection*{\bf Code Change Embeddings}
+Our work is also related to code change embedding
+models~\cite{cc2vec,commit2vec}. Those approaches mainly treat code as
+sequences and do not consider structures and/or program
+dependencies. The key departure points of {\tool} include the use of
+graph representation to model the changes and dependencies, as well as
+the surrounding context to build the embeddings.
