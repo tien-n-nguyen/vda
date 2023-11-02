@@ -142,30 +142,46 @@ series = {ISSTA}
 }
 
 @inproceedings{neuhaus2009beauty,
-	title={The Beauty and the Beast: Vulnerabilities in Red Hat's Packages.},
-	author={Neuhaus, Stephan and Zimmermann, Thomas},
-	booktitle={USENIX Annual Technical Conference},
-	year={2009}
+author = {Neuhaus, Stephan and Zimmermann, Thomas},
+title = {The Beauty and the Beast: Vulnerabilities in Red Hat’s Packages},
+year = {2009},
+publisher = {USENIX Association},
+address = {USA},
+abstract = {In an empirical study of 3241 Red Hat packages, we show that software vulnerabilities correlate with dependencies between packages. With formal concept analysis and statistical hypothesis testing, we identify dependencies that decrease the risk of vulnerabilities ("beauties") or increase the risk ("beasts"). Using support vector machines on dependency data, our prediction models successfully and consistently catch about two thirds of vulnerable packages (median recall of 0.65). When our models predict a package as vulnerable, it is correct more than eight times out of ten (median precision of 0.83). Our findings help developers to choose new dependencies wisely and make them aware of risky dependencies.},
+booktitle = {Proceedings of the 2009 Conference on USENIX Annual Technical Conference},
+pages = {30},
+numpages = {1},
+location = {San Diego, California},
+series = {USENIX'09}
 }
 
 @inproceedings{neuhaus2007predicting,
-	title={Predicting vulnerable software components},
-	author={Neuhaus, Stephan and Zimmermann, Thomas and Holler, Christian and Zeller, Andreas},
-	booktitle={Proceedings of the 14th ACM conference on Computer and communications security},
-	pages={529--540},
-	year={2007}
+author = {Neuhaus, Stephan and Zimmermann, Thomas and Holler, Christian and Zeller, Andreas},
+title = {Predicting Vulnerable Software Components},
+year = {2007},
+isbn = {9781595937032},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1315245.1315311},
+doi = {10.1145/1315245.1315311},
+abstract = {Where do most vulnerabilities occur in software? Our Vulture tool automatically mines existing vulnerability databases and version archives to map past vulnerabilities to components. The resulting ranking of the most vulnerable components is a perfect base for further investigations on what makes components vulnerable.In an investigation of the Mozilla vulnerability history, we surprisingly found that components that had a single vulnerability in the past were generally not likely to have further vulnerabilities. However, components that had similar imports or function calls were likely to be vulnerable.Based on this observation, we were able to extend Vulture by a simple predictor that correctly predicts about half of all vulnerable components, and about two thirds of all predictions are correct. This allows developers and project managers to focus their their efforts where it is needed most: "We should look at nsXPInstallManager because it is likely to contain yet unknown vulnerabilities.".},
+booktitle = {Proceedings of the 14th ACM Conference on Computer and Communications Security},
+pages = {529–540},
+numpages = {12},
+keywords = {software security, prediction},
+location = {Alexandria, Virginia, USA},
+series = {CCS '07}
 }
 
-@article{scandariato2014predicting,
-	title={Predicting vulnerable software components via text mining},
-	author={Scandariato, Riccardo and Walden, James and Hovsepyan, Aram and Joosen, Wouter},
-	journal={IEEE Transactions on Software Engineering},
-	volume={40},
-	number={10},
-	pages={993--1006},
-	year={2014},
-	publisher={IEEE}
-}
+@ARTICLE{scandariato2014predicting,
+  author={Scandariato, Riccardo and Walden, James and Hovsepyan, Aram and Joosen, Wouter},
+  journal={IEEE Transactions on Software Engineering}, 
+  title={Predicting Vulnerable Software Components via Text Mining}, 
+  year={2014},
+  volume={40},
+  number={10},
+  pages={993-1006},
+  doi={10.1109/TSE.2014.2340398}}
 
 @inproceedings{moshtari2016evaluating,
 	title={Evaluating and comparing complexity, coupling and a new proposed set of coupling metrics in cross-project vulnerability prediction},
@@ -176,24 +192,32 @@ series = {ISSTA}
 }
 
 @inproceedings{yamaguchi2012generalized,
-	title={Generalized vulnerability extrapolation using abstract syntax trees},
-	author={Yamaguchi, Fabian and Lottmann, Markus and Rieck, Konrad},
-	booktitle={Proceedings of the 28th Annual Computer Security Applications Conference},
-	pages={359--368},
-	year={2012}
+author = {Yamaguchi, Fabian and Lottmann, Markus and Rieck, Konrad},
+title = {Generalized Vulnerability Extrapolation Using Abstract Syntax Trees},
+year = {2012},
+isbn = {9781450313124},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2420950.2421003},
+doi = {10.1145/2420950.2421003},
+abstract = {The discovery of vulnerabilities in source code is a key for securing computer systems. While specific types of security flaws can be identified automatically, in the general case the process of finding vulnerabilities cannot be automated and vulnerabilities are mainly discovered by manual analysis. In this paper, we propose a method for assisting a security analyst during auditing of source code. Our method proceeds by extracting abstract syntax trees from the code and determining structural patterns in these trees, such that each function in the code can be described as a mixture of these patterns. This representation enables us to decompose a known vulnerability and extrapolate it to a code base, such that functions potentially suffering from the same flaw can be suggested to the analyst. We evaluate our method on the source code of four popular open-source projects: LibTIFF, FFmpeg, Pidgin and Asterisk. For three of these projects, we are able to identify zero-day vulnerabilities by inspecting only a small fraction of the code bases.},
+booktitle = {Proceedings of the 28th Annual Computer Security Applications Conference},
+pages = {359–368},
+numpages = {10},
+location = {Orlando, Florida, USA},
+series = {ACSAC '12}
 }
 
 
-@article{shin2010evaluating,
-	title={Evaluating complexity, code churn, and developer activity metrics as indicators of software vulnerabilities},
-	author={Shin, Yonghee and Meneely, Andrew and Williams, Laurie and Osborne, Jason A},
-	journal={IEEE transactions on software engineering},
-	volume={37},
-	number={6},
-	pages={772--787},
-	year={2010},
-	publisher={IEEE}
-}
+@ARTICLE{shin2010evaluating,
+  author={Shin, Yonghee and Meneely, Andrew and Williams, Laurie and Osborne, Jason A.},
+  journal={IEEE Transactions on Software Engineering}, 
+  title={Evaluating Complexity, Code Churn, and Developer Activity Metrics as Indicators of Software Vulnerabilities}, 
+  year={2011},
+  volume={37},
+  number={6},
+  pages={772-787},
+  doi={10.1109/TSE.2010.81}}
 
 @inproceedings{yamaguchi2011vulnerability,
 	title={Vulnerability extrapolation: Assisted discovery of vulnerabilities using machine learning},
@@ -212,11 +236,21 @@ series = {ISSTA}
 }
 
 @inproceedings{lin2017poster,
-	title={POSTER: Vulnerability discovery with function representation learning from unlabeled projects},
-	author={Lin, Guanjun and Zhang, Jun and Luo, Wei and Pan, Lei and Xiang, Yang},
-	booktitle={Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security},
-	pages={2539--2541},
-	year={2017}
+author = {Lin, Guanjun and Zhang, Jun and Luo, Wei and Pan, Lei and Xiang, Yang},
+title = {POSTER: Vulnerability Discovery with Function Representation Learning from Unlabeled Projects},
+year = {2017},
+isbn = {9781450349468},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3133956.3138840},
+doi = {10.1145/3133956.3138840},
+abstract = {In cybersecurity, vulnerability discovery in source code is a fundamental problem. To automate vulnerability discovery, Machine learning (ML) based techniques has attracted tremendous attention. However, existing ML-based techniques focus on the component or file level detection, and thus considerable human effort is still required to pinpoint the vulnerable code fragments. Using source code files also limit the generalisability of the ML models across projects. To address such challenges, this paper targets at the function-level vulnerability discovery in the cross-project scenario. A function representation learning method is proposed to obtain the high-level and generalizable function representations from the abstract syntax tree (AST). First, the serialized ASTs are used to learn project independence features. Then, a customized bi-directional LSTM neural network is devised to learn the sequential AST representations from the large number of raw features. The new function-level representation demonstrated promising performance gain, using a unique dataset where we manually labeled 6000+ functions from three open-source projects. The results confirm that the huge potential of the new AST-based function representation learning.},
+booktitle = {Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security},
+pages = {2539–2541},
+numpages = {3},
+keywords = {representation learning, cross-project, vulnerability detection, AST},
+location = {Dallas, Texas, USA},
+series = {CCS '17}
 }
 
 @inproceedings{russell2018automated,
@@ -252,14 +286,20 @@ series = {ISSTA}
 	organization={Springer}
 }
 
-
 @inproceedings{harer2018learning,
-	title={Learning to repair software vulnerabilities with generative adversarial networks},
-	author={Harer, Jacob and Ozdemir, Onur and Lazovich, Tomo and Reale, Christopher and Russell, Rebecca and Kim, Louis and others},
-	booktitle={Advances in Neural Information Processing Systems},
-	pages={7933--7943},
-	year={2018}
+author = {Harer, Jacob A. and Ozdemir, Onur and Lazovich, Tomo and Reale, Christopher P. and Russell, Rebecca L. and Kim, Louis Y. and Chin, Peter},
+title = {Learning to Repair Software Vulnerabilities with Generative Adversarial Networks},
+year = {2018},
+publisher = {Curran Associates Inc.},
+address = {Red Hook, NY, USA},
+abstract = {Motivated by the problem of automated repair of software vulnerabilities, we propose an adversarial learning approach that maps from one discrete source domain to another target domain without requiring paired labeled examples or source and target domains to be bijections. We demonstrate that the proposed adversarial learning approach is an effective technique for repairing software vulnerabilities, performing close to seq2seq approaches that require labeled pairs. The proposed Generative Adversarial Network approach is application-agnostic in that it can be applied to other problems similar to code repair, such as grammar correction or sentiment translation.},
+booktitle = {Proceedings of the 32nd International Conference on Neural Information Processing Systems},
+pages = {7944–7954},
+numpages = {11},
+location = {Montr\'{e}al, Canada},
+series = {NIPS'18}
 }
+
 @inproceedings{du2019leopard,
 	title={Leopard: Identifying vulnerable code for vulnerability assessment through program metrics},
 	author={Du, Xiaoning and Chen, Bihuan and Li, Yuekang and Guo, Jianmin and Zhou, Yaqin and Liu, Yang and Jiang, Yu},

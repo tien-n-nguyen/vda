@@ -3377,7 +3377,7 @@ series = {ESEC/FSE 2020}
   pages={125-136},
   doi={10.1109/ICSME.2017.52}}
 
-@article{SPANOS-jss18,
+@article{spanos2018multi,
 title = {A multi-target approach to estimate software vulnerability characteristics and severity scores},
 journal = {Journal of Systems and Software},
 volume = {146},
@@ -3388,22 +3388,26 @@ doi = {https://doi.org/10.1016/j.jss.2018.09.039},
 url = {https://www.sciencedirect.com/science/article/pii/S0164121218302061},
 author = {Georgios Spanos and Lefteris Angelis},
 keywords = {Information security, Software vulnerability, Text analysis, Multi-target classification},
+abstract = {Software vulnerabilities constitute a great risk for the IT community. The specification of the vulnerability characteristics is a crucial procedure, since the characteristics are used as input for a plethora of vulnerability scoring systems. Currently, the determination of the specific characteristics -that represent each vulnerability- is a process that is performed manually by the IT security experts. However, the vulnerability description can be very informative and useful to predict vulnerability characteristics. The primary goal of this research is the enhancement, the acceleration and the support of the manual procedure of the vulnerability characteristic assignment. To achieve this goal, a model, which combines texts analysis and multi-target classification techniques was developed. This model estimates the vulnerability characteristics and subsequently, calculates the vulnerability severity scores from the predicted characteristics. To perform the present research, a dataset that contains 99,091 records from a large -publicly available- vulnerability database was used. The results are encouraging, since they show accuracy in the prediction of the vulnerability characteristics and scores.}
 }
 
-@inproceedings{le-msr19,
+
+@inproceedings{le2019automated,
 author = {Le, Triet Huynh Minh and Sabir, Bushra and Babar, M. Ali},
 title = {Automated Software Vulnerability Assessment with Concept Drift},
 year = {2019},
 publisher = {IEEE Press},
 url = {https://doi.org/10.1109/MSR.2019.00063},
 doi = {10.1109/MSR.2019.00063},
+abstract = {Software Engineering researchers are increasingly using Natural Language Processing (NLP) techniques to automate Software Vulnerabilities (SVs) assessment using the descriptions in public repositories. However, the existing NLP-based approaches suffer from concept drift. This problem is caused by a lack of proper treatment of new (out-of-vocabulary) terms for the evaluation of unseen SVs over time. To perform automated SVs assessment with concept drift using SVs' descriptions, we propose a systematic approach that combines both character and word features. The proposed approach is used to predict seven Vulnerability Characteristics (VCs). The optimal model of each VC is selected using our customized time-based cross-validation method from a list of eight NLP representations and six well-known Machine Learning models. We have used the proposed approach to conduct large-scale experiments on more than 100,000 SVs in the National Vulnerability Database (NVD). The results show that our approach can effectively tackle the concept drift issue of the SVs' descriptions reported from 2000 to 2018 in NVD even without retraining the model. In addition, our approach performs competitively compared to the existing word-only method. We also investigate how to build compact concept-drift-aware models with much fewer features and give some recommendations on the choice of classifiers and NLP representations for SVs assessment.},
 booktitle = {Proceedings of the 16th International Conference on Mining Software Repositories},
 pages = {371–382},
 numpages = {12},
-keywords = {mining software repositories, multi-class classification, software vulnerability, machine learning, natural language processing},
+keywords = {multi-class classification, natural language processing, machine learning, mining software repositories, software vulnerability},
 location = {Montreal, Quebec, Canada},
 series = {MSR '19}
 }
+
 
 @article{pdg,
 author = {Ferrante, Jeanne and Ottenstein, Karl J. and Warren, Joe D.},
@@ -3422,6 +3426,8 @@ month = {jul},
 pages = {319–349},
 numpages = {31}
 }
+
+
 
 @article{label-gcn,
   author    = {Claudio Bellei and
@@ -3461,14 +3467,23 @@ numpages = {31}
 }
 
 @article{falessi2020need,
-	title={On the need of preserving order of data when validating within-project defect classifiers},
-	author={Falessi, Davide and Huang, Jacky and Narayana, Likhita and Thai, Jennifer Fong and Turhan, Burak},
-	journal={Empirical Software Engineering},
-	volume={25},
-	number={6},
-	pages={4805--4830},
-	year={2020},
-	publisher={Springer}
+author = {Falessi, Davide and Huang, Jacky and Narayana, Likhita and Thai, Jennifer Fong and Turhan, Burak},
+title = {On the Need of Preserving Order of Data When Validating Within-Project Defect Classifiers},
+year = {2020},
+issue_date = {Nov 2020},
+publisher = {Kluwer Academic Publishers},
+address = {USA},
+volume = {25},
+number = {6},
+issn = {1382-3256},
+url = {https://doi.org/10.1007/s10664-020-09868-x},
+doi = {10.1007/s10664-020-09868-x},
+abstract = {We are in the shoes of a practitioner who uses previous project releases’ data to predict which classes of the current release are defect-prone. In this scenario, the practitioner would like to use the most accurate classifier among the many available ones. A validation technique, hereinafter “technique”, defines how to measure the prediction accuracy of a classifier. Several previous research efforts analyzed several techniques. However, no previous study compared validation techniques in the within-project across-release class-level context or considered techniques that preserve the order of data. In this paper, we investigate which technique recommends the most accurate classifier. We use the last release of a project as the ground truth to evaluate the classifier’s accuracy and hence the ability of a technique to recommend an accurate classifier. We consider nine classifiers, two industry and 13 open projects, and three validation techniques: namely 10-fold cross-validation (i.e., the most used technique), bootstrap (i.e., the recommended technique), and walk-forward (i.e., a technique preserving the order of data). Our results show that: 1) classifiers differ in accuracy in all datasets regardless of their entity per value, 2) walk-forward outperforms both 10-fold cross-validation and bootstrap statistically in all three accuracy metrics: AUC of the selected classifier, bias and absolute bias, 3) surprisingly, all techniques resulted to be more prone to overestimate than to underestimate the performances of classifiers, and 3) the defect rate resulted in changing between the second and first half in both industry projects and 83\% of open-source datasets. This study recommends the use of techniques that preserve the order of data such as walk-forward over 10-fold cross-validation and bootstrap in the within-project across-release class-level context given the above empirical results and that walk-forward is by nature more simple, inexpensive, and stable than the other two techniques.},
+journal = {Empirical Softw. Engg.},
+month = {nov},
+pages = {4805–4830},
+numpages = {26},
+keywords = {Model validation techniques, Defect classifiers, Classifiers}
 }
 
 @inproceedings{bigvul-msr20,
@@ -3519,15 +3534,18 @@ keywords = {Matthews correlation coefficient, Protein secondary structure, RNA s
 }
 
 
-@inproceedings{GNNExplainer,
+@inbook{GNNExplainer,
+author = {Ying, Rex and Bourgeois, Dylan and You, Jiaxuan and Zitnik, Marinka and Leskovec, Jure},
 title = {GNNExplainer: Generating Explanations for Graph Neural Networks},
-author = {Ying, Zhitao and Bourgeois, Dylan and You, Jiaxuan and Zitnik, Marinka and Leskovec, Jure},
-booktitle = {Advances in Neural Information Processing Systems 32},
-editor = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d\textquotesingle Alch\'{e}-Buc and E. Fox and R. Garnett},
-pages = {9244--9255},
 year = {2019},
-publisher = {Curran Associates, Inc.},
+publisher = {Curran Associates Inc.},
+address = {Red Hook, NY, USA},
+abstract = {Graph Neural Networks (GNNs) are a powerful tool for machine learning on graphs. GNNs combine node feature information with the graph structure by recursively passing neural messages along edges of the input graph. However, incorporating both graph structure and feature information leads to complex models and explaining predictions made by GNNs remains unsolved. Here we propose GNNEXPLAINER, the first general, model-agnostic approach for providing interpretable explanations for predictions of any GNN-based model on any graph-based machine learning task. Given an instance, GNNEXPLAINER identifies a compact subgraph structure and a small subset of node features that have a crucial role in GNN's prediction. Further, GNNEXPLAINER can generate consistent and concise explanations for an entire class of instances. We formulate GNNEXPLAINER as an optimization task that maximizes the mutual information between a GNN's prediction and distribution of possible subgraph structures. Experiments on synthetic and real-world graphs show that our approach can identify important graph structures as well as node features, and outperforms alternative baseline approaches by up to 43.0\% in explanation accuracy. GNNEXPLAINER provides a variety of benefits, from the ability to visualize semantically relevant structures to interpretability, to giving insights into errors of faulty GNNs.},
+booktitle = {Proceedings of the 33rd International Conference on Neural Information Processing Systems},
+articleno = {829},
+numpages = {12}
 }
+
 
 @Misc{tsne,
 	howpublished = {https://scikit-learn.org/stable/modules/generated/ sklearn.manifold.TSNE.html},
@@ -3536,12 +3554,21 @@ publisher = {Curran Associates, Inc.},
 	author = {}
 }
 
-@inproceedings{kendall2018multi,
-  title={Multi-task learning using uncertainty to weigh losses for scene geometry and semantics},
-  author={Kendall, Alex and Gal, Yarin and Cipolla, Roberto},
-  booktitle={Proceedings of the IEEE conference on computer vision and pattern recognition},
-  pages={7482--7491},
-  year={2018}
+@INPROCEEDINGS {kendall2018multi,
+author = {R. Cipolla and Y. Gal and A. Kendall},
+booktitle = {2018 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+title = {Multi-task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics},
+year = {2018},
+volume = {},
+issn = {},
+pages = {7482-7491},
+abstract = {Numerous deep learning applications benefit from multitask learning with multiple regression and classification objectives. In this paper we make the observation that the performance of such systems is strongly dependent on the relative weighting between each task&#x27;s loss. Tuning these weights by hand is a difficult and expensive process, making multi-task learning prohibitive in practice. We propose a principled approach to multi-task deep learning which weighs multiple loss functions by considering the homoscedastic uncertainty of each task. This allows us to simultaneously learn various quantities with different units or scales in both classification and regression settings. We demonstrate our model learning per-pixel depth regression, semantic and instance segmentation from a monocular input image. Perhaps surprisingly, we show our model can learn multi-task weightings and outperform separate models trained individually on each task.},
+keywords = {task analysis;uncertainty;semantics;geometry;image segmentation;computational modeling},
+doi = {10.1109/CVPR.2018.00781},
+url = {https://doi.ieeecomputersociety.org/10.1109/CVPR.2018.00781},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month = {jun}
 }
 
 @Misc{silhouette-plot,
@@ -3562,14 +3589,7 @@ publisher = {Curran Associates, Inc.},
 	organization={Springer}
 }
 
-@inproceedings{le2019automated,
-	title={Automated software vulnerability assessment with concept drift},
-	author={Le, Triet Huynh Minh and Sabir, Bushra and Babar, Muhammad Ali},
-	booktitle={2019 IEEE/ACM 16th International Conference on Mining Software Repositories (MSR)},
-	pages={371--382},
-	year={2019},
-	organization={IEEE}
-}
+
 
 @incollection{khan2018review,
 	title={Review into state-of-the-art of vulnerability assessment using artificial intelligence},
@@ -3594,99 +3614,149 @@ publisher = {Curran Associates, Inc.},
 
 
 @inproceedings{bozorgi2010beyond,
-	title={Beyond heuristics: learning to classify vulnerabilities and predict exploits},
-	author={Bozorgi, Mehran and Saul, Lawrence K and Savage, Stefan and Voelker, Geoffrey M},
-	booktitle={Proceedings of the 16th ACM SIGKDD international conference on Knowledge discovery and data mining},
-	pages={105--114},
-	year={2010}
+author = {Bozorgi, Mehran and Saul, Lawrence K. and Savage, Stefan and Voelker, Geoffrey M.},
+title = {Beyond Heuristics: Learning to Classify Vulnerabilities and Predict Exploits},
+year = {2010},
+isbn = {9781450300551},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1835804.1835821},
+doi = {10.1145/1835804.1835821},
+abstract = {The security demands on modern system administration are enormous and getting worse. Chief among these demands, administrators must monitor the continual ongoing disclosure of software vulnerabilities that have the potential to compromise their systems in some way. Such vulnerabilities include buffer overflow errors, improperly validated inputs, and other unanticipated attack modalities. In 2008, over 7,400 new vulnerabilities were disclosed--well over 100 per week. While no enterprise is affected by all of these disclosures, administrators commonly face many outstanding vulnerabilities across the software systems they manage. Vulnerabilities can be addressed by patches, reconfigurations, and other workarounds; however, these actions may incur down-time or unforeseen side-effects. Thus, a key question for systems administrators is which vulnerabilities to prioritize. From publicly available databases that document past vulnerabilities, we show how to train classifiers that predict whether and how soon a vulnerability is likely to be exploited. As input, our classifiers operate on high dimensional feature vectors that we extract from the text fields, time stamps, cross references, and other entries in existing vulnerability disclosure reports. Compared to current industry-standard heuristics based on expert knowledge and static formulas, our classifiers predict much more accurately whether and how soon individual vulnerabilities are likely to be exploited.},
+booktitle = {Proceedings of the 16th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+pages = {105–114},
+numpages = {10},
+keywords = {exploits, supervised learning, SVM, vulnerabilities},
+location = {Washington, DC, USA},
+series = {KDD '10}
 }
+
 
 @article{allodi2014comparing,
-	title={Comparing vulnerability severity and exploits using case-control studies},
-	author={Allodi, Luca and Massacci, Fabio},
-	journal={ACM Transactions on Information and System Security (TISSEC)},
-	volume={17},
-	number={1},
-	pages={1--20},
-	year={2014},
-	publisher={ACM New York, NY, USA}
+author = {Allodi, Luca and Massacci, Fabio},
+title = {Comparing Vulnerability Severity and Exploits Using Case-Control Studies},
+year = {2014},
+issue_date = {August 2014},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {17},
+number = {1},
+issn = {1094-9224},
+url = {https://doi.org/10.1145/2630069},
+doi = {10.1145/2630069},
+abstract = {(U.S.) Rule-based policies for mitigating software risk suggest using the CVSS score to measure the risk of an individual vulnerability and act accordingly. A key issue is whether the ‘danger’ score does actually match the risk of exploitation in the wild, and if and how such a score could be improved. To address this question, we propose using a case-control study methodology similar to the procedure used to link lung cancer and smoking in the 1950s. A case-control study allows the researcher to draw conclusions on the relation between some risk factor (e.g., smoking) and an effect (e.g., cancer) by looking backward at the cases (e.g., patients) and comparing them with controls (e.g., randomly selected patients with similar characteristics). The methodology allows us to quantify the risk reduction achievable by acting on the risk factor. We illustrate the methodology by using publicly available data on vulnerabilities, exploits, and exploits in the wild to (1) evaluate the performances of the current risk factor in the industry, the CVSS base score; (2) determine whether it can be improved by considering additional factors such the existence of a proof-of-concept exploit, or of an exploit in the black markets. Our analysis reveals that (a) fixing a vulnerability just because it was assigned a high CVSS score is equivalent to randomly picking vulnerabilities to fix; (b) the existence of proof-of-concept exploits is a significantly better risk factor; (c) fixing in response to exploit presence in black markets yields the largest risk reduction.},
+journal = {ACM Trans. Inf. Syst. Secur.},
+month = {aug},
+articleno = {1},
+numpages = {20},
+keywords = {compliance, CVSS, exploitation, patching, Software vulnerability}
 }
 
-@inproceedings{lamkanfi2010predicting,
-	title={Predicting the severity of a reported bug},
-	author={Lamkanfi, Ahmed and Demeyer, Serge and Giger, Emanuel and Goethals, Bart},
-	booktitle={2010 7th IEEE Working Conference on Mining Software Repositories (MSR 2010)},
-	pages={1--10},
-	year={2010},
-	organization={IEEE}
-}
-
-@inproceedings{han2017learning,
-	title={Learning to predict severity of software vulnerability using only vulnerability description},
-	author={Han, Zhuobing and Li, Xiaohong and Xing, Zhenchang and Liu, Hongtao and Feng, Zhiyong},
-	booktitle={2017 IEEE International conference on software maintenance and evolution (ICSME)},
-	pages={125--136},
-	year={2017},
-	organization={IEEE}
-}
-
-@article{spanos2018multi,
-	title={A multi-target approach to estimate software vulnerability characteristics and severity scores},
-	author={Spanos, Georgios and Angelis, Lefteris},
-	journal={Journal of Systems and Software},
-	volume={146},
-	pages={152--166},
-	year={2018},
-	publisher={Elsevier}
-}
+@INPROCEEDINGS{lamkanfi2010predicting,
+  author={Lamkanfi, Ahmed and Demeyer, Serge and Giger, Emanuel and Goethals, Bart},
+  booktitle={2010 7th IEEE Working Conference on Mining Software Repositories (MSR 2010)}, 
+  title={Predicting the severity of a reported bug}, 
+  year={2010},
+  volume={},
+  number={},
+  pages={1-10},
+  doi={10.1109/MSR.2010.5463284}}
 
 
-@inproceedings{ponta2018beyond,
-	title={Beyond metadata: Code-centric and usage-based analysis of known vulnerabilities in open-source software},
-	author={Ponta, Serena Elisa and Plate, Henrik and Sabetta, Antonino},
-	booktitle={2018 IEEE International Conference on Software Maintenance and Evolution (ICSME)},
-	pages={449--460},
-	year={2018},
-	organization={IEEE}
+@INPROCEEDINGS{han2017learning,
+  author={Han, Zhuobing and Li, Xiaohong and Xing, Zhenchang and Liu, Hongtao and Feng, Zhiyong},
+  booktitle={2017 IEEE International Conference on Software Maintenance and Evolution (ICSME)}, 
+  title={Learning to Predict Severity of Software Vulnerability Using Only Vulnerability Description}, 
+  year={2017},
+  volume={},
+  number={},
+  pages={125-136},
+  doi={10.1109/ICSME.2017.52}}
+
+
+@INPROCEEDINGS {ponta2018beyond,
+author = {S. Ponta and H. Plate and A. Sabetta},
+booktitle = {2018 IEEE International Conference on Software Maintenance and Evolution (ICSME)},
+title = {Beyond Metadata: Code-Centric and Usage-Based Analysis of Known Vulnerabilities in Open-Source Software},
+year = {2018},
+volume = {},
+issn = {},
+pages = {449-460},
+abstract = {The use of open-source software (OSS) is ever-increasing, and so is the number of open-source vulnerabilities being discovered and publicly disclosed. The gains obtained from the reuse of community-developed libraries may be offset by the cost of detecting, assessing, and mitigating their vulnerabilities in a timely manner. In this paper we present a novel method to detect, assess and mitigate OSS vulnerabilities that improves on state-of-the-art approaches, which commonly depend on metadata to identify vulnerable OSS dependencies. Our solution instead is code-centric and combines static and dynamic analysis to determine the reachability of the vulnerable portion of libraries used (directly or transitively) by an application. Taking this usage into account, our approach then supports developers in choosing among the existing non-vulnerable library versions. Vulas, the tool implementing our code-centric and usage-based approach, is officially recommended by SAP to scan its Java software, and has been successfully used to perform more than 250000 scans of about 500 applications since December 2016. We report on our experience and on the lessons we learned when maturing the tool from a research prototype to an industrial-grade solution.},
+keywords = {libraries;tools;static analysis;silicon;metadata;open source software},
+doi = {10.1109/ICSME.2018.00054},
+url = {https://doi.ieeecomputersociety.org/10.1109/ICSME.2018.00054},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month = {sep}
 }
+
 
 @article{ponta2020detection,
-	title={Detection, assessment and mitigation of vulnerabilities in open source dependencies},
-	author={Ponta, Serena Elisa and Plate, Henrik and Sabetta, Antonino},
-	journal={Empirical Software Engineering},
-	volume={25},
-	number={5},
-	pages={3175--3215},
-	year={2020},
-	publisher={Springer}
+author = {Ponta, Serena Elisa and Plate, Henrik and Sabetta, Antonino},
+title = {Detection, Assessment and Mitigation of Vulnerabilities in Open Source Dependencies},
+year = {2020},
+issue_date = {Sep 2020},
+publisher = {Kluwer Academic Publishers},
+address = {USA},
+volume = {25},
+number = {5},
+issn = {1382-3256},
+url = {https://doi.org/10.1007/s10664-020-09830-x},
+doi = {10.1007/s10664-020-09830-x},
+abstract = {Open source software (OSS) libraries are widely used in the industry to speed up the development of software products. However, these libraries are subject to an ever-increasing number of vulnerabilities that are publicly disclosed. It is thus crucial for application developers to detect dependencies on vulnerable libraries in a timely manner, to precisely assess their impact, and to mitigate any potential risk. This paper presents a novel method to detect, assess and mitigate OSS vulnerabilities. Differently from state-of-the-art approaches that depend on metadata to identify vulnerable OSS dependencies, our solution is code-centric, and combines static and dynamic analyses to determine the reachability of the vulnerable portion of libraries, in the context of a given application. Our approach also supports developers in choosing among the existing non-vulnerable library versions, with the goal to determine and minimize incompatibilities. Eclipse Steady, the open source implementation of our code-centric and usage-based approach is the tool recommended to scan Java software products at SAP; it has been successfully used to perform more than one million scans of about 1500 applications. In this paper we report on the lessons learned when maturing the tool from a research prototype to an industrial-grade solution. To evaluate Eclipse Steady, we conducted an empirical study to compare its detection capabilities with those of OWASP Dependency Check (OWASP DC), scanning 300 large enterprise applications under development with a total of 78165 dependencies. Reviewing a sample of the findings reported only by one of the two tools revealed that all Steady findings are true positives, while 88.8\% of the findings of OWASP DC for vulnerabilities covered by our code-centric approach are false positives. For vulnerabilities not caused by code but due, e.g., to erroneous configuration, 63.3\% of OWASP DC findings are true positives.},
+journal = {Empirical Softw. Engg.},
+month = {sep},
+pages = {3175–3215},
+numpages = {41},
+keywords = {Open source software, Combination of static and dynamic analysis, Code-centric vulnerability analysis, Usage-based update support, Publicly known vulnerabilities}
 }
 
 @inproceedings{perl2015vccfinder,
-	title={Vccfinder: Finding potential vulnerabilities in open-source projects to assist code audits},
-	author={Perl, Henning and Dechand, Sergej and Smith, Matthew and Arp, Daniel and Yamaguchi, Fabian and Rieck, Konrad and Fahl, Sascha and Acar, Yasemin},
-	booktitle={Proceedings of the 22nd ACM SIGSAC Conference on Computer and Communications Security},
-	pages={426--437},
-	year={2015}
+author = {Perl, Henning and Dechand, Sergej and Smith, Matthew and Arp, Daniel and Yamaguchi, Fabian and Rieck, Konrad and Fahl, Sascha and Acar, Yasemin},
+title = {VCCFinder: Finding Potential Vulnerabilities in Open-Source Projects to Assist Code Audits},
+year = {2015},
+isbn = {9781450338325},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2810103.2813604},
+doi = {10.1145/2810103.2813604},
+abstract = {Despite the security community's best effort, the number of serious vulnerabilities discovered in software is increasing rapidly. In theory, security audits should find and remove the vulnerabilities before the code ever gets deployed. However, due to the enormous amount of code being produced, as well as a the lack of manpower and expertise, not all code is sufficiently audited. Thus, many vulnerabilities slip into production systems. A best-practice approach is to use a code metric analysis tool, such as Flawfinder, to flag potentially dangerous code so that it can receive special attention. However, because these tools have a very high false-positive rate, the manual effort needed to find vulnerabilities remains overwhelming. In this paper, we present a new method of finding potentially dangerous code in code repositories with a significantly lower false-positive rate than comparable systems. We combine code-metric analysis with metadata gathered from code repositories to help code review teams prioritize their work. The paper makes three contributions. First, we conducted the first large-scale mapping of CVEs to GitHub commits in order to create a vulnerable commit database. Second, based on this database, we trained a SVM classifier to flag suspicious commits. Compared to Flawfinder, our approach reduces the amount of false alarms by over 99 \% at the same level of recall. Finally, we present a thorough quantitative and qualitative analysis of our approach and discuss lessons learned from the results. We will share the database as a benchmark for future research and will also provide our analysis tool as a web service.},
+booktitle = {Proceedings of the 22nd ACM SIGSAC Conference on Computer and Communications Security},
+pages = {426–437},
+numpages = {12},
+keywords = {static analysis, machine learning, vulnerabilities},
+location = {Denver, Colorado, USA},
+series = {CCS '15}
 }
 
 @inproceedings{zhou2017automated,
-	title={Automated identification of security issues from commit messages and bug reports},
-	author={Zhou, Yaqin and Sharma, Asankhaya},
-	booktitle={Proceedings of the 2017 11th joint meeting on foundations of software engineering},
-	pages={914--919},
-	year={2017}
+author = {Zhou, Yaqin and Sharma, Asankhaya},
+title = {Automated Identification of Security Issues from Commit Messages and Bug Reports},
+year = {2017},
+isbn = {9781450351058},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3106237.3117771},
+doi = {10.1145/3106237.3117771},
+abstract = {The number of vulnerabilities in open source libraries is increasing rapidly. However, the majority of them do not go through public disclosure. These unidentified vulnerabilities put developers' products at risk of being hacked since they are increasingly relying on open source libraries to assemble and build software quickly. To find unidentified vulnerabilities in open source libraries and secure modern software development, we describe an efficient automatic vulnerability identification system geared towards tracking large-scale projects in real time using natural language processing and machine learning techniques. Built upon the latent information underlying commit messages and bug reports in open source projects using GitHub, JIRA, and Bugzilla, our K-fold stacking classifier achieves promising results on vulnerability identification. Compared to the state of the art SVM-based classifier in prior work on vulnerability identification in commit messages, we improve precision by 54.55\% while maintaining the same recall rate. For bug reports, we achieve a much higher precision of 0.70 and recall rate of 0.71 compared to existing work. Moreover, observations from running the trained model at SourceClear in production for over 3 months has shown 0.83 precision, 0.74 recall rate, and detected 349 hidden vulnerabilities, proving the effectiveness and generality of the proposed approach.},
+booktitle = {Proceedings of the 2017 11th Joint Meeting on Foundations of Software Engineering},
+pages = {914–919},
+numpages = {6},
+keywords = {vulnerability identification, machine learning, bug report, commit},
+location = {Paderborn, Germany},
+series = {ESEC/FSE 2017}
 }
 
-@article{chen2019large,
-	title={Large-scale empirical studies on effort-aware security vulnerability prediction methods},
-	author={Chen, Xiang and Zhao, Yingquan and Cui, Zhanqi and Meng, Guozhu and Liu, Yang and Wang, Zan},
-	journal={IEEE Transactions on Reliability},
-	volume={69},
-	number={1},
-	pages={70--87},
-	year={2019},
-	publisher={IEEE}
-}
+@ARTICLE{chen2019large,
+  author={Chen, Xiang and Zhao, Yingquan and Cui, Zhanqi and Meng, Guozhu and Liu, Yang and Wang, Zan},
+  journal={IEEE Transactions on Reliability}, 
+  title={Large-Scale Empirical Studies on Effort-Aware Security Vulnerability Prediction Methods}, 
+  year={2020},
+  volume={69},
+  number={1},
+  pages={70-87},
+  doi={10.1109/TR.2019.2924932}}
 
 
 @inproceedings{li2021vulnerability1,
@@ -3697,22 +3767,34 @@ publisher = {Curran Associates, Inc.},
 	year={2021}
 }
 
-
-@article{zhou2019devign,
-	title={Devign: Effective vulnerability identification by learning comprehensive program semantics via graph neural networks},
-	author={Zhou, Yaqin and Liu, Shangqing and Siow, Jingkai and Du, Xiaoning and Liu, Yang},
-	journal={Advances in neural information processing systems},
-	volume={32},
-	year={2019}
+@inbook{zhou2019devign,
+author = {Zhou, Yaqin and Liu, Shangqing and Siow, Jingkai and Du, Xiaoning and Liu, Yang},
+title = {Devign: Effective Vulnerability Identification by Learning Comprehensive Program Semantics via Graph Neural Networks},
+year = {2019},
+publisher = {Curran Associates Inc.},
+address = {Red Hook, NY, USA},
+abstract = {Vulnerability identification is crucial to protect the software systems from attacks for cyber security. It is especially important to localize the vulnerable functions among the source code to facilitate the fix. However, it is a challenging and tedious process, and also requires specialized security expertise. Inspired by the work on manually-defined patterns of vulnerabilities from various code representation graphs and the recent advance on graph neural networks, we propose Devign, a general graph neural network based model for graph-level classification through learning on a rich set of code semantic representations. It includes a novel Conv module to efficiently extract useful features in the learned rich node representations for graph-level classification. The model is trained over manually labeled datasets built on 4 diversified large-scale open-source C projects that incorporate high complexity and variety of real source code instead of synthesis code used in previous works. The results of the extensive evaluation on the datasets demonstrate that Devign outperforms the state of the arts significantly with an average of 10.51\% higher accuracy and 8.68\% F1 score, increases averagely 4.66\% accuracy and 6.37\% F1 by the Conv module.},
+booktitle = {Proceedings of the 33rd International Conference on Neural Information Processing Systems},
+articleno = {915},
+numpages = {11}
 }
 
 
-@article{li2021vuldeelocator,
-	title={Vuldeelocator: a deep learning-based fine-grained vulnerability detector},
-	author={Li, Zhen and Zou, Deqing and Xu, Shouhuai and Chen, Zhaoxuan and Zhu, Yawei and Jin, Hai},
-	journal={IEEE Transactions on Dependable and Secure Computing},
-	year={2021},
-	publisher={IEEE}
+@ARTICLE {li2021vuldeelocator,
+author = {Z. Li and D. Zou and S. Xu and Z. Chen and Y. Zhu and H. Jin},
+journal = {IEEE Transactions on Dependable and Secure Computing},
+title = {VulDeeLocator: A Deep Learning-Based Fine-Grained Vulnerability Detector},
+year = {2022},
+volume = {19},
+number = {04},
+issn = {1941-0018},
+pages = {2821-2837},
+abstract = {Automatically detecting software vulnerabilities is an important problem that has attracted much attention from the academic research community. However, existing vulnerability detectors still cannot achieve the vulnerability detection capability and the locating precision that would warrant their adoption for real-world use. In this article, we present a vulnerability detector that can simultaneously achieve a high detection capability and a high locating precision, dubbed Vulnerability Deep learning-based Locator (VulDeeLocator). In the course of designing VulDeeLocator, we encounter difficulties including how to accommodate semantic relations between the definitions of types as well as macros and their uses across files, how to accommodate accurate control flows and variable define-use relations, and how to achieve high locating precision. We solve these difficulties by using two innovative ideas: (i) leveraging intermediate code to accommodate extra semantic information, and (ii) using the notion of granularity refinement to pin down locations of vulnerabilities. When applied to 200 files randomly selected from three real-world software products, VulDeeLocator detects 18 confirmed vulnerabilities (i.e., true-positives). Among them, 16 vulnerabilities correspond to known vulnerabilities; the other two are not reported in the National Vulnerability Database (NVD) but have been “silently” patched by the vendor of Libav when releasing newer versions.},
+keywords = {detectors;integrated circuits;big data;deep learning;syntactics;software;service computing},
+doi = {10.1109/TDSC.2021.3076142},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month = {jul}
 }
 
 
@@ -3728,21 +3810,41 @@ publisher = {Curran Associates, Inc.},
 }
 
 
-@inproceedings{chakraborty2021deep,
-	title={Deep learning based vulnerability detection: Are we there yet},
-	author={Chakraborty, Saikat and Krishna, Rahul and Ding, Yangruibo and Ray, Baishakhi},
-	journal={IEEE Transactions on Software Engineering},
-	year={2021},
-	publisher={IEEE}
+@ARTICLE {chakraborty2021deep,
+author = {S. Chakraborty and R. Krishna and Y. Ding and B. Ray},
+journal = {IEEE Transactions on Software Engineering},
+title = {Deep Learning Based Vulnerability Detection: Are We There Yet?},
+year = {2022},
+volume = {48},
+number = {09},
+issn = {1939-3520},
+pages = {3280-3296},
+abstract = {Automated detection of software vulnerabilities is a fundamental problem in software security. Existing program analysis techniques either suffer from high false positives or false negatives. Recent progress in Deep Learning (DL) has resulted in a surge of interest in applying DL for automated vulnerability detection. Several recent studies have demonstrated promising results achieving an accuracy of up to 95 percent at detecting vulnerabilities. In this paper, we ask, “how well do the state-of-the-art DL-based techniques perform in a real-world vulnerability prediction scenario?” To our surprise, we find that their performance drops by more than 50 percent. A systematic investigation of what causes such precipitous performance drop reveals that existing DL-based vulnerability prediction approaches suffer from challenges with the training data (e.g., data duplication, unrealistic distribution of vulnerable classes, etc.) and with the model choices (e.g., simple token-based models). As a result, these approaches often do not learn features related to the actual cause of the vulnerabilities. Instead, they learn unrelated artifacts from the dataset (e.g., specific variable/function names, etc.). Leveraging these empirical findings, we demonstrate how a more principled approach to data collection and model design, based on realistic settings of vulnerability prediction, can lead to better solutions. The resulting tools perform significantly better than the studied baseline—up to 33.57 percent boost in precision and 128.38 percent boost in recall compared to the best performing model in the literature. Overall, this paper elucidates existing DL-based vulnerability prediction systems’ potential issues and draws a roadmap for future DL-based vulnerability prediction research.},
+keywords = {predictive models;neural networks;testing;data models;security;training;training data},
+doi = {10.1109/TSE.2021.3087402},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month = {sep}
 }
-
 
 @inproceedings{hin2022linevd,
-	title={LineVD: Statement-level Vulnerability Detection using Graph Neural Networks},
-	author={Hin, David and Kan, Andrey and Chen, Huaming and Babar, M Ali},
-	booktitle={International Conference on Mining Software Repositories (MSR'22)},
-	year={2022}
+author = {Hin, David and Kan, Andrey and Chen, Huaming and Babar, M. Ali},
+title = {LineVD: Statement-Level Vulnerability Detection Using Graph Neural Networks},
+year = {2022},
+isbn = {9781450393034},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3524842.3527949},
+doi = {10.1145/3524842.3527949},
+abstract = {Current machine-learning based software vulnerability detection methods are primarily conducted at the function-level. However, a key limitation of these methods is that they do not indicate the specific lines of code contributing to vulnerabilities. This limits the ability of developers to efficiently inspect and interpret the predictions from a learnt model, which is crucial for integrating machine-learning based tools into the software development work-flow. Graph-based models have shown promising performance in function-level vulnerability detection, but their capability for statement-level vulnerability detection has not been extensively explored. While interpreting function-level predictions through explainable AI is one promising direction, we herein consider the statement-level software vulnerability detection task from a fully supervised learning perspective. We propose a novel deep learning framework, LineVD, which formulates statement-level vulnerability detection as a node classification task. LineVD leverages control and data dependencies between statements using graph neural networks, and a transformer-based model to encode the raw source code tokens. In particular, by addressing the conflicting outputs between function-level and statement-level information, LineVD significantly improve the prediction performance without vulnerability status for function code. We have conducted extensive experiments against a large-scale collection of real-world C/C++ vulnerabilities obtained from multiple real-world projects, and demonstrate an increase of 105\% in F1-score over the current state-of-the-art.},
+booktitle = {Proceedings of the 19th International Conference on Mining Software Repositories},
+pages = {596–607},
+numpages = {12},
+keywords = {software vulnerability detection, deep learning, program representation},
+location = {Pittsburgh, Pennsylvania},
+series = {MSR '22}
 }
+
 
 @Misc{cat-website,
   title = {CAT},
@@ -3759,21 +3861,21 @@ publisher = {Curran Associates, Inc.},
 	organization={IEEE}
 }
 
-@unknown{commit2vec,
-author = {Lozoya, Rocio and Baumann, Arnaud and Sabetta, Antonino and Bezzi, Michele},
-journal = {SN Computer Science},
-year = {2019},
-month = {11},
-number = {150},
-title = {commit2vec: Distributed Representation of Code Changes}
-}
-
-@article{li2021sysevr,
-  title={Sysevr: A framework for using deep learning to detect software vulnerabilities},
-  author={Li, Zhen and Zou, Deqing and Xu, Shouhuai and Jin, Hai and Zhu, Yawei and Chen, Zhaoxuan},
-  journal={IEEE Transactions on Dependable and Secure Computing},
-  year={2021},
-  publisher={IEEE}
+@ARTICLE {li2021sysevr,
+author = {Z. Li and D. Zou and S. Xu and H. Jin and Y. Zhu and Z. Chen},
+journal = {IEEE Transactions on Dependable and Secure Computing},
+title = {SySeVR: A Framework for Using Deep Learning to Detect Software Vulnerabilities},
+year = {2022},
+volume = {19},
+number = {04},
+issn = {1941-0018},
+pages = {2244-2258},
+abstract = {The detection of software vulnerabilities (or vulnerabilities for short) is an important problem that has yet to be tackled, as manifested by the many vulnerabilities reported on a daily basis. This calls for machine learning methods for vulnerability detection. Deep learning is attractive for this purpose because it alleviates the requirement to manually define features. Despite the tremendous success of deep learning in other application domains, its applicability to vulnerability detection is not systematically understood. In order to fill this void, we propose the first systematic framework for using deep learning to detect vulnerabilities in C/C++ programs with source code. The framework, dubbed Syntax-based, Semantics-based, and Vector Representations (SySeVR), focuses on obtaining program representations that can accommodate syntax and semantic information pertinent to vulnerabilities. Our experiments with four software products demonstrate the usefulness of the framework: we detect 15 vulnerabilities that are not reported in the National Vulnerability Database. Among these 15 vulnerabilities, seven are unknown and have been reported to the vendors, and the other eight have been “silently” patched by the vendors when releasing newer versions of the pertinent software products.},
+keywords = {deep learning;syntactics;software;semantics;proposals;image processing;big data},
+doi = {10.1109/TDSC.2021.3051525},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month = {jul}
 }
 
 @inproceedings{russell2018automated,
@@ -3785,12 +3887,23 @@ title = {commit2vec: Distributed Representation of Code Changes}
 	organization={IEEE}
 }
 
-@article{li2018vuldeepecker,
-	title={Vuldeepecker: A deep learning-based system for vulnerability detection},
-	author={Li, Zhen and Zou, Deqing and Xu, Shouhuai and Ou, Xinyu and Jin, Hai and Wang, Sujuan and Deng, Zhijun and Zhong, Yuyi},
-	journal={arXiv preprint arXiv:1801.01681},
-	year={2018}
+@ARTICLE {li2018vuldeepecker,
+author = {D. Zou and S. Wang and S. Xu and Z. Li and H. Jin},
+journal = {IEEE Transactions on Dependable and Secure Computing},
+title = {VulDeePecker: A Deep Learning-Based System for Multiclass Vulnerability Detection},
+year = {2021},
+volume = {18},
+number = {05},
+issn = {1941-0018},
+pages = {2224-2236},
+abstract = {Fine-grained software vulnerability detection is an important and challenging problem. Ideally, a detection system (or detector) not only should be able to detect whether or not a program contains vulnerabilities, but also should be able to pinpoint the type of a vulnerability in question. Existing vulnerability detection methods based on deep learning can detect the presence of vulnerabilities (i.e., addressing the binary classification or detection problem), but cannot pinpoint types of vulnerabilities (i.e., incapable of addressing multiclass classification). In this paper, we propose the first deep learning-based system for multiclass vulnerability detection, dubbed μ VulDeePecker. The key insight underlying μ VulDeePecker is the concept of code attention, which can capture information that can help pinpoint types of vulnerabilities, even when the samples are small. For this purpose, we create a dataset from scratch and use it to evaluate the effectiveness of μ VulDeePecker. Experimental results show that μ VulDeePecker is effective for multiclass vulnerability detection and that accommodating control-dependence (other than data-dependence) can lead to higher detection capabilities.},
+keywords = {deep learning;neural networks;technological innovation;software;feature extraction;big data},
+doi = {10.1109/TDSC.2019.2942930},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month = {sep}
 }
+
 
 @INPROCEEDINGS{linevul-msr22,
   author={Fu, Michael and Tantithamthavorn, Chakkrit},
@@ -3821,12 +3934,19 @@ series = {ICSE '20}
 }
 
 @article{commit2vec,
-	title={Commit2Vec: Learning Distributed Representations of Code Change},
-	author={Rocio Cabrera Lozoya, Arnaud Baumann, Antonino Sabetta and Michele Bezzi},
-	journal={SN COMPUT. SCI.},
-	volume={2},
-	number={150},
-	pages={},
-	year={2021},
-	publisher={Springer Verlag},
+author = {Cabrera Lozoya, Roc\'{\i}o and Baumann, Arnaud and Sabetta, Antonino and Bezzi, Michele},
+title = {Commit2Vec: Learning Distributed Representations of Code Changes},
+year = {2021},
+issue_date = {May 2021},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+volume = {2},
+number = {3},
+url = {https://doi.org/10.1007/s42979-021-00566-z},
+doi = {10.1007/s42979-021-00566-z},
+abstract = {Deep learning methods have found successful applications in fields like image classification and natural language processing. They have recently been applied to source code analysis too, due to the enormous amount of freely available source code (e.g., from open-source software repositories). In this work, we elaborate upon a state-of-the-art approach for source code representation, which uses information about its syntactic structure, and we extend it to represent source code changes (i.e., commits). We use this representation to tackle an industrial-relevant task: the classification of security-relevant commits. We leverage on transfer learning, a machine learning technique which reuses, or transfers, information learned from previous tasks (commonly called pretext tasks) to tackle a new target task. We assess the impact of using two different pretext tasks, for which abundant labeled data is available, to tackle the classification of security-relevant commits. Our results indicate that representations that exploit the structural information in code syntax outperform token-based representations. Furthermore, we show that pre-training on a small dataset (>104 samples), but for a pretext task that is closely related to the target task, results in better performance metrics than pre-training on a loosely related pretext task with a very large dataset (>106 samples).},
+journal = {SN Comput. Sci.},
+month = {mar},
+numpages = {16},
+keywords = {Deep learning for source code, Commit representation, Source code representation, Software vulnerability analysis, Source code embedding}
 }
